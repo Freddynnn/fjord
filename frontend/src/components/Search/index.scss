@@ -1,0 +1,109 @@
+.search-zone{
+    position: absolute;
+    padding-left: 150px;
+    left: 5%;
+    top: 5%;
+    width: 80%;
+    vertical-align: middle;
+    display: table-cell;
+    max-height: 90%;
+}
+
+.search-bar {
+    width: 100%; 
+    max-width: 90%; 
+    margin-left: 5%; 
+    margin-bottom: 2%;
+    display: flex; 
+    align-items: center; 
+
+    h1 {
+        margin-right: 3%; 
+        margin-bottom: 0;
+        font-size: 5.9rem;
+    }
+    
+    form {
+        display: flex;
+        align-items: center;
+        width: 70%;
+    }
+    
+    input[type="text"] {
+        
+        flex: 1; 
+        height: 35px;
+        padding: 10px;
+        
+        color: #555555;
+        font-size: 2rem; 
+        font-family: 'Coolvetica';
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    
+    
+        border: 2px solid #ccc; 
+        border-radius: 8px; 
+    }
+    
+    button {
+        height: 60px;
+        width: 70px; 
+        padding: 10px; 
+        margin-left: 10px; 
+        background-color: #3f62bc; 
+        color: #fff; 
+        border: none; 
+        border-radius: 8px; 
+        cursor: pointer; 
+        transition: background-color 0.3s ease; 
+    
+        &:hover {
+            background-color: #224fc2;
+        }
+    }
+}
+
+
+.search-results {
+    max-height: 85dvh; 
+    overflow-y: auto; 
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    ul {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    ul li {
+        width: calc(25% - 50px); 
+        margin: 10px; 
+        padding: 15px;
+        border-radius: 12px;
+        list-style: none;
+
+        .title{
+            // color: #3f62bc;
+            color: rgb(199, 199, 222);
+            font-size: 1.5rem;
+            font-family: 'Coolvetica';
+            font-weight: 200;
+            letter-spacing: 1.5px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+
+    ul li img {
+        height: 80%;
+        width: 100%;
+        border-radius: 12px;
+    }
+}

@@ -1,0 +1,140 @@
+.nav-bar {
+    background: #181818;
+    width: 120px;
+    height: 100%;
+    position: absolute;
+    top: o;
+    z-index: 3;
+    min-height: 600px;
+
+    .logo{
+        display: block;
+        padding: 8px 0;
+        
+        margin: 10px auto;
+        text-align: center;
+        font-size: 75px;
+        font-family: 'Coolvetica';
+        font-weight: 1000;
+        letter-spacing: 2px;
+        color: #3f62bc;
+        text-decoration: none;
+
+        &:hover {
+            color: #6780c0;
+        }
+
+    }
+
+
+    nav {
+        display: block;
+        text-align: center;
+        position: absolute;
+        // height: 300px;
+        top: 40%;
+        margin-top: -120px;
+        width: 100%;
+
+        a{
+            font-size: 40px;
+            font-family: 'Coolvetica';
+            color: #555;
+            display: block;
+            line-height: 51px;
+            height: 80px;
+            position: relative;
+
+            i{
+                transition:  all 0.3s;
+            }
+            
+
+            // hover lets us see link's text
+            &:hover {
+                color: #3f62bc;
+                svg{
+                    opacity: 0;
+                }
+                &:after {
+                    opacity: 1;
+                }
+            }
+
+            &:after{
+                content: '';
+                font-size: 20px;
+                letter-spacing:  2px;
+                position: absolute;
+                bottom: 30%;
+                display: block;
+                width: 100%;
+                text-align: center;
+                opacity: 0;
+                transition: all 0.2s ease-out;
+
+            }
+            &:first-child{
+                &:after{
+                    content: 'HOME';
+                }
+            }
+        }
+        
+        
+
+        a.movies-link{
+            &:after{ content: 'MOVIES';}
+        }
+        a.shows-link{
+            &:after{ content: 'SHOWS';}
+        }
+        a.music-link{
+            &:after{ content: 'MUSIC';}
+        }
+        a.books-link{
+            &:after{ content: 'BOOKS';}
+        }
+        a.active{
+            svg{ color: #3f62bc;}
+        }
+    }
+
+
+
+    // list for direct links at the bottom of sidebar
+    ul{
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        text-decoration: none;
+        text-align: center;
+        
+
+        li {
+            a {
+                padding: 7px 0;
+                display: block;
+                font-size: 35px;
+                line-height: 15px;
+
+                &:hover svg {
+                    color: #3f62bc;
+                }
+            }
+        }
+    }
+
+    .icon {
+        color: #555; 
+        height:45px;
+    }
+
+}
+
+
+

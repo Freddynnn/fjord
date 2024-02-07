@@ -1,21 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Gruppo&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-
-:root {
-    --font-family: 'Gruppo', sans-serif;
-    --logo-font-family: 'Indie Flower', cursive;
-    --color-bg: rgb(239, 237, 231);
-    --color-button: rgb(38, 49, 121); 
-    --color-text: rgb(239, 237, 231); 
-    --colur-subtext: black;
+html {
+  font-size: 62%;
 }
 
-h2 {
-    font-family: var(--font-family);
-    font-size: 3rem;
+body {
+  margin: 0;
+  font: 300 11px/1.4 'Coolvetica';
+  color: #33198a;
+  /* background: #022c43; */
+  background: #26272e;
+  overflow: hidden;
+  display: block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h4 {
-    font-family: var(--font-family);
-    font-size: 2rem;
-}
