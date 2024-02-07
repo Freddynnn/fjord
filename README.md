@@ -1,9 +1,9 @@
-# StarMap
+# Fjord
 
 ### Description
 
-StarMap is a constellation creation web app that empowers users to design custom constellations with personalized messages. The intuitive process involves drawing stars and lines between them, allowing users to craft unique celestial patterns, as well as allowing users to add a name, description, and position to their constellations, in order to create a truly personalized and unique night sky.
-<img src="public/media/NightSky.png" alt="Constellation Drawing" width="900" >
+Watchlist and media ranking / tracker 
+<!-- <img src="public/media/NightSky.png" alt="Constellation Drawing" width="900" > -->
 
 
 ## Table of Contents:
@@ -17,9 +17,9 @@ StarMap is a constellation creation web app that empowers users to design custom
 ## Installation/Setup
 
 To set up the StarMap project locally, follow these steps
-- clone the repo via `git clone https://github.com/Freddynnn/StarMap.git`
+- clone the repo via `git clone https://github.com/Freddynnn/fjord.git`
 - install dependencies via `npm install` 
-- start the frontend via  `cd StarMap/frontend && npm run start`
+- start the frontend via  `cd fjord/frontend && npm run start`
 
 This will start the frontend of the StarMap project, and you can access it by opening your browser and navigating to http://localhost:3000.
 
@@ -27,25 +27,22 @@ Note: The backend is already deployed, so you don't need to run it locally for t
 
 ## Features
 
-StarMap boasts the following key features:
+Some of the key features featured in Fjord include:
 
-**Virtual Night Sky:** 
-Design and explore your own virtual night sky by configuring the number of shimmering stars that litter the background, the speeds and frequencies at which shooting stars stream by, and even the layout of how your own personal constellations fill out the cosmos!
+**IMDb Search function** 
+Search for your favourite TV shows, Movies and more to add to your rating collection
 
-**Custom Constellations:** 
-Create intricate custom constellations via this interactive and imaginative approach to crafting your own cosmic patterns for your night sky.
-
-<div style="text-align: center;">
+**Customizable Watchlist** 
+and the indecisive, we have introduced a randomizing feature which select a piece of media from your watch list based on inputted mood, genre and other preferences! 
+<!-- <div style="text-align: center;">
     <img src="public/media/DrawingPage.png" alt="Constellation Drawing" width="900">
-</div>
+</div> -->
 <br>
 
-
-plot each star and their respective connecting lines via the interactive drawing board, and fill their log's information in to truly personalize the constellations.
-<div style="display: flex; justify-content: space-around;">
+<!-- <div style="display: flex; justify-content: space-around;">
     <img src="public/media/ConstellationDrawing.gif" alt="Constellation Drawing" width="380" height="350">
     <img src="public/media/DrawingInfo.gif" alt="Constellation Drawing" width="380" height="350">
-</div>
+</div> -->
 <br>
 
 
@@ -54,7 +51,7 @@ plot each star and their respective connecting lines via the interactive drawing
 
 **Intuitive Interface:** 
 Enjoy a user-friendly interfaces that make the constellation creation, integration and navigation processes smooth and seamless. This includes constellation hovering & highlighting: 
-<img src="public/media/Hovering.gif" alt="Constellation Drawing" width="800" >
+<!-- <img src="public/media/Hovering.gif" alt="Constellation Drawing" width="800" > -->
 
 
 
