@@ -1,0 +1,215 @@
+form{
+    
+    position: absolute;
+    padding-left: 50px;
+    top: 0%;
+    width: 90%;
+    height: 100%;
+    vertical-align: middle;
+    max-height: 90%;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    .title{
+        width: 100%;
+        max-width: 90%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+        display: flex;
+        align-items: center;
+
+        input{
+            width: 55%;
+
+            background-color: #26272e;
+            border: none;
+            
+            color: #3f62bc;
+            font-family: 'Coolvetica';
+            font-size: 5.9rem;
+            text-transform: uppercase;
+            text-align: left;
+
+            &::placeholder {
+                opacity: 1; 
+            }
+            &:focus {
+                outline: none; 
+            }
+
+        }
+
+    }
+
+    .input-fields{
+        margin-left: 50px;
+        width: 55%;
+        height: 95%;
+        display: flex; 
+        flex-wrap: wrap; 
+
+        .label-input{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+
+            width: 45%;
+            margin: 1%;
+            padding: 1%;
+
+            // border: 2px solid white;
+            border-radius: 10px;
+            background-color: #525354;
+
+            select, input[type="text"], input[type="date"]{   
+                // display: ;
+                width: 60%;  
+                height: 90%;   
+                color: rgb(167, 167, 167);
+                font-family: 'Coolvetica';
+                font-size: 2.2rem;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                text-align: center;
+                
+                
+                background-color: #525354;
+                border: none;
+                // border: 2px solid #8d95aabe;
+                border-radius: 10px;
+                
+                // margin-right: 20px;
+    
+                &:focus {
+                    outline: none; 
+                }
+                &::placeholder {
+                    opacity: 1; 
+                }
+    
+                &:hover{
+                    background-color: #525354 ;
+                }
+            }
+    
+            input[type="range"]{
+                width: 55%;
+            }
+        }
+
+        
+
+        label{  
+            margin: 2%;
+            margin-left: 4%;
+            // flex: 1; /* Distribute available space */
+            text-align: left; /* Center horizontally */
+            line-height: 2;
+
+            width: 30%;
+            
+            
+            color: white;
+            font-family: 'Coolvetica';
+            font-size: 2.5rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .label-textarea{
+            display: flex;
+            flex-wrap: wrap;
+            width: 94%;
+            height: 35%;
+            margin-bottom: 3%;
+            border-radius: 10px;
+            background-color: #525354;
+
+            margin: 1%;
+            padding: 1%;
+
+            label{
+                position: relative;
+                width: 15%;
+                margin: 0;
+                margin-left: 2%;
+
+            }
+
+            textarea{
+                width: 75%;
+                height: 80%;
+                margin: 1.5%;
+                
+                background-color: #525354;
+                border: none;
+    
+                color: white;
+                font-family: 'Coolvetica';
+                font-size: 2rem;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                // text-align: center;
+    
+                &:focus {
+                    outline: none; 
+                }
+            }
+        }
+    }
+
+    .visuals-container{
+        background-color: #525354;
+        border-radius: 8px;
+        position: relative;
+        width: 30%;
+        height: 105%;
+        top: -15%;
+        margin-left: 5%;
+
+        .img-container{
+            margin: 8%;
+            width: 85%;
+            height: 75%;
+            // border: 2px solid #ffffff;
+
+            img{
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+            }
+
+        }
+
+        .visuals-info{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            
+            height: 10%;
+
+            font-family: 'Coolvetica';
+            font-size: 10rem;
+
+            .grade {
+                margin-left: 10%;
+                width: 20%;
+            }
+            .score{
+                margin: 0% 5% ;
+                width: 20%;
+            }
+
+            button{
+
+                background-color: #6b7aa100;
+                border: 2px solid #3f62bc
+            }
+
+        }
+    }
+}
+
+

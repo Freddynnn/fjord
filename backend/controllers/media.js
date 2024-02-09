@@ -79,8 +79,8 @@ const getMediaByID = async (req, res) => {
 
 // Function to add a new media entry to the database
 const createMedia = async (req, res) => {
-    const { name, releaseDate, watchDate, description, rating, genre, type, userID } = req.body;
-    const newMedia = new Media({ name, releaseDate, watchDate, description, rating, genre, type, userID });
+    const { name, watchDate, notes, score, grade, genre, type, userID } = req.body;
+    const newMedia = new Media({ name, watchDate, notes, score, grade, genre, type, userID });
 
     try {
         await newMedia.save();

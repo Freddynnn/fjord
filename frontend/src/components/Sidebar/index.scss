@@ -95,6 +95,9 @@
         a.books-link{
             &:after{ content: 'BOOKS';}
         }
+        a.new-link{
+            &:after{ content: 'ADD NEW';}
+        }
         a.active{
             svg{ color: #3f62bc;}
         }

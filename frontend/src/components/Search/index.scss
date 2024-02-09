@@ -1,8 +1,7 @@
 .search-zone{
     position: absolute;
-    padding-left: 150px;
-    left: 5%;
-    top: 5%;
+    padding-left: 50px;
+    top: 0%;
     width: 80%;
     vertical-align: middle;
     display: table-cell;
@@ -18,7 +17,8 @@
     align-items: center; 
 
     h1 {
-        margin-right: 3%; 
+        width: 35%;
+        margin-right: 0%; 
         margin-bottom: 0;
         font-size: 5.9rem;
     }
@@ -26,7 +26,7 @@
     form {
         display: flex;
         align-items: center;
-        width: 70%;
+        width: 65%;
     }
     
     input[type="text"] {
@@ -67,7 +67,7 @@
 
 
 .search-results {
-    max-height: 85dvh; 
+    max-height: 80dvh; 
     overflow-y: auto; 
     width: 100%;
     display: flex;
@@ -83,12 +83,14 @@
     }
 
     ul li {
-        width: calc(25% - 50px); 
-        margin: 10px; 
+        box-sizing: border-box;
+        width: calc(25% - 70px); 
+        margin: 0 35px ; 
         padding: 15px;
         border-radius: 12px;
         list-style: none;
-
+        cursor: pointer; 
+       
         .title{
             // color: #3f62bc;
             color: rgb(199, 199, 222);
@@ -99,9 +101,20 @@
             text-align: center;
             text-transform: uppercase;
         }
+    &:hover{
+        img{
+            border-color: #233f87d6;
+        }
+        .title{
+            color: #3f62bc;
+        }
+    }
+
+        
     }
 
     ul li img {
+        border: 5px solid transparent;
         height: 80%;
         width: 100%;
         border-radius: 12px;

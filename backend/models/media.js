@@ -6,23 +6,19 @@ const mediaSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    releaseDate: {
-        type: Date,
-        required: true,
-    },
     watchDate: {
         type: Date,
         required: false, 
     },
-    description: {
+    notes: {
         type: String,
         required: true,
     },
-    num_rating: {
+    score: {
         type: Number, 
         required: true,
     },
-    letter_rating: {
+    grade: {
         type: String,
         enum: ['F-', 'F', 'F+', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'],
         required: true,

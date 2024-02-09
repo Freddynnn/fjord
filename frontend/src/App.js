@@ -29,7 +29,7 @@ function App() {
         <Route path='/music'  element = {<Music/>} />
         <Route path='/books'  element = {<Books/>} />
         <Route path='/settings'  element = {<Settings/>} />
-        <Route path='/new-entry'  element = {<NewEntry/>} />
+        <Route path='/new'  element = {<NewEntry/>} />
         <Route path='/search'  element = {<Search/>} />
       </Route>
       

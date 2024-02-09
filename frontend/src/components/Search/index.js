@@ -59,20 +59,22 @@ const Search = () => {
                 {searchResults.length > 0 && (
                     <div className='search-results'>
                         <ul>
-                            {searchResults.map((item, index) => (
-                                item && (
-                                <li key={index}>  
-                                    
-                                    {item.i ? (
-                                        <img src={item.i.imageUrl} alt={item.l} />
-                                    ) : (
-                                        <img src="https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg" alt="Default Image" />
-                                    )}
+                            {searchResults.map((item, index) => (   
+                                <li>  
+                                    <Link key={index} to={{ pathname: '/new-entry', state: { item } }}>
+                                        {item.i ? (
+                                            <img src={item.i.imageUrl} alt={item.l} />
+                                        ) : (
+                                            <img src="https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg" alt="Default Image" />
+                                        )}
+                                    </Link>
                                     <div className='title'>
                                         <h2>{item.l}</h2>
                                     </div>  
-                                </li>
-                                )
+                                    <div>
+                                        
+                                    </div>
+                                </li>        
                             ))}
                         </ul>
                     </div>

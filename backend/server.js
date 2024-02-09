@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 //import the routers
-const constellationRouter = require('./routes/media')
+const mediaRouter = require('./routes/media')
 const loginRouter = require('./routes/login')
 
 // const uri = "mongodb+srv://freddytnn:sD6Enqo5JFg2uWMc@starmap.q3mnqcg.mongodb.net/?retryWrites=true&w=majority";
@@ -17,18 +17,20 @@ if (process.env.NODE_ENV !== 'production'){
 }
 
 // Enable CORS for development
-app.use((req, res, next) => {
-  const allowedOrigins = ['https://ftfiiilsbvlrqeolrdefqxii.vercel.app/', 'http://localhost:3000'];
-  const origin = req.headers.origin;
+app.use(cors());
 
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+// app.use((req, res, next) => {
+//   const allowedOrigins = ['https://ftfiiilsbvlrqeolrdefqxii.vercel.app/', 'http://localhost:3000'];
+//   const origin = req.headers.origin;
 
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+//   if (allowedOrigins.includes(origin)) {
+//     res.setHeader('Access-Control-Allow-Origin', origin);
+//   }
+
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   next();
+// });
 
 
 // Parse JSON requests
@@ -47,8 +49,10 @@ db.once('open', () => console.log('Connected to Mongoose'));
 
 
 // set the app to use the imported routers
-app.use('', constellationRouter);
+app.use('', mediaRouter);
 app.use('', loginRouter);
+
+app.options('*', cors());
 
 
 // Start the server

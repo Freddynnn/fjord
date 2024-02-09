@@ -31,7 +31,7 @@ const Home = () => {
                     <br/>
                 </h1>
                 <h2>
-                    Your one stop shop for media consumption tracking !!
+                    Your one stop-shop for media consumption tracking !!
                 </h2>
                 <h2>
                     As always, dedicated to my love Jo 
@@ -39,7 +39,7 @@ const Home = () => {
                 <br/>
                 <ul>
                     <li className='half'>
-                        <Link to="/new-entry" className='flat-button add' data-after-text="ADD ENTRY MANUALLY">
+                        <Link to="/new" className='flat-button add' data-after-text="ADD ENTRY MANUALLY">
                             <FontAwesomeIcon icon={faPlus} />
                         </Link>
                     </li>
