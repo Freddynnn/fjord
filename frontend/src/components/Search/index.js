@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, withRouter  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import AnimateLetters from '../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -39,7 +39,7 @@ const Search = () => {
                     <h1>
                         SEARCH IMDB:
                     </h1>
-                    <form onSubmit={handleSearch}>
+                    <form className='search-form' onSubmit={handleSearch}>
                         <input
                             type="text"
                             value={searchQuery}
@@ -58,24 +58,23 @@ const Search = () => {
 
                 {searchResults.length > 0 && (
                     <div className='search-results'>
-                        <ul>
-                            {searchResults.map((item, index) => (   
-                                <li>  
-                                    <Link key={index} to={{ pathname: '/new-entry', state: { item } }}>
-                                        {item.i ? (
-                                            <img src={item.i.imageUrl} alt={item.l} />
-                                        ) : (
-                                            <img src="https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg" alt="Default Image" />
-                                        )}
-                                    </Link>
-                                    <div className='title'>
-                                        <h2>{item.l}</h2>
-                                    </div>  
-                                    <div>
-                                        
-                                    </div>
-                                </li>        
-                            ))}
+                       <ul>
+                            {searchResults.map((item, index) => {
+                                const imageUrl = item.i ? item.i.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
+                                const title = item.l;
+                                const type = item.q;
+
+                                return (
+                                    <li key={index}>  
+                                        <Link to="/new" state={{ item}}>
+                                            <img src={imageUrl} alt={title} />
+                                        </Link>
+                                        <div className='title'>
+                                            <h2>{title}</h2>
+                                        </div>  
+                                    </li>        
+                                );
+                            })}
                         </ul>
                     </div>
                 )}

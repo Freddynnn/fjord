@@ -1,4 +1,4 @@
-import { Link, withRouter  } from 'react-router-dom';
+import { Link, useNavigate , useLocation  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import AnimateLetters from '../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,24 +6,49 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
-const NewEntry = ({ history }) => {
+const NewEntry = () => {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log("Props received by NewEntry:", { navigate, location });
     const [formData, setFormData] = useState({
         name: '',
         watchDate: '',
         notes: '',
         score: '',
         grade: '',
-        genre: '',
+        // genre: '',
         type: '',
         coverImage: ''
     });
 
-    const grades = ['F-', 'F', 'F+', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
+    const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
     const mediaTypes = ['Movie', 'Show', 'Book', 'Music'];
     const minColor = [250, 60, 60]; 
     const maxColor = [70, 100, 255]; 
 
-    // const history = useHistory();
+
+    useEffect(() => {
+        console.log("Location object:", location);
+
+        if (location?.state?.item) {
+            const { item } = location.state;
+            let mediaType = '';
+            if (item.q === 'TV series') {
+                mediaType = 'Show';
+            } else if (item.q === 'TV movie' || item.q === 'feature') {
+                mediaType = 'Movie';
+            }
+
+            setFormData({
+                name: item ? item.l : '',
+                type: mediaType,
+                coverImage: item ? item.i.imageUrl: ''
+            });
+        }
+    }, [location?.state]);
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,7 +57,7 @@ const NewEntry = ({ history }) => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0]; // Get the first selected file
-        setFormData({ ...formData, image: file }); // Update the formData state with the selected image file
+        setFormData({ ...formData, coverImage: file }); // Update the formData state with the selected image file
     };
 
     const handleSubmit = async (e) => {
@@ -40,7 +65,7 @@ const NewEntry = ({ history }) => {
         e.preventDefault();
         try {
             await axios.post('http://localhost:3001/media/new', formData);
-            history.push('/'); // Redirect to home page after successful submission
+            navigate.push('/'); // Redirect to home page after successful submission
         } catch (error) {
             console.error('Error submitting new entry:', error);
         }
@@ -72,21 +97,17 @@ const NewEntry = ({ history }) => {
 
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
+            <form className="entry-form" onSubmit={handleSubmit}>
                 <div className='title'>
                     <input type="text" name="name" placeholder='NEW ENTRY ✎' value={formData.name} onChange={handleChange}  />
                 </div>      
 
                               
                 <div className='input-fields'>
-                    <div className='label-input'>
+                    {/* <div className='label-input'>
                         <label>Name:</label>
                         <input type="text" name="name" placeholder='Adventure time' value={formData.name} onChange={handleChange} />
-                    </div>
-                    <div className='label-input'>
-                        <label>Watched:</label>
-                        <input type="date" name="watchDate" value={formData.watchDate} onChange={handleChange} />
-                    </div>
+                    </div> */}
                     <div className='label-input'>
                         <label>Type:</label>
                         <select name="type" value={formData.type} onChange={handleChange}>
@@ -97,9 +118,14 @@ const NewEntry = ({ history }) => {
                         </select>
                     </div>
                     <div className='label-input'>
+                        <label>Watched:</label>
+                        <input type="date" name="watchDate" value={formData.watchDate} onChange={handleChange} />
+                    </div>
+                    
+                    {/* <div className='label-input'>
                         <label>Genre:</label>
                         <input type="text" name="genre" placeholder='silly' value={formData.genre} onChange={handleChange} />
-                    </div>
+                    </div> */}
                     <div className='label-input'>
                         <label>Grade:</label>
                         <input 
@@ -135,10 +161,14 @@ const NewEntry = ({ history }) => {
                 <div className='visuals-container'>
                 <div className='img-container'>
                     <input type="file" onChange={handleImageChange} accept="image/*" />
-                    {formData.image ? (
-                        <img src={URL.createObjectURL(formData.image)} alt="Uploaded Image" />
+                    {formData.coverImage ? (
+                        formData.coverImage instanceof File ? (
+                            <img src={URL.createObjectURL(formData.coverImage)} alt="Uploaded Image" />
+                        ) : (
+                            <img src={formData.coverImage} alt="Uploaded Image" />
+                        )
                     ) : (
-                        <img src="https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg" alt="Default Image" />
+                        <img src="https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg" alt="Select an Image" />
                     )}
                 </div>
 
@@ -146,7 +176,7 @@ const NewEntry = ({ history }) => {
                     
 
                     <div className='visuals-info'>
-                        <span className='grade' style={{ color: formData.grade?getValueColor(formData.grade, 17, minColor, maxColor): "#a54f98" }}>
+                        <span className='grade' style={{ color: formData.grade?getValueColor(formData.grade, 15, minColor, maxColor): "#a54f98" }}>
                             {formData.grade?grades[formData.grade]:"C+"}
                         </span>
                         
@@ -164,5 +194,5 @@ const NewEntry = ({ history }) => {
     );
 };
 
-export default NewEntry;
+export default NewEntry; 
 

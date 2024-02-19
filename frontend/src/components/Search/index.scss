@@ -14,19 +14,21 @@
     margin-left: 5%; 
     margin-bottom: 2%;
     display: flex; 
+    flex-wrap: wrap;
     align-items: center; 
 
     h1 {
         width: 35%;
+        margin-left: 3%;
         margin-right: 0%; 
         margin-bottom: 0;
         font-size: 5.9rem;
     }
     
-    form {
+    .search-form {
         display: flex;
         align-items: center;
-        width: 65%;
+        width: 60%;
     }
     
     input[type="text"] {
@@ -94,7 +96,7 @@
         .title{
             // color: #3f62bc;
             color: rgb(199, 199, 222);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-family: 'Coolvetica';
             font-weight: 200;
             letter-spacing: 1.5px;

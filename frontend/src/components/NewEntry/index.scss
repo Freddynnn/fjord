@@ -1,4 +1,4 @@
-form{
+.entry-form{
     
     position: absolute;
     padding-left: 50px;
@@ -13,21 +13,24 @@ form{
 
     .title{
         width: 100%;
+        height: 20%;
         max-width: 90%;
         margin-left: 5%;
-        margin-bottom: 2%;
+        // margin-top: 2%;
+        // margin-bottom: 3%;
         display: flex;
         align-items: center;
 
         input{
             width: 55%;
+            height: 100%;
 
             background-color: #26272e;
             border: none;
             
             color: #3f62bc;
             font-family: 'Coolvetica';
-            font-size: 5.9rem;
+            font-size: 7rem;
             text-transform: uppercase;
             text-align: left;
 
@@ -121,7 +124,7 @@ form{
             display: flex;
             flex-wrap: wrap;
             width: 94%;
-            height: 35%;
+            height: 40%;
             margin-bottom: 3%;
             border-radius: 10px;
             background-color: #525354;
@@ -163,14 +166,15 @@ form{
         background-color: #525354;
         border-radius: 8px;
         position: relative;
-        width: 30%;
-        height: 105%;
+        width: 35%;
+        height: 100.5%;
         top: -15%;
-        margin-left: 5%;
+        margin-left: 2%;
 
         .img-container{
-            margin: 8%;
-            width: 85%;
+            margin: 10%;
+            margin-bottom: 6%;
+            width: 80%;
             height: 75%;
             // border: 2px solid #ffffff;
 
