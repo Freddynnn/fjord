@@ -79,15 +79,16 @@ const getMediaByID = async (req, res) => {
 
 // Function to add a new media entry to the database
 const createMedia = async (req, res) => {
-    const { name, watchDate, notes, score, grade, genre, type, userID } = req.body;
-    const newMedia = new Media({ name, watchDate, notes, score, grade, genre, type, userID });
+    const { name, watchDate, notes, score, grade, type, coverImage, userID } = req.body;
+    const newMedia = new Media({ name, watchDate, notes, score, grade, type, coverImage, userID });
 
-    try {
+    
+    try { 
         await newMedia.save();
         res.status(201).json({ message: 'Media created successfully', media: newMedia });
     } catch (error) {
         console.error('Error creating media:', error);
-        res.status(500).json({ error: 'Error creating media' });
+        res.status(500).json({ error: 'Error 500 creating media' });
     }
 };
 

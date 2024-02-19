@@ -23,11 +23,6 @@ const mediaSchema = new mongoose.Schema({
         enum: ['F-', 'F', 'F+', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'],
         required: true,
     },
-
-    genre: {
-        type: String,
-        required: true,
-    },
     type: {
         type: String,
         enum: ['Movie', 'Show', 'Music', 'Book'],
@@ -39,11 +34,11 @@ const mediaSchema = new mongoose.Schema({
     },
     
 
-    userID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
+    // userID: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: true
+    // },
 });
 
 module.exports = mongoose.model('Media', mediaSchema);

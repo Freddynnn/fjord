@@ -17,7 +17,6 @@ const NewEntry = () => {
         notes: '',
         score: '',
         grade: '',
-        // genre: '',
         type: '',
         coverImage: ''
     });
@@ -53,6 +52,8 @@ const NewEntry = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+        console.log('updated', name, "to:", value );
+        
     };
 
     const handleImageChange = (e) => {
@@ -61,11 +62,36 @@ const NewEntry = () => {
     };
 
     const handleSubmit = async (e) => {
-        // ## NEED TO SET THE grade TO BE THE LETTER, NOT THE NUMBER
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3001/media/new', formData);
-            navigate.push('/'); // Redirect to home page after successful submission
+
+            // Reformat entries
+            // const gradeLetter = grades[formData.grade];
+            // const watchDate = new Date(formData.watchDate);
+            // const score = parseFloat(formData.score);
+
+            // Reformat grade to the corresponding letter
+            const gradeLetter = grades[formData.grade];
+            console.log('Grade letter:', gradeLetter);
+
+            // Convert watchDate to a Date object
+            const watchDate = new Date(formData.watchDate);
+            console.log('Watch date:', watchDate);
+
+            // Convert score to a number
+            const score = parseFloat(formData.score);
+            console.log('Score:', score);
+
+            // Create a new object with the reformatted data
+            const requestData = {
+                ...formData,
+                grade: gradeLetter,
+                watchDate,
+                score
+            };
+
+            await axios.post('http://localhost:3001/media/new', requestData);
+            navigate('/'); // Redirect to home page after successful submission
         } catch (error) {
             console.error('Error submitting new entry:', error);
         }
@@ -108,10 +134,15 @@ const NewEntry = () => {
                         <label>Name:</label>
                         <input type="text" name="name" placeholder='Adventure time' value={formData.name} onChange={handleChange} />
                     </div> */}
+                    {/* <div className='label-input'>
+                        <label>Genre:</label>
+                        <input type="text" name="genre" placeholder='silly' value={formData.genre} onChange={handleChange} />
+                    </div> */}
+                    
                     <div className='label-input'>
                         <label>Type:</label>
                         <select name="type" value={formData.type} onChange={handleChange}>
-                            {/* <option value="">Movie</option> */}
+                            <option value="">Select Type</option>
                             {mediaTypes.map((type, index) => (
                                 <option key={index} value={type}>{type}</option>
                             ))}
@@ -121,11 +152,6 @@ const NewEntry = () => {
                         <label>Watched:</label>
                         <input type="date" name="watchDate" value={formData.watchDate} onChange={handleChange} />
                     </div>
-                    
-                    {/* <div className='label-input'>
-                        <label>Genre:</label>
-                        <input type="text" name="genre" placeholder='silly' value={formData.genre} onChange={handleChange} />
-                    </div> */}
                     <div className='label-input'>
                         <label>Grade:</label>
                         <input 
