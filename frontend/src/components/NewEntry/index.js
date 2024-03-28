@@ -6,11 +6,11 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
-const NewEntry = () => {
+const NewEntry = ({user}) => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    console.log("Props received by NewEntry:", { navigate, location });
+    // console.log("Props received by NewEntry:", { navigate, location });
     const [formData, setFormData] = useState({
         name: '',
         watchDate: '',
@@ -18,7 +18,8 @@ const NewEntry = () => {
         score: '',
         grade: '',
         type: '',
-        coverImage: ''
+        coverImage: '',
+        userID: user._id, // default set to user id
     });
 
     const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
@@ -29,6 +30,8 @@ const NewEntry = () => {
 
     useEffect(() => {
         console.log("Location object:", location);
+        console.log("User object: ", user);
+        console.log("formData userID: ", formData.userID);
 
         if (location?.state?.item) {
             const { item } = location.state;
@@ -52,7 +55,9 @@ const NewEntry = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-        console.log('updated', name, "to:", value );
+        // console.log('updated', name, "to:", value );
+        console.log("User object: ", user);
+        console.log("formData userID: ", formData.userID);
         
     };
 
@@ -62,25 +67,15 @@ const NewEntry = () => {
     };
 
     const handleSubmit = async (e) => {
+        console.log("User object: ", user);
+        console.log("formData userID: ", formData.userID);
         e.preventDefault();
         try {
 
             // Reformat entries
-            // const gradeLetter = grades[formData.grade];
-            // const watchDate = new Date(formData.watchDate);
-            // const score = parseFloat(formData.score);
-
-            // Reformat grade to the corresponding letter
             const gradeLetter = grades[formData.grade];
-            console.log('Grade letter:', gradeLetter);
-
-            // Convert watchDate to a Date object
             const watchDate = new Date(formData.watchDate);
-            console.log('Watch date:', watchDate);
-
-            // Convert score to a number
             const score = parseFloat(formData.score);
-            console.log('Score:', score);
 
             // Create a new object with the reformatted data
             const requestData = {

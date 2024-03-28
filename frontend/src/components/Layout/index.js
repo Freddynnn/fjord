@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../Sidebar';
+import {Sidebar, PublicSidebar} from '../';
 import './index.scss'
 
-const Layout = () => {
+const Layout = ( {isLoggedIn}) => {
     return (
         <div className='App'>
-            <Sidebar/>;
+            
+            {isLoggedIn ? <Sidebar /> : <PublicSidebar />}
             <div className='page'>
                 <Outlet/>
             </div>

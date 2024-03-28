@@ -33,8 +33,9 @@
         position: absolute;
         // height: 300px;
         top: 40%;
-        margin-top: -120px;
+        margin-top: 120px;
         width: 100%;
+        
 
         a{
             font-size: 40px;
@@ -83,20 +84,14 @@
         
         
 
-        a.movies-link{
-            &:after{ content: 'MOVIES';}
+        a.login-link{
+            &:after{ content: 'LOGIN';}
         }
-        a.shows-link{
-            &:after{ content: 'SHOWS';}
+        a.register-link{
+            &:after{ content: 'SIGN UP';}
         }
-        a.music-link{
-            &:after{ content: 'MUSIC';}
-        }
-        a.books-link{
-            &:after{ content: 'BOOKS';}
-        }
-        a.new-link{
-            &:after{ content: 'NEW';}
+        a.about-link{
+            &:after{ content: 'ABOUT';}
         }
         a.active{
             svg{ color: #3f62bc;}

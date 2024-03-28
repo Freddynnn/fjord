@@ -53,7 +53,7 @@ const Search = () => {
                 </div>
 
                 {searchResults.length <= 0 && (
-                    <h1>body test</h1>
+                    <h1>*Fill with table of suggestions*</h1>
                 )}
 
                 {searchResults.length > 0 && (

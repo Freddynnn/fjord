@@ -34,11 +34,11 @@ const mediaSchema = new mongoose.Schema({
     },
     
 
-    // userID: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     required: true
-    // },
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
 });
 
 module.exports = mongoose.model('Media', mediaSchema);

@@ -1,6 +1,8 @@
 import './index.scss'
 
-const Settings = () => {
+const Settings = ( {user, logout}) => {
+
+    
     return (
         <div className='container about-page'>
             <div className='text-zone'>
@@ -10,6 +12,8 @@ const Settings = () => {
                 <p>
                     We're workin on it  =P     
                 </p>
+
+                <button onClick={logout}>logOut</button>
             </div>
 
         </div>

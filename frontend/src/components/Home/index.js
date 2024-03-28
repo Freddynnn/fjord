@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import './index.scss';
 import AnimateLetters from '../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faMagnifyingGlass, faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; // Import axios
 
-const Home = () => {
+const Home = ({isLoggedIn}) => {
     const [letterClass, setLetterClass] = useState('text-animate');
     const [line1Array, setLine1Array] = useState([]);
     
@@ -39,14 +39,26 @@ const Home = () => {
                 <br/>
                 <ul>
                     <li className='half'>
-                        <Link to="/new" className='flat-button add' data-after-text="ADD ENTRY MANUALLY">
-                            <FontAwesomeIcon icon={faPlus} />
-                        </Link>
+
+                        {isLoggedIn 
+                            ? <Link to="/new" className='flat-button add' data-after-text="ADD ENTRY MANUALLY">
+                                <FontAwesomeIcon icon={faPlus} />
+                            </Link> 
+                            : <Link to="/login" className='flat-button login' data-after-text="LOGIN TO ACCOUNT">
+                                <FontAwesomeIcon icon={faUser} />
+                            </Link>
+                        }
+                        
                     </li>
                     <li className='half'>
-                        <Link to="/search" className='flat-button find' data-after-text="SEARCH FOR MEDIA">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </Link>
+                        {isLoggedIn 
+                            ? <Link to="/search" className='flat-button find' data-after-text="SEARCH FOR MEDIA">
+                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            </Link> 
+                            : <Link to="/register" className='flat-button register' data-after-text="SIGN UP FOR FJORD">
+                                <FontAwesomeIcon icon={faPlus} />
+                            </Link>
+                        }
                     </li>
                 </ul>
             </div>
