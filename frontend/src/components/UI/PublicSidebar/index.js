@@ -1,7 +1,7 @@
 import './index.scss'
 import {Link, NavLink} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faEye, faFilm, faGear, faMusic, faHome, faTv, faUser, faList, faPlusCircle, faInfo, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faHome, faUser, faPlusCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 const PublicSidebar = () => (

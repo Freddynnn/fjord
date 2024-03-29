@@ -1,12 +1,12 @@
 import './App.scss';
 import {Routes, Route, Navigate} from 'react-router-dom';
 import { useState } from "react";
-import { About, Contact, Home, Layout, Login, NewEntry, Protected, PublicSidebar, Register, Search, Settings, Sidebar } from './components';
+import { About, Contact, Home, Settings} from './components';
 
-import Movies from './components/Media/Movies';
-import Shows from './components/Media/Shows';
-import Music from './components/Media/Music';
-import Books from './components/Media/Books';
+import {Books, Book, Movies, Movie, Music, Release, Shows, Show, NewEntry, Search} from './components/Media'
+import {Login, Register} from './components/Users'
+import {Layout, Protected} from './components/UI'
+
 
 function App() {
 

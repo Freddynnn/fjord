@@ -36,20 +36,19 @@ const Shows = ({ user }) => {
     return (
         <div className='container'>
             <div className='text-zone'>
-                <h1>
-                   SHOWS
-                </h1>
-
-                <div className="search-bar">
+                <span className="show-search-bar">
+                    <h1>
+                        SHOWS
+                    </h1>
                     <input
                         type="text"
                         placeholder="Search shows ..."
                         value={search} 
                         onChange={(e) => setSearch(e.target.value)} 
                     />
-                </div>
+                </span>
 
-                <div className='search-results'>
+                <div className='show-results'>
                     <ul className='show-list'>         
                         {filteredShows.map((show) => (
 
@@ -60,8 +59,10 @@ const Shows = ({ user }) => {
                                 </Link>
                                 
                                 <div className='title'>
+                                    <h2>{show.grade} {show.score} </h2>
                                     <h2>{show.name}</h2>
                                 </div>  
+                                
                                 {/* <button className="button" onClick={() => handleShowClick(show._id)}>
                                     View
                                 </button> */}

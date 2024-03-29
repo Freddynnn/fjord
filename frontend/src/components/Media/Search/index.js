@@ -1,6 +1,6 @@
 import { Link, withRouter  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import AnimateLetters from '../AnimatedLetters';
+import AnimateLetters from '../../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 

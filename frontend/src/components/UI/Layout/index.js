@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import {Sidebar, PublicSidebar} from '../';
+import {Sidebar, PublicSidebar} from '..';
 import './index.scss'
 
 const Layout = ( {isLoggedIn}) => {

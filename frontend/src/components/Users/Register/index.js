@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // NEED CONSISTENT FORM CSS
-import '../Form/form.css';
+import '../../UI/Form/form.css';
 // import Button from '../../components/button/Button';
 
 function Register({ logIn }) {
