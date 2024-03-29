@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 3001;
 const mediaRouter = require('./routes/media')
 const loginRouter = require('./routes/login')
 
-const uri = "mongodb+srv://freddytnn:IDf5xB1j9D0Q3MXJ@cluster0.fainura.mongodb.net/?retryWrites=true&w=majority";
+// const uri = "mongodb+srv://freddytnn:IDf5xB1j9D0Q3MXJ@cluster0.fainura.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://freddytnn:IDf5xB1j9D0Q3MXJ@cluster0.fainura.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 
 if (process.env.NODE_ENV !== 'production'){

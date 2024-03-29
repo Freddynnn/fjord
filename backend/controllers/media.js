@@ -43,7 +43,11 @@ const getMediaByType = async (req, res) => {
     const type = req.params.type;
 
     try {
-        const userMedia = await Media.find({ userID, type });
+        // Perform a case-insensitive search using a regular expression
+        const userMedia = await Media.find({ 
+            userID,
+            type: { $regex: new RegExp(type, 'i') } 
+        });
 
         if (!userMedia || userMedia.length === 0) {
             return res.status(404).json({ error: `No media found for userID: ${userID} and type: ${type}` });
@@ -55,6 +59,7 @@ const getMediaByType = async (req, res) => {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 
 // Function to get a specific media entry by its ID

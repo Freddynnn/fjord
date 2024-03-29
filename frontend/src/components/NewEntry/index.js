@@ -19,7 +19,7 @@ const NewEntry = ({user}) => {
         grade: '',
         type: '',
         coverImage: '',
-        userID: user._id, // default set to user id
+        userID: ''
     });
 
     const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
@@ -76,13 +76,15 @@ const NewEntry = ({user}) => {
             const gradeLetter = grades[formData.grade];
             const watchDate = new Date(formData.watchDate);
             const score = parseFloat(formData.score);
+            const userID = user._id;
 
             // Create a new object with the reformatted data
             const requestData = {
                 ...formData,
                 grade: gradeLetter,
                 watchDate,
-                score
+                score,
+                userID
             };
 
             await axios.post('http://localhost:3001/media/new', requestData);

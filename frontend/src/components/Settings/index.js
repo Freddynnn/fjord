@@ -1,7 +1,6 @@
 import './index.scss'
 
 const Settings = ( {user, logout}) => {
-
     
     return (
         <div className='container about-page'>

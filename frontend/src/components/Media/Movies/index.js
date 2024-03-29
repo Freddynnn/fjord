@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './index.scss'
 
-const Movies = () => {
-// const Movies = ({ user }) => {
+// const Movies = () => {
+const Movies = ({ user }) => {
     const [movies, setMovies] = useState([]);
     const [search, setSearch] = useState(''); 
     const [moviesFetched, setMoviesFetched] = useState(false);
@@ -12,18 +12,18 @@ const Movies = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-    //    fetchMovies();
+       fetchMovies();
     }, []);
 
-    // const fetchMovies = async () => {
-    //     try {
-    //         const response = await axios.get(`http://localhost:3001/media/${user._id}/movie`);
-    //         setMovies(response.data);
-    //         setMoviesFetched(true);
-    //     } catch (error) {
-    //         console.error('Error fetching user movies:', error);
-    //     }
-    // };
+    const fetchMovies = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3001/media/${user._id}/movie`);
+            setMovies(response.data);
+            setMoviesFetched(true);
+        } catch (error) {
+            console.error('Error fetching user movies:', error);
+        }
+    };
 
     const handleMovieClick = (id) => {
         navigate('/movies/movie/' + id);
