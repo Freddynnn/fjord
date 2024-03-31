@@ -6,11 +6,11 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
-const NewEntry = ({user}) => {
+const EditEntry = ({user, media}) => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    // console.log("Props received by NewEntry:", { navigate, location });
+    // console.log("Props received by EditEntry:", { navigate, location });
     const [formData, setFormData] = useState({
         name: '',
         watchDate: '',
@@ -33,6 +33,7 @@ const NewEntry = ({user}) => {
         console.log("User object: ", user);
         console.log("formData userID: ", formData.userID);
 
+        // set the item from IMDb
         if (location?.state?.item) {
             const { item } = location.state;
             let mediaType = '';
@@ -48,6 +49,9 @@ const NewEntry = ({user}) => {
                 coverImage: item ? item.i.imageUrl: ''
             });
         }
+
+        // set the data from editting entry
+        
     }, [location?.state]);
 
 
@@ -127,15 +131,6 @@ const NewEntry = ({user}) => {
 
                               
                 <div className='input-fields'>
-                    {/* <div className='label-input'>
-                        <label>Name:</label>
-                        <input type="text" name="name" placeholder='Adventure time' value={formData.name} onChange={handleChange} />
-                    </div> */}
-                    {/* <div className='label-input'>
-                        <label>Genre:</label>
-                        <input type="text" name="genre" placeholder='silly' value={formData.genre} onChange={handleChange} />
-                    </div> */}
-                    
                     <div className='label-input'>
                         <label>Type:</label>
                         <select name="type" value={formData.type} onChange={handleChange}>
@@ -217,5 +212,5 @@ const NewEntry = ({user}) => {
     );
 };
 
-export default NewEntry; 
+export default EditEntry; 
 

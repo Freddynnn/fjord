@@ -35,7 +35,7 @@ const Shows = ({ user }) => {
 
     return (
         <div className='container'>
-            <div className='text-zone'>
+            <div className='show-zone'>
                 <span className="show-search-bar">
                     <h1>
                         SHOWS
@@ -54,45 +54,20 @@ const Shows = ({ user }) => {
 
                             // list of all shows
                             <li key={show._id}>
-                                <Link to={`/shows/show/${show._id}`} state={{ show }}>
+                                <Link to={`/shows/show/${show._id}`}>
                                     <img src={show.coverImage} alt={show.name} />
                                 </Link>
                                 
-                                <div className='title'>
-                                    <h2>{show.grade} {show.score} </h2>
+                                <div className='info'>
                                     <h2>{show.name}</h2>
+                                    
+                                    
                                 </div>  
-                                
-                                {/* <button className="button" onClick={() => handleShowClick(show._id)}>
-                                    View
-                                </button> */}
+                                <h2>{show.grade} {show.score} </h2>
                             </li>
                         ))}
                     </ul>
                 </div>
-
-                {/* {searchResults.length > 0 && (
-                    <div className='search-results'>
-                       <ul>
-                            {searchResults.map((item, index) => {
-                                const imageUrl = item.i ? item.i.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
-                                const title = item.l;
-                                const type = item.q;
-
-                                return (
-                                    <li key={index}>  
-                                        <Link to="/new" state={{ item}}>
-                                            <img src={imageUrl} alt={title} />
-                                        </Link>
-                                        <div className='title'>
-                                            <h2>{title}</h2>
-                                        </div>  
-                                    </li>        
-                                );
-                            })}
-                        </ul>
-                    </div>
-                )} */}
             </div>
         </div>
     );
