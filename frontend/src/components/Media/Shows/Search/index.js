@@ -56,12 +56,12 @@ const Shows = ({ user }) => {
                             <li key={show._id}>
                                 <Link to={`/shows/show/${show._id}`}>
                                     <img src={show.coverImage} alt={show.name} />
+
+                                    {/* somehow pass the information of the show to the singleShow page when clicked on */}
                                 </Link>
                                 
                                 <div className='info'>
                                     <h2>{show.name}</h2>
-                                    
-                                    
                                 </div>  
                                 <h2>{show.grade} {show.score} </h2>
                             </li>
