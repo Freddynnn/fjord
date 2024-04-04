@@ -33,44 +33,46 @@ function Login({ logIn }) {
   }
 
   return (
-    // <Layout>
-      <main className='form-container'>
-        <section className="login-form">
+    <main className='form-container'>
+      <section className="login-form">
           <header>
-            <h2>Log In Now</h2>
-            <div className="new">
-              <h3>Do not have an account?</h3>
-              <Link to="/register" className="custom-link">Register here!</Link>
-            </div>
+              <h2>LOGIN TO YOUR ACCOUNT</h2>
           </header>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="user">Username</label>
-            <input
-              maxLength="30"
-              minLength="5"
-              name="user"
-              type="text"
-              id="user"
-              placeholder="Username"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-              autoComplete="username"
-            />
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="current-password"
-            />
-            {error && <p className="error-message">{error}</p>}
-            <button type="submit">Submit</button>
+              <label htmlFor="user">Username</label>
+              <input
+                  maxLength="30"
+                  minLength="5"
+                  name="user"
+                  type="text"
+                  id="user"
+                  placeholder="Username"
+                  value={user}
+                  onChange={(e) => setUser(e.target.value)}
+                  autoComplete="username"
+              />
+              <label>Password</label>
+              <input
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+              />
+              {error && <p className="error-message">{error}</p>}
+              <button type="submit">Submit</button>
           </form>
-        </section>
-      </main>
-    // </Layout>
+      </section>
+      <section className="register-section">
+          <div className="new">
+              <h2>NEW HERE?</h2>
+              <h3>Sign up new and discover .......</h3>
+              <Link to="/register" className="custom-link">Register here!</Link>
+          </div>
+      </section>
+  </main>
+  
   );
 }
 

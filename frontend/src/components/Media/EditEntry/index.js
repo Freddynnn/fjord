@@ -77,6 +77,23 @@ const EditEntry = ({user, media}) => {
 
 
 
+
+    // Function to handle the edit form submission if media exists
+    const handleEditSubmit = async () => {
+        try {
+            const response = await axios.patch(`http://localhost:3001/media/${media._id}`, formData, {
+                timeout: 10000, // Set a longer timeout (in milliseconds)
+            });
+            if (response.status === 200) {
+                console.log("successful edit");
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -112,8 +129,18 @@ const EditEntry = ({user, media}) => {
                 userID
             };
 
-            await axios.post('http://localhost:3001/media/new', requestData);
-            navigate('/'); // Redirect to home page after successful submission
+            if (media) {
+                // Send a patch request if media exists
+                await handleEditSubmit();
+            } else {
+                // Send a post request if it's a new entry
+                await axios.post('http://localhost:3001/media/new', requestData);
+            }
+            
+            // redirect to the media type's page
+            const mediaTypePlural = formData.type.toLowerCase() + 's';
+            navigate(`/${mediaTypePlural}`);
+
         } catch (error) {
             console.error('Error submitting new entry:', error);
         }

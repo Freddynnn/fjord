@@ -6,9 +6,6 @@ import axios from 'axios';
 
 const SingleShow = ({ user }) => {
     const [show, setShow] = useState({});
-    const [isEditMode, setIsEditMode] = useState(false);
-    const [editedShow, setEditedShow] = useState(show);
-
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -25,49 +22,22 @@ const SingleShow = ({ user }) => {
         }
     }
 
-    const handleEditClick = () => {
-        setIsEditMode(true);
+    // const handleEditClick = () => {
+    //     setIsEditMode(true);
       
-        // Map the show properties to the expected form fields
-        setEditedShow({
-            name: show.name || '',
-            watchDate: show.watchDate || '', // Adjust as needed
-            notes: show.notes || '',
-            score: show.score || '',
-            grade: show.grade || '',
-            type: show.type || '',
-            coverImage: show.coverImage || '',
-            userID: show.userID || '', // Adjust as needed
-        });
-    };
-    
-
-    // Function to handle changes in the edit form inputs
-    const handleEditInputChange = (e) => {
-        const { name, value } = e.target;
-        setEditedShow({ ...editedShow, [name]: value });
-    }
-
-    // Function to handle the edit form submission
-    const handleEditSubmit = async () => {
-        try {
-        const response = await axios.patch('http://localhost:3001/media/'+ id, editedShow, {
-            timeout: 10000, // Set a longer timeout (in milliseconds)
-        });
-        if (response.status === 200) {
-            setIsEditMode(false); 
-        }
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    // Function to close the edit modal
-    const closeEditMode = () => {
-        setIsEditMode(false);
-        setEditedShow(show); // Reset the edited show to the original show data
-    }
-      
+    //     // Map the show properties to the expected form fields
+    //     setEditedShow({
+    //         name: show.name || '',
+    //         watchDate: show.watchDate || '', // Adjust as needed
+    //         notes: show.notes || '',
+    //         score: show.score || '',
+    //         grade: show.grade || '',
+    //         type: show.type || '',
+    //         coverImage: show.coverImage || '',
+    //         userID: show.userID || '', // Adjust as needed
+    //     });
+    // };
+     
 
     const handleDeleteClick = async () => {
         if (window.confirm('Are you sure you want to delete your account? This action is irreversible.')) {
@@ -81,11 +51,15 @@ const SingleShow = ({ user }) => {
         }
     }
 
+    
+
     return (
         <EditEntry
             user={user}    
             media={show}        
         />
+
+        // this add entry button has to patch the entry using handleEditSubmit()
         
     );
       
