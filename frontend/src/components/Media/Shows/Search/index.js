@@ -1,16 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import ReactSlider from 'react-slider'
 import axios from 'axios';
 import './index.scss'
 
 const Shows = ({ user }) => {
-    const [shows, setShows] = useState([]);
-    const [search, setSearch] = useState(''); 
-    const [gradeFilter, setGradeFilter] = useState('');
-    const [scoreFilter, setScoreFilter] = useState('');
-    const [sortBy, setSortBy] = useState('');
-    const [showsFetched, setShowsFetched] = useState(false);
-
     const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
     const sortOptions = [
         { label: 'Grade: High to Low', value: 'grade_desc' },
@@ -19,6 +13,16 @@ const Shows = ({ user }) => {
         { label: 'Score: Low to High', value: 'score_asc' },
         { label: 'Watch Date', value: 'watch_date' }
     ];
+
+
+    const [shows, setShows] = useState([]);
+    const [search, setSearch] = useState(''); 
+    const [gradeRange, setGradeRange] = useState([0, grades.length - 1]);
+    const [scoreRange, setScoreRange] = useState([0, 10]);
+    const [sortBy, setSortBy] = useState('');
+    const [showsFetched, setShowsFetched] = useState(false);
+
+    
 
     const navigate = useNavigate();
 
@@ -37,12 +41,12 @@ const Shows = ({ user }) => {
         }
     };
 
-    const clearGradeFilter = () => {
-        setGradeFilter('');
+    const clearGradeRange = () => {
+        setGradeRange([0,grades.length-1]);
     };
 
-    const clearScoreFilter = () => {
-        setScoreFilter('');
+    const clearScoreRange = () => {
+        setScoreRange([0,10]);
     };
 
     const handleSortChange = (e) => {
@@ -54,9 +58,9 @@ const Shows = ({ user }) => {
     // }
 
     const filteredShows = shows.filter((show) =>
-        show.name.toLowerCase().includes(search.toLowerCase()) &&
-        (gradeFilter ? show.grade === gradeFilter : true) &&
-        (scoreFilter ? show.score === parseFloat(scoreFilter) : true)
+        show.name.toLowerCase().includes(search.toLowerCase())
+        && (gradeRange[0] <= grades.indexOf(show.grade) && grades.indexOf(show.grade) <= gradeRange[1])
+        && (scoreRange[0] <= show.score && show.score <= scoreRange[1])
     );
 
     const sortShows = (shows) => {
@@ -95,33 +99,72 @@ const Shows = ({ user }) => {
 
 
                 <div className="filters">
-                    <span className="filter">
+                    <span className='filter'>
                         <label>GRADE:</label>
-                        <span>{gradeFilter}</span>
-
-                        <input
-                            type="range"
-                            min="0"
-                            max={grades.length - 1}
-                            value={gradeFilter !== '' ? grades.indexOf(gradeFilter) : ''}
-                            onChange={(e) => setGradeFilter(grades[e.target.value])}
+                        <ReactSlider
+                            className="horizontal-slider"
+                            thumbClassName="slider-thumb"
+                            trackClassName="slider-track"
+                            defaultValue={[0, 15]}
+                            max={15}
+                            min={0}
+                            step={1}
+                            ariaLabel={['Lower thumb', 'Upper thumb']}
+                            ariaValuetext={state => `Thumb value ${state.valueNow}`}
+                            renderThumb={(props, state) => <div {...props}>{grades[state.valueNow]}</div>}
+                            pearling
+                            minDistance={0.1}
                         />
-                        <button onClick={clearGradeFilter}>Clear</button>
-                    </span>
-                    <span className="filter">
-                        <label>SCORE:</label>
-                        <span>{scoreFilter}</span>
+                        <button onClick={clearGradeRange}>Clear</button>
 
-                        <input
-                            type="range"
-                            min="0"
-                            max="10"
-                            step="0.1"
-                            value={scoreFilter}
-                            onChange={(e) => setScoreFilter(e.target.value)}
-                        />
-                        <button onClick={clearScoreFilter}>Clear</button>
                     </span>
+                    <span className='filter'>
+                        <label>RATING:</label>
+                        <ReactSlider
+                            className="horizontal-slider"
+                            thumbClassName="slider-thumb"
+                            trackClassName="slider-track"
+                            defaultValue={[0, 10]}
+                            max={10}
+                            min={0}
+                            step={0.1}
+                            ariaLabel={['Lower thumb', 'Upper thumb']}
+                            ariaValuetext={state => `Thumb value ${state.valueNow}`}
+                            renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+                            pearling
+                            minDistance={0.1}
+
+                            // need the setScoreFilter to actually affect them
+                        />
+                        <button onClick={clearScoreRange}>Clear</button>
+
+                    </span>
+                
+                        {/* <span className="filter">
+                            <label>GRADE:</label>
+                            <span>{gradeFilter}</span>
+                            <input
+                                type="range"
+                                min="0"
+                                max={grades.length - 1}
+                                value={gradeFilter !== '' ? grades.indexOf(gradeFilter) : ''}
+                                onChange={(e) => setGradeFilter(grades[e.target.value])}
+                            />
+                            <button onClick={clearGradeFilter}>Clear</button>
+                        </span>
+                        <span className="filter">
+                            <label>SCORE:</label>
+                            <span>{scoreFilter}</span>
+                            <input
+                                type="range"
+                                min="0"
+                                max="10"
+                                step="0.1"
+                                value={scoreFilter}
+                                onChange={(e) => setScoreFilter(e.target.value)}
+                            />
+                            <button onClick={clearScoreFilter}>Clear</button>
+                        </span> */}
 
                     <span className="filter">
                         <label>Sort By:</label>
