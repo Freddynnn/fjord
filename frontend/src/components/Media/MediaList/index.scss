@@ -1,0 +1,96 @@
+.media-results {
+    max-height: 90dvh; 
+    height: 90%;
+    overflow-y: auto; 
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    ul {
+        padding: 0;
+        margin: 0;
+        margin-left: 5%;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+
+        li {
+            box-sizing: border-box;
+            flex: 0 0 calc(25% - 70px);
+            margin: 0 2%; 
+            padding: 15px;
+            border-radius: 12px;
+            list-style: none;
+            cursor: pointer; 
+
+            min-width: 200px;
+
+            .link-style {
+                text-decoration: none; 
+                color: inherit; 
+            }
+
+            .content {
+                display: flex;
+                align-items: center;
+            }
+
+            img {
+                border: 5px solid transparent;
+                height: auto;
+                width: 100%;
+                border-radius: 12px;
+                // aspect-ratio: 2 / 3; 
+            }
+            
+            .info {
+                color: rgb(199, 199, 222);
+                height: 10%;
+                // font-size: calc(0.7vw); 
+                font-family: 'Coolvetica';
+                font-weight: 200;
+                letter-spacing: 1.5px;
+                text-align: center;
+                text-transform: uppercase;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden; 
+                text-overflow: ellipsis; 
+                margin-top: 10px; /* Add some space between image and title */
+
+                display: flex;
+                flex-direction: row;
+
+                .grade-score{
+                    width: 50%;
+                    height: 100%;
+                    font-size: 3rem; /* Adjust the font size as needed */
+                    font-weight: bold; /* Optionally make it bold */
+                    display: flex;
+                    align-items: center;
+                }
+
+                .title {
+                    width: 65%;
+                    height: 100%;
+                    font-size: calc(0.8vw);
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            
+
+            &:hover {
+                img {
+                    border-color: #233f87d6;
+                }
+                .info {
+                    color: #3f62bc;
+                }
+            }   
+        }
+    }
+}

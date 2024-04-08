@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import ReactSlider from 'react-slider'
+import MediaList from '../../MediaList';
 import axios from 'axios';
 import './index.scss'
 
@@ -14,16 +15,12 @@ const Shows = ({ user }) => {
         { label: 'Watch Date', value: 'watch_date' }
     ];
 
-
     const [shows, setShows] = useState([]);
     const [search, setSearch] = useState(''); 
     const [gradeRange, setGradeRange] = useState([0, grades.length - 1]);
     const [scoreRange, setScoreRange] = useState([0, 10]);
     const [sortBy, setSortBy] = useState('');
     const [showsFetched, setShowsFetched] = useState(false);
-
-    
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -52,10 +49,6 @@ const Shows = ({ user }) => {
     const handleSortChange = (e) => {
         setSortBy(e.target.value);
     };
-
-    // const handleShowClick = (id) => {
-    //     navigate('/shows/show/' + id);
-    // }
 
     const filteredShows = shows.filter((show) =>
         show.name.toLowerCase().includes(search.toLowerCase())
@@ -106,6 +99,7 @@ const Shows = ({ user }) => {
                             thumbClassName="slider-thumb"
                             trackClassName="slider-track"
                             defaultValue={[0, 15]}
+                            value={gradeRange}
                             max={15}
                             min={0}
                             step={1}
@@ -114,6 +108,7 @@ const Shows = ({ user }) => {
                             renderThumb={(props, state) => <div {...props}>{grades[state.valueNow]}</div>}
                             pearling
                             minDistance={0.1}
+                            onChange={(value) => setGradeRange(value)}
                         />
                         <button onClick={clearGradeRange}>Clear</button>
 
@@ -125,6 +120,7 @@ const Shows = ({ user }) => {
                             thumbClassName="slider-thumb"
                             trackClassName="slider-track"
                             defaultValue={[0, 10]}
+                            value={scoreRange}
                             max={10}
                             min={0}
                             step={0.1}
@@ -133,14 +129,56 @@ const Shows = ({ user }) => {
                             renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
                             pearling
                             minDistance={0.1}
-
-                            // need the setScoreFilter to actually affect them
+                            onChange={(value) => setScoreRange(value)}
                         />
                         <button onClick={clearScoreRange}>Clear</button>
 
                     </span>
                 
-                        {/* <span className="filter">
+                        
+
+                    <span className="filter">
+                        <label>Sort By:</label>
+                        <select value={sortBy} onChange={handleSortChange}>
+                            <option value="">Select an option</option>
+                            {sortOptions.map(option => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
+                        </select>
+                    </span>
+                </div>
+
+                <MediaList mediaItems={sortedShows} mediaType="shows" />
+
+                {/* <div className='show-results'>
+                    <ul className='show-list'>         
+                        {sortedShows.map((show) => (
+
+                            // list of all shows
+                            <li key={show._id}>
+                                <Link to={`/shows/show/${show._id}`} className="link-style">
+                                    <img src={show.coverImage} alt={show.name} />
+                                    <div className="info">
+                                        <div className="grade-score">
+                                            {show.grade} {show.score}
+                                        </div>
+                                        <div className="title">
+                                            {show.name}
+                                        </div>
+                                    </div>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div> */}
+            </div>
+        </div>
+    );
+}   
+
+export default Shows;
+
+{/* <span className="filter">
                             <label>GRADE:</label>
                             <span>{gradeFilter}</span>
                             <input
@@ -165,42 +203,3 @@ const Shows = ({ user }) => {
                             />
                             <button onClick={clearScoreFilter}>Clear</button>
                         </span> */}
-
-                    <span className="filter">
-                        <label>Sort By:</label>
-                        <select value={sortBy} onChange={handleSortChange}>
-                            <option value="">Select an option</option>
-                            {sortOptions.map(option => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                        </select>
-                    </span>
-                </div>
-
-                <div className='show-results'>
-                    <ul className='show-list'>         
-                        {sortedShows.map((show) => (
-
-                            // list of all shows
-                            <li key={show._id}>
-                                <Link to={`/shows/show/${show._id}`} className="link-style">
-                                    <img src={show.coverImage} alt={show.name} />
-                                    <div className="info">
-                                        <div className="grade-score">
-                                            {show.grade} {show.score}
-                                        </div>
-                                        <div className="title">
-                                            {show.name}
-                                        </div>
-                                    </div>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    );
-}   
-
-export default Shows;
