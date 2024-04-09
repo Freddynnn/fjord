@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
-import EditEntry from '../../EditEntry/index'
+import EditEntry from '../../../EditEntry/index'
 import axios from 'axios';
 
 const SingleShow = ({ user }) => {

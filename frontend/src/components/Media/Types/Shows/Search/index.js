@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import ReactSlider from 'react-slider'
-import MediaList from '../../MediaList';
-import MediaFilters from '../../MediaFilters';
+import MediaList from '../../../MediaList';
+import MediaFilters from '../../../MediaFilters';
 import axios from 'axios';
 import './index.scss'
 

@@ -1,13 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import ReactSlider from 'react-slider'
-import MediaList from '../../MediaList';
-import MediaFilters from '../../MediaFilters';
+import MediaList from '../../../MediaList';
+import MediaFilters from '../../../MediaFilters';
 import axios from 'axios';
 import './index.scss'
 
-// const Movies = () => {
-const Movies = ({ user }) => {
+const Music = ({ user }) => {
     const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
     const sortOptions = [
         { label: 'Grade: High to Low', value: 'grade_desc' },
@@ -17,25 +16,25 @@ const Movies = ({ user }) => {
         { label: 'Watch Date', value: 'watch_date' }
     ];
 
-    const [movies, setMovies] = useState([]);
+    const [music, setMusic] = useState([]);
     const [search, setSearch] = useState(''); 
     const [gradeRange, setGradeRange] = useState([0, grades.length - 1]);
     const [scoreRange, setScoreRange] = useState([0, 10]);
     const [sortBy, setSortBy] = useState('');
-    const [moviesFetched, setMoviesFetched] = useState(false);
+    const [musicFetched, setMusicFetched] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-       fetchMovies();
+       fetchMusic();
     }, []);
 
-    const fetchMovies = async () => {
+    const fetchMusic = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/media/${user._id}/movie`);
-            setMovies(response.data);
-            setMoviesFetched(true);
+            const response = await axios.get(`http://localhost:3001/media/${user._id}/music`);
+            setMusic(response.data);
+            setMusicFetched(true);
         } catch (error) {
-            console.error('Error fetching user movies:', error);
+            console.error('Error fetching user music:', error);
         }
     };
 
@@ -53,37 +52,37 @@ const Movies = ({ user }) => {
         setSortBy(e.target.value);
     };
 
-    const filteredMovies = movies.filter((movie) =>
-        movie.name.toLowerCase().includes(search.toLowerCase())
-        && (gradeRange[0] <= grades.indexOf(movie.grade) && grades.indexOf(movie.grade) <= gradeRange[1])
-        && (scoreRange[0] <= movie.score && movie.score <= scoreRange[1])
+    const filteredMusic = music.filter((release) =>
+        release.name.toLowerCase().includes(search.toLowerCase())
+        && (gradeRange[0] <= grades.indexOf(release.grade) && grades.indexOf(release.grade) <= gradeRange[1])
+        && (scoreRange[0] <= release.score && release.score <= scoreRange[1])
     );
 
-    const sortMovies = (movies) => {
+    const sortMusic = (music) => {
         switch (sortBy) {
             case 'score_asc':
-                return movies.slice().sort((a, b) => a.score - b.score);
+                return music.slice().sort((a, b) => a.score - b.score);
             case 'score_desc':
-                return movies.slice().sort((a, b) => b.score - a.score);
+                return music.slice().sort((a, b) => b.score - a.score);
             case 'grade_asc':
-                return movies.slice().sort((a, b) => grades.indexOf(a.grade) - grades.indexOf(b.grade));
+                return music.slice().sort((a, b) => grades.indexOf(a.grade) - grades.indexOf(b.grade));
             case 'grade_desc':
-                return movies.slice().sort((a, b) => grades.indexOf(b.grade) - grades.indexOf(a.grade));
+                return music.slice().sort((a, b) => grades.indexOf(b.grade) - grades.indexOf(a.grade));
             case 'watch_date':
-                return movies.slice().sort((a, b) => new Date(a.watchDate) - new Date(b.watchDate));
+                return music.slice().sort((a, b) => new Date(a.watchDate) - new Date(b.watchDate));
             default:
-                return movies;
+                return music;
         }
     };
 
-    const sortedMovies = sortMovies(filteredMovies);
+    const sortedMusic = sortMusic(filteredMusic);
     
     return (
         <div className='container'>
             <div className='media-zone'>
                 <span className="media-search-bar">
                     <h1>
-                        MOVIES
+                        MUSIC
                     </h1>
                     <input
                         type="text"
@@ -106,10 +105,10 @@ const Movies = ({ user }) => {
                     clearScoreRange={clearScoreRange}
                 />
 
-                <MediaList mediaItems={sortedMovies} mediaType="movies" />
+                <MediaList mediaItems={sortedMusic} mediaType="music" />
             </div>
         </div>
     );
 }   
 
-export default Movies;
+export default Music;

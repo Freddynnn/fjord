@@ -1,6 +1,6 @@
 import './index.scss'
 
-const Music = () => {
+const Book = () => {
     return (
         <div className='container about-page'>
             <div className='text-zone'>
@@ -16,4 +16,4 @@ const Music = () => {
     );
 }   
 
-export default Music;
+export default Book;
