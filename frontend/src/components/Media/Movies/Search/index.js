@@ -1,14 +1,28 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import ReactSlider from 'react-slider'
+import MediaList from '../../MediaList';
+import MediaFilters from '../../MediaFilters';
 import axios from 'axios';
 import './index.scss'
 
 // const Movies = () => {
 const Movies = ({ user }) => {
+    const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
+    const sortOptions = [
+        { label: 'Grade: High to Low', value: 'grade_desc' },
+        { label: 'Grade: Low to High', value: 'grade_asc' },
+        { label: 'Score: High to Low', value: 'score_desc' },
+        { label: 'Score: Low to High', value: 'score_asc' },
+        { label: 'Watch Date', value: 'watch_date' }
+    ];
+
     const [movies, setMovies] = useState([]);
     const [search, setSearch] = useState(''); 
+    const [gradeRange, setGradeRange] = useState([0, grades.length - 1]);
+    const [scoreRange, setScoreRange] = useState([0, 10]);
+    const [sortBy, setSortBy] = useState('');
     const [moviesFetched, setMoviesFetched] = useState(false);
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,92 +39,75 @@ const Movies = ({ user }) => {
         }
     };
 
-    const handleMovieClick = (id) => {
-        navigate('/movies/movie/' + id);
-    }
-
-    // NEED TO FILTER ONLY MOVIES NOT ALL MEDIA
-
-
-    // need to return the movies and map them into a list, 
-    // which we then structure the same way as the IMDb search page
-
-    const filteredMovies = movies.filter((movie) =>
-        movie.name.toLowerCase().includes(search.toLowerCase()) 
-        // && movie.type.toLowerCase() == 'movie'
-    );
-
     
 
+    const clearGradeRange = () => {
+        setGradeRange([0,grades.length-1]);
+    };
+
+    const clearScoreRange = () => {
+        setScoreRange([0,10]);
+    };
+
+    const handleSortChange = (e) => {
+        setSortBy(e.target.value);
+    };
+
+    const filteredMovies = movies.filter((movie) =>
+        movie.name.toLowerCase().includes(search.toLowerCase())
+        && (gradeRange[0] <= grades.indexOf(movie.grade) && grades.indexOf(movie.grade) <= gradeRange[1])
+        && (scoreRange[0] <= movie.score && movie.score <= scoreRange[1])
+    );
+
+    const sortMovies = (movies) => {
+        switch (sortBy) {
+            case 'score_asc':
+                return movies.slice().sort((a, b) => a.score - b.score);
+            case 'score_desc':
+                return movies.slice().sort((a, b) => b.score - a.score);
+            case 'grade_asc':
+                return movies.slice().sort((a, b) => grades.indexOf(a.grade) - grades.indexOf(b.grade));
+            case 'grade_desc':
+                return movies.slice().sort((a, b) => grades.indexOf(b.grade) - grades.indexOf(a.grade));
+            case 'watch_date':
+                return movies.slice().sort((a, b) => new Date(a.watchDate) - new Date(b.watchDate));
+            default:
+                return movies;
+        }
+    };
+
+    const sortedMovies = sortMovies(filteredMovies);
+    
     return (
         <div className='container'>
-            <div className='text-zone'>
-                <h1>
-                   MOVIES
-                </h1>
-
-                <div className="search-bar" >
+            <div className='media-zone'>
+                <span className="media-search-bar">
+                    <h1>
+                        MOVIES
+                    </h1>
                     <input
                         type="text"
-                        placeholder="Search movies ..."
-                        searchQuery={search} // Use search state for input value
-                        onChange={(e) => setSearch(e.target.value)} // Update search state
+                        placeholder="Search shows ..."
+                        value={search} 
+                        onChange={(e) => setSearch(e.target.value)} 
                     />
-                </div>
-                {/* no search button,   just filtering the movies by name (default sorted by grade rankings) */}
-                
+                </span> 
 
+                <MediaFilters 
+                    grades={grades}
+                    sortBy={sortBy}
+                    handleSortChange={handleSortChange}
+                    sortOptions={sortOptions}
+                    gradeRange={gradeRange} 
+                    setGradeRange={setGradeRange} 
+                    clearGradeRange={clearGradeRange}
+                    scoreRange={scoreRange}
+                    setScoreRange={setScoreRange}
+                    clearScoreRange={clearScoreRange}
+                />
 
-                <p>
-                    iloveyou jo   
-                      
-                </p>
-
-                <div className='search-results'>
-                       <ul className='movie-list'>         
-                            {filteredMovies.map((movie) => {
-                                <li key={movie._id}>
-                                    <p>{movie.name}</p>
-                                    <button className="button" onClick={() => handleMovieClick(movie._id)}>
-                                        View
-                                    </button>
-                                </li>
-
-                                // need all other values: watchdate, score, rating, image etc.
-                                
-                                // const imageUrl = item.i ? item.i.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
-                                // const title = item.l;
-                                // const type = item.q;
-
-                            })}
-                        </ul>
-                    </div>
-                
-
-                {/* <ul className="list">
-                    {value
-                        ? movies
-                            .filter((movie) => contact.groups.includes(value?.label))
-                            .map((movie) => (
-                                <li key={movie._id}>
-                                    <p>{movie.name}</p>
-                                    <Button className="button" onClick={() => handleContactClick(movie._id)}>
-                                        View
-                                    </Button>
-                                </li>
-                            ))
-                        : movies.map((movie) => (
-                            <li key={movie._id}>
-                                <p>{movie.name}</p>
-                                <Button className="button" onClick={() => handleContactClick(movie._id)}>
-                                    View
-                                </Button>
-                            </li>
-                        ))}
-                </ul> */}
+                <MediaList mediaItems={sortedMovies} mediaType="movies" />
             </div>
-
-
         </div>
     );
 }   

@@ -1,4 +1,4 @@
-.show-zone {
+.media-zone {
     position: absolute;
     padding-left: 50px;
     min-height: 80vh;
@@ -7,43 +7,7 @@
     height: 100%; /* Make the height 100% of its container */
 }
 
-.horizontal-slider {
-    width: 100%;
-    max-width: 500px;
-    height: 50px;
-    
-    .slider-track {
-        top: 20px;
-        height: 10px;        
-    }
-
-    .slider-track.slider-track-0, 
-    .slider-track.slider-track-2{
-        background: #b8bdc9;
-    }
-    .slider-track.slider-track-1{
-        background: #3f62bc;
-    }
-
-    .slider-thumb {
-        top: 1px;
-        width: 50px;
-        height: 48px;
-        line-height: 38px;
-
-        font-size: 0.9em; 
-        font-family: 'Coolvetica';
-        text-align: center;
-        color: white;
-        cursor: pointer;
-        background-color: #3f62bc;
-        border-radius: 50%;
-        border: 3px solid #314d94;
-        box-sizing: border-box;
-    }
-  }
-
-.show-search-bar {
+.media-search-bar {
     height: 15%;
     width: 90%; 
     margin-left: 5%; 
@@ -79,135 +43,6 @@
     }
 }
 
-.filters {
-    text-align: center;
-    align-items: center;
-    margin-left: 5%;
-    display: flex;
-
-    .filter {
-        width: 40%;
-        margin: 0 auto;
-        padding: 0 5%;
-        color: white;
-        font-size: 2rem;
-        display: flex;
-        align-items: center;
-
-        label {
-            margin-right: 10px;
-        }
-        span {
-            width: 20%;
-            text-align: center;
-            color: aqua;
-        }
-
-        input[type="range"] {
-            width: 60%;
-            margin-left: 10px;
-        }
-
-        button {
-            margin-left: 10px;
-        }
-    }
-}
 
 
-.show-results {
-    max-height: 90dvh; 
-    height: 90%;
-    overflow-y: auto; 
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
 
-    ul {
-        padding: 0;
-        margin: 0;
-        margin-left: 5%;
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-
-        li {
-            box-sizing: border-box;
-            flex: 0 0 calc(25% - 70px);
-            margin: 0 2%; 
-            padding: 15px;
-            border-radius: 12px;
-            list-style: none;
-            cursor: pointer; 
-
-            min-width: 200px;
-
-            .link-style {
-                text-decoration: none; 
-                color: inherit; 
-            }
-
-            .content {
-                display: flex;
-                align-items: center;
-            }
-
-            img {
-                border: 5px solid transparent;
-                height: auto;
-                width: 100%;
-                border-radius: 12px;
-                aspect-ratio: 2 / 3; 
-            }
-            
-            .info {
-                color: rgb(199, 199, 222);
-                height: 10%;
-                // font-size: calc(0.7vw); 
-                font-family: 'Coolvetica';
-                font-weight: 200;
-                letter-spacing: 1.5px;
-                text-align: center;
-                text-transform: uppercase;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-                overflow: hidden; 
-                text-overflow: ellipsis; 
-                margin-top: 10px; /* Add some space between image and title */
-
-                display: flex;
-                flex-direction: row;
-
-                .grade-score{
-                    width: 50%;
-                    height: 100%;
-                    font-size: 3rem; /* Adjust the font size as needed */
-                    font-weight: bold; /* Optionally make it bold */
-                    display: flex;
-                    align-items: center;
-                }
-
-                .title {
-                    width: 65%;
-                    height: 100%;
-                    font-size: calc(0.8vw);
-                    text-align: center;
-                    display: flex;
-                    align-items: center;
-                }
-            }
-
-            
-
-            &:hover {
-                img {
-                    border-color: #233f87d6;
-                }
-                .info {
-                    color: #3f62bc;
-                }
-            }   
-        }
-    }
-}

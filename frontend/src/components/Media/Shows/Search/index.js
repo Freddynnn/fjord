@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import ReactSlider from 'react-slider'
 import MediaList from '../../MediaList';
+import MediaFilters from '../../MediaFilters';
 import axios from 'axios';
 import './index.scss'
 
@@ -77,8 +78,8 @@ const Shows = ({ user }) => {
 
     return (
         <div className='container'>
-            <div className='show-zone'>
-                <span className="show-search-bar">
+            <div className='media-zone'>
+                <span className="media-search-bar">
                     <h1>
                         SHOWS
                     </h1>
@@ -90,116 +91,22 @@ const Shows = ({ user }) => {
                     />
                 </span>
 
-
-                <div className="filters">
-                    <span className='filter'>
-                        <label>GRADE:</label>
-                        <ReactSlider
-                            className="horizontal-slider"
-                            thumbClassName="slider-thumb"
-                            trackClassName="slider-track"
-                            defaultValue={[0, 15]}
-                            value={gradeRange}
-                            max={15}
-                            min={0}
-                            step={1}
-                            ariaLabel={['Lower thumb', 'Upper thumb']}
-                            ariaValuetext={state => `Thumb value ${state.valueNow}`}
-                            renderThumb={(props, state) => <div {...props}>{grades[state.valueNow]}</div>}
-                            pearling
-                            minDistance={0.1}
-                            onChange={(value) => setGradeRange(value)}
-                        />
-                        <button onClick={clearGradeRange}>Clear</button>
-
-                    </span>
-                    <span className='filter'>
-                        <label>RATING:</label>
-                        <ReactSlider
-                            className="horizontal-slider"
-                            thumbClassName="slider-thumb"
-                            trackClassName="slider-track"
-                            defaultValue={[0, 10]}
-                            value={scoreRange}
-                            max={10}
-                            min={0}
-                            step={0.1}
-                            ariaLabel={['Lower thumb', 'Upper thumb']}
-                            ariaValuetext={state => `Thumb value ${state.valueNow}`}
-                            renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-                            pearling
-                            minDistance={0.1}
-                            onChange={(value) => setScoreRange(value)}
-                        />
-                        <button onClick={clearScoreRange}>Clear</button>
-
-                    </span>
-                
-                        
-
-                    <span className="filter">
-                        <label>Sort By:</label>
-                        <select value={sortBy} onChange={handleSortChange}>
-                            <option value="">Select an option</option>
-                            {sortOptions.map(option => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                        </select>
-                    </span>
-                </div>
-
+                <MediaFilters 
+                    grades={grades}
+                    sortBy={sortBy}
+                    handleSortChange={handleSortChange}
+                    sortOptions={sortOptions}
+                    gradeRange={gradeRange} 
+                    setGradeRange={setGradeRange} 
+                    clearGradeRange={clearGradeRange}
+                    scoreRange={scoreRange}
+                    setScoreRange={setScoreRange}
+                    clearScoreRange={clearScoreRange}
+                />
                 <MediaList mediaItems={sortedShows} mediaType="shows" />
-
-                {/* <div className='show-results'>
-                    <ul className='show-list'>         
-                        {sortedShows.map((show) => (
-
-                            // list of all shows
-                            <li key={show._id}>
-                                <Link to={`/shows/show/${show._id}`} className="link-style">
-                                    <img src={show.coverImage} alt={show.name} />
-                                    <div className="info">
-                                        <div className="grade-score">
-                                            {show.grade} {show.score}
-                                        </div>
-                                        <div className="title">
-                                            {show.name}
-                                        </div>
-                                    </div>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div> */}
             </div>
         </div>
     );
 }   
 
 export default Shows;
-
-{/* <span className="filter">
-                            <label>GRADE:</label>
-                            <span>{gradeFilter}</span>
-                            <input
-                                type="range"
-                                min="0"
-                                max={grades.length - 1}
-                                value={gradeFilter !== '' ? grades.indexOf(gradeFilter) : ''}
-                                onChange={(e) => setGradeFilter(grades[e.target.value])}
-                            />
-                            <button onClick={clearGradeFilter}>Clear</button>
-                        </span>
-                        <span className="filter">
-                            <label>SCORE:</label>
-                            <span>{scoreFilter}</span>
-                            <input
-                                type="range"
-                                min="0"
-                                max="10"
-                                step="0.1"
-                                value={scoreFilter}
-                                onChange={(e) => setScoreFilter(e.target.value)}
-                            />
-                            <button onClick={clearScoreFilter}>Clear</button>
-                        </span> */}

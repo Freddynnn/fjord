@@ -1,6 +1,6 @@
 .media-results {
     max-height: 90dvh; 
-    height: 90%;
+    height: 85%;
     overflow-y: auto; 
     width: 100%;
     display: flex;
@@ -53,10 +53,7 @@
                 letter-spacing: 1.5px;
                 text-align: center;
                 text-transform: uppercase;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-                overflow: hidden; 
-                text-overflow: ellipsis; 
+                 
                 margin-top: 10px; /* Add some space between image and title */
 
                 display: flex;
@@ -76,6 +73,13 @@
                     height: 100%;
                     font-size: calc(0.8vw);
                     text-align: center;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    vertical-align: middle;
+                    -webkit-line-clamp: 2;
+                    overflow: hidden; 
+                    text-overflow: ellipsis;
+                    line-height: 100%;
                     display: flex;
                     align-items: center;
                 }

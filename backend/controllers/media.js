@@ -3,7 +3,39 @@ const Media = require('../models/media');
 const axios = require('axios');
 
 // Async function to search media entries using IMDb API
-const searchMedia = async (req, res) => {
+const searchVisMedia = async (req, res) => {
+    const { query } = req.query; // Assuming the search query is provided in the request parameters
+
+    if (!query) {
+        return res.status(400).json({ error: 'Search query is required' });
+    }
+
+    const options = {
+        method: 'GET',
+        url: 'https://imdb8.p.rapidapi.com/auto-complete',
+        params: { q: query }, // Set the query parameter here
+        headers: {
+            'X-RapidAPI-Key': 'e97702b45cmsh23d2eed61a0e25ap12d651jsnf39835a734ed',
+            'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+        }
+    };
+
+    try {
+        const response = await axios.request(options);
+        const data = response.data;
+        // Check if the response contains data
+        if (data) {
+            return res.status(200).json(data);
+        } else {
+            return res.status(404).json({ error: 'No data found' });
+        }
+    } catch (error) {
+        console.error('Error searching for media:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+const searchMusic = async (req, res) => {
     const { query } = req.query; // Assuming the search query is provided in the request parameters
 
     if (!query) {
@@ -143,5 +175,5 @@ module.exports = {
     createMedia,
     deleteMediaByID,
     editMediaByID,
-    searchMedia
+    searchVisMedia
 };

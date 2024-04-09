@@ -3,57 +3,57 @@
 
 
 
-.search-results {
-    max-height: 80dvh; 
-    overflow-y: auto; 
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+// .search-results {
+//     max-height: 80dvh; 
+//     overflow-y: auto; 
+//     width: 100%;
+//     display: flex;
+//     flex-wrap: wrap;
 
-    ul {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
+//     ul {
+//         padding: 0;
+//         margin: 0;
+//         width: 100%;
+//         display: flex;
+//         flex-wrap: wrap;
+//         justify-content: space-between;
+//     }
 
-    ul li {
-        box-sizing: border-box;
-        width: calc(25% - 70px); 
-        margin: 0 35px ; 
-        padding: 15px;
-        border-radius: 12px;
-        list-style: none;
-        cursor: pointer; 
+//     ul li {
+//         box-sizing: border-box;
+//         width: calc(25% - 70px); 
+//         margin: 0 35px ; 
+//         padding: 15px;
+//         border-radius: 12px;
+//         list-style: none;
+//         cursor: pointer; 
        
-        .title{
-            // color: #3f62bc;
-            color: rgb(199, 199, 222);
-            font-size: 1.3rem;
-            font-family: 'Coolvetica';
-            font-weight: 200;
-            letter-spacing: 1.5px;
-            text-align: center;
-            text-transform: uppercase;
-        }
-    &:hover{
-        img{
-            border-color: #233f87d6;
-        }
-        .title{
-            color: #3f62bc;
-        }
-    }
+//         .title{
+//             // color: #3f62bc;
+//             color: rgb(199, 199, 222);
+//             font-size: 1.3rem;
+//             font-family: 'Coolvetica';
+//             font-weight: 200;
+//             letter-spacing: 1.5px;
+//             text-align: center;
+//             text-transform: uppercase;
+//         }
+//     &:hover{
+//         img{
+//             border-color: #233f87d6;
+//         }
+//         .title{
+//             color: #3f62bc;
+//         }
+//     }
 
         
-    }
+//     }
 
-    ul li img {
-        border: 5px solid transparent;
-        height: 80%;
-        width: 100%;
-        border-radius: 12px;
-    }
-}
+//     ul li img {
+//         border: 5px solid transparent;
+//         height: 80%;
+//         width: 100%;
+//         border-radius: 12px;
+//     }
+// }
