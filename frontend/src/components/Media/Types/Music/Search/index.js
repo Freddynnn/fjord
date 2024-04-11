@@ -1,27 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import ReactSlider from 'react-slider'
 import MediaList from '../../../MediaList';
 import MediaFilters from '../../../MediaFilters';
 import axios from 'axios';
 import './index.scss'
 
 const Music = ({ user }) => {
-    const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
-    const sortOptions = [
-        { label: 'Grade: High to Low', value: 'grade_desc' },
-        { label: 'Grade: Low to High', value: 'grade_asc' },
-        { label: 'Score: High to Low', value: 'score_desc' },
-        { label: 'Score: Low to High', value: 'score_asc' },
-        { label: 'Watch Date', value: 'watch_date' }
-    ];
-
     const [music, setMusic] = useState([]);
     const [search, setSearch] = useState(''); 
-    const [gradeRange, setGradeRange] = useState([0, grades.length - 1]);
-    const [scoreRange, setScoreRange] = useState([0, 10]);
-    const [sortBy, setSortBy] = useState('');
     const [musicFetched, setMusicFetched] = useState(false);
+    const [filteredMusic, setFilteredMusic] = useState(music);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,48 +22,15 @@ const Music = ({ user }) => {
             setMusic(response.data);
             setMusicFetched(true);
         } catch (error) {
-            console.error('Error fetching user music:', error);
+            console.error('Error fetching user Music:', error);
         }
     };
 
-    
-
-    const clearGradeRange = () => {
-        setGradeRange([0,grades.length-1]);
-    };
-
-    const clearScoreRange = () => {
-        setScoreRange([0,10]);
-    };
-
-    const handleSortChange = (e) => {
-        setSortBy(e.target.value);
-    };
-
-    const filteredMusic = music.filter((release) =>
-        release.name.toLowerCase().includes(search.toLowerCase())
-        && (gradeRange[0] <= grades.indexOf(release.grade) && grades.indexOf(release.grade) <= gradeRange[1])
-        && (scoreRange[0] <= release.score && release.score <= scoreRange[1])
-    );
-
-    const sortMusic = (music) => {
-        switch (sortBy) {
-            case 'score_asc':
-                return music.slice().sort((a, b) => a.score - b.score);
-            case 'score_desc':
-                return music.slice().sort((a, b) => b.score - a.score);
-            case 'grade_asc':
-                return music.slice().sort((a, b) => grades.indexOf(a.grade) - grades.indexOf(b.grade));
-            case 'grade_desc':
-                return music.slice().sort((a, b) => grades.indexOf(b.grade) - grades.indexOf(a.grade));
-            case 'watch_date':
-                return music.slice().sort((a, b) => new Date(a.watchDate) - new Date(b.watchDate));
-            default:
-                return music;
+    useEffect(() => {
+        if (musicFetched) {
+            setFilteredMusic(music);
         }
-    };
-
-    const sortedMusic = sortMusic(filteredMusic);
+    }, [musicFetched]);
     
     return (
         <div className='container'>
@@ -93,19 +48,12 @@ const Music = ({ user }) => {
                 </span> 
 
                 <MediaFilters 
-                    grades={grades}
-                    sortBy={sortBy}
-                    handleSortChange={handleSortChange}
-                    sortOptions={sortOptions}
-                    gradeRange={gradeRange} 
-                    setGradeRange={setGradeRange} 
-                    clearGradeRange={clearGradeRange}
-                    scoreRange={scoreRange}
-                    setScoreRange={setScoreRange}
-                    clearScoreRange={clearScoreRange}
+                    initialMedia={music}
+                    search={search}
+                    onFilter={setFilteredMusic}
                 />
 
-                <MediaList mediaItems={sortedMusic} mediaType="music" />
+                <MediaList mediaItems={filteredMusic} mediaType="music" />
             </div>
         </div>
     );

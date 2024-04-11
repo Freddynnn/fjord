@@ -44,11 +44,11 @@ const searchMusic = async (req, res) => {
 
     const options = {
         method: 'GET',
-        url: 'https://imdb8.p.rapidapi.com/auto-complete',
+        url: 'https://spotify23.p.rapidapi.com/search/',
         params: { q: query }, // Set the query parameter here
         headers: {
             'X-RapidAPI-Key': 'e97702b45cmsh23d2eed61a0e25ap12d651jsnf39835a734ed',
-            'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+            'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
         }
     };
 
@@ -175,5 +175,6 @@ module.exports = {
     createMedia,
     deleteMediaByID,
     editMediaByID,
-    searchVisMedia
+    searchVisMedia,
+    searchMusic
 };

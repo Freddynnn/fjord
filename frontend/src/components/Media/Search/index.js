@@ -9,21 +9,36 @@ import './index.scss'
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [selectedAPI, setSelectedAPI] = useState('');
 
+    const allowedAPIs = ['IMDB', 'SPOTIFY', 'BOOKS'];
+
+    // add a button that changes the search selection type: spotify, IMDB, goodreads etc.
+
+    const handleAPIChange = (e) => {setSelectedAPI(e.target.value);};
+    
     const handleSearch = async (e) => {
-        e.preventDefault(); // Prevent default form submission
-
+        e.preventDefault();
         console.log(`search query: ${searchQuery}`);
-
         try {
-            const response = await axios.get(`http://localhost:3001/media/new?query=${searchQuery}`);
+            // const response = await axios.get(`http://localhost:3001/media/new?query=${searchQuery}`);
+            const response = await axios.get(`http://localhost:3001/${selectedAPI.toLowerCase()}/search?query=${searchQuery}`);
             const data = response.data; // Extract data
-            if(data){
-                setSearchResults(data.d); // Update search results
-                console.log('search results:', data);
-            }else{
+            
+            if (data) {
+                // Check the selected API and set searchResults accordingly
+                if (selectedAPI === 'IMDB') {
+                    setSearchResults(data.d); 
+                } else if (selectedAPI === 'SPOTIFY') {
+                    setSearchResults(data.albums.items);
+                }
+                console.log('search results length:', searchResults.length);
+                console.log('search results:', searchResults);
+                console.log('search results:', searchResults);
+            } else {
                 console.log('data empty');
             }
+            
             
         } catch (error) {
             console.error('Error searching for media:', error);
@@ -32,13 +47,17 @@ const Search = () => {
 
     return (
         <div className='container about-page'>
-            
             <div className='search-zone'>
-                
                 <div className='search-bar'>
-                    <h1>
-                        SEARCH IMDB:
-                    </h1>
+                    <div className='search-title'>
+                        SEARCH  
+                        <select value={selectedAPI} onChange={handleAPIChange} className="api-select">
+                            <option value="">Select an option</option>
+                            {allowedAPIs.map(option => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </div>
                     <form className='search-form' onSubmit={handleSearch}>
                         <input
                             type="text"
@@ -46,6 +65,7 @@ const Search = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="add media ..."
                         />
+                        
                         <button type="submit" className='flat-button find' data-after-text="SEARCH">
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
@@ -57,27 +77,55 @@ const Search = () => {
                 )}
 
                 {searchResults.length > 0 && (
-                    <div className='search-results'>
-                       <ul>
-                            {searchResults.map((item, index) => {
-                                const imageUrl = item.i ? item.i.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
-                                const title = item.l;
-                                const type = item.q;
+                    <div>
+                        {selectedAPI === 'IMDB' ? (
+                            <div className='search-results'>
+                                <ul>
+                                    {searchResults.map((item, index) => {
+                                        // default image is also search toggle dependant
+                                        const imageUrl = item.i ? item.i.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
+                                        const title = item.l;
+                                        const type = item.q;
 
-                                return (
-                                    <li key={index}>  
-                                        <Link to="/new" state={{ item}}>
-                                            <img src={imageUrl} alt={title} />
-                                        </Link>
-                                        <div className='title'>
-                                            <h2>{title}</h2>
-                                        </div>  
-                                    </li>        
-                                );
-                            })}
-                        </ul>
+                                        return (
+                                            <li key={index}>
+                                                <Link to="/new" state={{ item }}>
+                                                    <img src={imageUrl} alt={title} />
+                                                </Link>
+                                                <div className='title'>
+                                                    <h2>{title}</h2>
+                                                </div>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        ) : selectedAPI === 'SPOTIFY' ? (
+                            <div className='search-results'>
+                                <ul>
+                                    {searchResults.map((item, index) => {
+                                        // default image is also search toggle dependant
+                                        const imageUrl = item.data.coverArt.sources ? item.data.coverArt.sources[2].url : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
+                                        const title = item.data.name;
+                                        const type = "music";
+
+                                        return (
+                                            <li key={index}>
+                                                <Link to="/new" state={{ item }}>
+                                                    <img src={imageUrl} alt={title} className='square-image'/>
+                                                </Link>
+                                                <div className='title'>
+                                                    <h2>{title}</h2>
+                                                </div>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        ) : null}
                     </div>
                 )}
+
                 
             </div>
         </div>
