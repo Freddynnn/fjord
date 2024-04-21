@@ -9,13 +9,16 @@ import './index.scss'
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [selectedAPI, setSelectedAPI] = useState('');
+    const [selectedAPI, setSelectedAPI] = useState('IMDB');
 
     const allowedAPIs = ['IMDB', 'SPOTIFY', 'BOOKS'];
 
     // add a button that changes the search selection type: spotify, IMDB, goodreads etc.
 
-    const handleAPIChange = (e) => {setSelectedAPI(e.target.value);};
+    const handleAPIChange = (e) => {
+        setSearchResults([]);
+        setSelectedAPI(e.target.value);
+    };
     
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -52,7 +55,7 @@ const Search = () => {
                     <div className='search-title'>
                         SEARCH  
                         <select value={selectedAPI} onChange={handleAPIChange} className="api-select">
-                            <option value="">Select an option</option>
+                            {/* <option value="">Select an option</option> */}
                             {allowedAPIs.map(option => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
@@ -107,6 +110,7 @@ const Search = () => {
                                         // default image is also search toggle dependant
                                         const imageUrl = item.data.coverArt.sources ? item.data.coverArt.sources[2].url : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
                                         const title = item.data.name;
+                                        const artist = item.data.artists.items[0].profile.name;
                                         const type = "music";
 
                                         return (
@@ -114,9 +118,15 @@ const Search = () => {
                                                 <Link to="/new" state={{ item }}>
                                                     <img src={imageUrl} alt={title} className='square-image'/>
                                                 </Link>
-                                                <div className='title'>
-                                                    <h2>{title}</h2>
+                                                <div className='music-info'>
+                                                    <div className='title'>
+                                                        {title}
+                                                    </div>
+                                                    <div className='artist'>
+                                                        {artist}
+                                                    </div>
                                                 </div>
+                                               
                                             </li>
                                         );
                                     })}
