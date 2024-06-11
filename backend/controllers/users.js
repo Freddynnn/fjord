@@ -10,7 +10,7 @@ const registerUser = async (req, res) => {
 
         // Validate input (e.g. check password length and complexity)
         if (!username || !password) {
-            return res.status(400).json({ error: 'Please fill in the  required fields' });
+            return res.status(400).json({ error: 'Please fill in the required fields' });
         }
 
         // Check if the username or email already exists

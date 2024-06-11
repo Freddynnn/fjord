@@ -41,7 +41,7 @@ const Movies = ({ user }) => {
                     </h1>
                     <input
                         type="text"
-                        placeholder="Search shows ..."
+                        placeholder="Search movies ..."
                         value={search} 
                         onChange={(e) => setSearch(e.target.value)} 
                     />
