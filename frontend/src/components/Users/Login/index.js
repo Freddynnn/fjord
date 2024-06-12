@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import '../../UI/Form/form.css';
 
@@ -7,6 +9,7 @@ function Login({ logIn }) {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,39 +35,57 @@ function Login({ logIn }) {
     }
   }
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <main className='form-container'>
       <section className="login-section">
-          <form className="login-form" onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={handleSubmit}>
           <header>
-              <h2>LOGIN TO YOUR ACCOUNT</h2>
+            <h2>LOGIN TO YOUR ACCOUNT</h2>
           </header>
               
-              <input
-                  maxLength="30"
-                  minLength="5"
-                  name="user"
-                  type="text"
-                  id="user"
-                  placeholder="Username"
-                  value={user}
-                  onChange={(e) => setUser(e.target.value)}
-                  autoComplete="username"
+          <input
+            className='username-input'
+            maxLength="30"
+            minLength="5"
+            name="user"
+            type="text"
+            id="user"
+            placeholder="Username"
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+            autoComplete="username"
+          />
+
+          <div className="password-container">
+            <input
+              className='password-input'
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+            />
+            <span onClick={togglePasswordVisibility} className="toggle-password">
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                title={showPassword ? "Hide password" : "Show password"} // Text for the tooltip
               />
-              
-              <input
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-              />
-              <div className="error-container">
-                {error && <span className="error-message">{'* '+error}</span>}
-              </div>
-              <button type="submit">Submit</button>
-          </form>
+            </span>
+          </div>
+
+            
+          
+            
+          <div className="error-container">
+            {error && <span className="error-message">{'* '+error}</span>}
+          </div>
+          <button className="submit-button" type="submit">Submit</button>
+        </form>
       </section>
       <section className="register-section">
           <div className="new">

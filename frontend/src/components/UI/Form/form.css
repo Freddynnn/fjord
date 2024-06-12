@@ -7,6 +7,12 @@
     font-family: var(--font-family);
 }
 
+.login-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
 .login-form {
     flex: 1;
     padding: 2rem;
@@ -17,55 +23,39 @@
     align-items: center;
 }
 
-.login-section {
-    flex: 1;
-    padding: 2rem;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.register-section {
-    flex: 1;
-    background-color: #3f62bc;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.new {
+.login-form header {
     text-align: center;
 }
 
-.custom-link {
-    color: rgb(0, 0, 255);
-    transition: color 0.3s ease;
-}
-
-.custom-link:hover {
-    color: rgb(150, 144, 222);
-}
-
-.login-form input,
-.login-form label {
-    display: block;
+.username-input, 
+.password-container {
+    position: relative;
     margin: 1rem auto;
-    width: 80%;
+    width: 55%;
+    height: 25px;
     padding: 1rem;
     padding-left: 2rem;
     border-radius: 25px; 
     border: 3px solid #3f62bc; 
-    background-color: #f0f0f0; /* Light background color for inputs */
-    color: #333; /* Text color */
-    font-size: 1.6rem; /* Font size for inputs */
+    background-color: #f0f0f0; 
+    color: #404040; 
+    font-family: var(--font-family);
+    font-size: 1.8rem;
+}
+
+.password-input {
+    background-color: #33333300;
+    border: none;
+    width: 80%;
+    color: #404040; 
+    font-family: var(--font-family);
+    font-size: 1.8rem;
 }
 
 .login-form input::placeholder {
     color: #404040; 
     font-family: var(--font-family);
+    font-size: 1.8rem;
 }
 
 .login-form input:focus,
@@ -84,23 +74,55 @@
     font-size: 1.6rem;
 }
 
-.login-form button {
+.submit-button {
     margin-top: 1rem;
-    width: 50%;
+    width: 45%;
     padding: 1rem;
-    border: none; /* Remove default border */
-    border-radius: 25px; /* Rounded edges */
-    background-color: #3f62bc; /* Button background color */
-    color: white; /* Button text color */
-    font-size: 1.6rem; /* Button font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth background color transition */
+    border: none;
+    border-radius: 25px; 
+    background-color: #3f62bc; 
+    color: white; 
+    font-size: 1.6rem; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .login-form button:hover {
-    background-color: #5a7dff; /* Change background color on hover */
+    background-color: #5a7dff; 
 }
 
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #3f62bc;
+}
+
+
+.register-section {
+    flex: 1;
+    background-color: #3f62bc96;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.new {
+    text-align: center;
+}
+
+.custom-link {
+    color: rgb(150, 144, 222);
+    transition: color 0.3s ease;
+}
+
+.custom-link:hover {
+    color: rgb(185, 180, 237);
+}
