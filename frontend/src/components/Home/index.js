@@ -30,18 +30,14 @@ const Home = ({isLoggedIn}) => {
                     />
                     <br/>
                 </h1>
-                <h2>
-                    Your one stop-shop for media consumption tracking !!
-                </h2>
-                <h2>
-                    As always, dedicated to my love Jo 
-                </h2>
+                <h2>Your one stop-shop for media consumption tracking !!</h2>
+                <h2>As always, dedicated to my love Jo </h2>
                 <br/>
                 <ul>
                     <li className='half'>
 
                         {isLoggedIn 
-                            ? <Link to="/new" className='flat-button add' data-after-text="ADD ENTRY MANUALLY">
+                            ? <Link to="/new" className='flat-button add' data-after-text="ADD ENTRY">
                                 <FontAwesomeIcon icon={faPlus} />
                             </Link> 
                             : <Link to="/login" className='flat-button login' data-after-text="LOGIN TO ACCOUNT">

@@ -61,8 +61,7 @@
 .login-form input:focus,
 .login-form input:hover  {
     outline: none; 
-    border-color: #5a7dff; 
-    
+    /* border-color: #5a7dff;  */
 }
 
 .error-container {
