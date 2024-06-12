@@ -1,3 +1,11 @@
+:root {
+  --font-family: 'Coolvetica', sans-serif;
+  --font-size-base: 62%;
+  --font-size-form: 2.4rem;
+  --color-background: #26272e;
+  --color-text: #ffffff;
+}
+
 html {
   font-size: 62%;
 }

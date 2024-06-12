@@ -34,12 +34,12 @@ function Login({ logIn }) {
 
   return (
     <main className='form-container'>
-      <section className="login-form">
+      <section className="login-section">
+          <form className="login-form" onSubmit={handleSubmit}>
           <header>
               <h2>LOGIN TO YOUR ACCOUNT</h2>
           </header>
-          <form onSubmit={handleSubmit}>
-              <label htmlFor="user">Username</label>
+              
               <input
                   maxLength="30"
                   minLength="5"
@@ -51,7 +51,7 @@ function Login({ logIn }) {
                   onChange={(e) => setUser(e.target.value)}
                   autoComplete="username"
               />
-              <label>Password</label>
+              
               <input
                   name="password"
                   type="password"
@@ -60,7 +60,9 @@ function Login({ logIn }) {
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
               />
-              {error && <p className="error-message">{error}</p>}
+              <div className="error-container">
+                {error && <span className="error-message">{'* '+error}</span>}
+              </div>
               <button type="submit">Submit</button>
           </form>
       </section>
