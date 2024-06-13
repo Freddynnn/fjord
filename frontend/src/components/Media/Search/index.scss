@@ -18,17 +18,14 @@
     align-items: center; 
 
     .search-title {
-        width: 40%;
+        min-width: 400px;
         color: #3f62bc;
-        // margin-left: 3%;
-        // margin-right: 0%; 
-        // margin-bottom: 0;
         font-size: 5rem;
     }
     .api-select{
         font-family: 'Coolvetica';
         font-size: 5rem;
-        width: 45%;
+        // width: 45%;
         color: #3f62bc;
         margin-left: 3%;
         // appearance: none;
@@ -45,8 +42,10 @@
     .search-form {
         display: flex;
         align-items: center;
-        width: 60%;
+        width: calc(100% - 400px); /* Adjust as needed */
+        min-width: 300px; /* Set the minimum width */
     }
+    
     
     input[type="text"] {
         
@@ -69,7 +68,7 @@
     
     button {
         height: 60px;
-        width: 70px; 
+        min-width: 70px;
         padding: 10px; 
         margin-left: 10px; 
         background-color: #3f62bc; 
@@ -105,6 +104,7 @@
     ul li {
         box-sizing: border-box;
         width: calc(25% - 70px); 
+        min-width: 200px;
         margin: 0 2% ; 
         list-style: none;
         cursor: pointer; 

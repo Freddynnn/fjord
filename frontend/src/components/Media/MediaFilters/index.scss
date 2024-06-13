@@ -1,18 +1,24 @@
 .filters {
     text-align: center;
     align-items: center;
-    margin-left: 5%;
-    display: flex;
+    margin-left: 10%;
     margin-bottom: 6px;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: flex-start; 
 
     .filter {
-        width: 40%;
-        margin: 0 auto;
-        padding: 0 5%;
+        width: 30%;
+        // border: solid 2px red;
+        min-width: 300px;
+
+        margin: 10px auto;
+        padding: 0 1%;
         color: white;
         font-size: 2rem;
         display: flex;
         align-items: center;
+        
 
         label {
             margin-right: 10px;
@@ -55,7 +61,7 @@
     .slider-thumb {
         top: 1px;
         transform: translateY(15%);
-        width: 21%;
+        width: 30px;
         height: 75%;
         line-height: 180%;
 

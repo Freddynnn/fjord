@@ -41,9 +41,11 @@ const MediaList = ({ mediaItems, mediaType }) => {
                         <div className="grade-score">
                             {media.grade} {media.score}
                         </div>
-                        <div className="title">
-                            {media.name}
-                        </div>
+                        <div className="title-container">
+                                    <div className="title">
+                                        <span>{media.name}</span>
+                                    </div>
+                                </div>
                         </div>
                     </Link>
                 </li>
