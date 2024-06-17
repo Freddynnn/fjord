@@ -4,7 +4,7 @@ const axios = require('axios');
 
 // Async function to search media entries using IMDb API
 const searchVisMedia = async (req, res) => {
-    const { query } = req.query; // Assuming the search query is provided in the request parameters
+    const { query } = req.query; 
 
     if (!query) {
         return res.status(400).json({ error: 'Search query is required' });
@@ -36,7 +36,7 @@ const searchVisMedia = async (req, res) => {
 };
 
 const searchMusic = async (req, res) => {
-    const { query } = req.query; // Assuming the search query is provided in the request parameters
+    const { query } = req.query; 
 
     if (!query) {
         return res.status(400).json({ error: 'Search query is required' });
@@ -67,6 +67,37 @@ const searchMusic = async (req, res) => {
     }
 };
 
+const searchBooks = async (req, res) => {
+    const { query } = req.query;
+
+    if (!query) {
+        return res.status(400).json({ error: 'Search query is required' });
+    }
+
+    const options = {
+        method: 'GET',
+        url: 'https://goodreads12.p.rapidapi.com/searchBooks',
+        params: {keyword: query},
+        headers: {
+            'x-rapidapi-key': 'e97702b45cmsh23d2eed61a0e25ap12d651jsnf39835a734ed',
+            'x-rapidapi-host': 'goodreads12.p.rapidapi.com'
+          }
+    };
+
+    try {
+        const response = await axios.request(options);
+        const data = response.data;
+        // Check if the response contains data
+        if (data) {
+            return res.status(200).json(data);
+        } else {
+            return res.status(404).json({ error: 'No data found' });
+        }
+    } catch (error) {
+        console.error('Error searching for media:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 
 // Function to list all media entries for a specific user
@@ -176,5 +207,6 @@ module.exports = {
     deleteMediaByID,
     editMediaByID,
     searchVisMedia,
-    searchMusic
+    searchMusic,
+    searchBooks
 };

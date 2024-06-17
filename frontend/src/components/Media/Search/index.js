@@ -34,6 +34,8 @@ const Search = () => {
                     setSearchResults(data.d); 
                 } else if (selectedAPI === 'SPOTIFY') {
                     setSearchResults(data.albums.items);
+                } else if (selectedAPI === 'BOOKS') {
+                    setSearchResults(data);
                 }
                 console.log('search results length:', searchResults.length);
                 console.log('search results:', searchResults);
@@ -127,6 +129,40 @@ const Search = () => {
                                                     </div>
                                                 </div>
                                                
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        ) : selectedAPI === 'BOOKS' ? (
+                            <div className='search-results'>
+                                <ul>
+                                    {searchResults.map((item, index) => {
+                                        // Default image or cover image logic for books
+                                        let imageUrl = item.imageUrl ? item.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
+                                        
+                                        // Remove text between underscores which reformats image size
+                                        if (imageUrl && imageUrl.includes("_")) {
+                                            imageUrl = imageUrl.replace(/_[^_]*_\./g, "");
+                                        }
+                                        
+                                        const title = item.title;
+                                        const author = item.author[0].name;
+                                        const type = "book";
+                
+                                        return (
+                                            <li key={index}>
+                                                <Link to="/new" state={{ item }}>
+                                                    <img src={imageUrl} alt={title}/>
+                                                </Link>
+                                                <div className='book-info'>
+                                                    <div className='title'>
+                                                        {title}
+                                                    </div>
+                                                    <div className='author'>
+                                                        {author}
+                                                    </div>
+                                                </div>
                                             </li>
                                         );
                                     })}
