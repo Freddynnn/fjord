@@ -62,6 +62,7 @@ const Search = () => {
                                 <option key={option} value={option}>{option}</option>
                             ))}
                         </select>
+                        
                     </div>
                     <form className='search-form' onSubmit={handleSearch}>
                         <input
@@ -92,9 +93,15 @@ const Search = () => {
                                         const title = item.l;
                                         const type = item.q;
 
+                                        const media = {
+                                            title: title,
+                                            imageUrl: imageUrl,
+                                            type: type
+                                        };
+
                                         return (
                                             <li key={index}>
-                                                <Link to="/new" state={{ item }}>
+                                                <Link to="/new" state={{ media }}>
                                                     <img src={imageUrl} alt={title} />
                                                 </Link>
                                                 <div className='title'>
@@ -113,11 +120,17 @@ const Search = () => {
                                         const imageUrl = item.data.coverArt.sources ? item.data.coverArt.sources[2].url : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
                                         const title = item.data.name;
                                         const artist = item.data.artists.items[0].profile.name;
-                                        const type = "music";
+                                        const type = "Music";
 
+                                        const media = {
+                                            title: title,
+                                            imageUrl: imageUrl,
+                                            artist: artist,
+                                            type: type
+                                        };
                                         return (
                                             <li key={index}>
-                                                <Link to="/new" state={{ item }}>
+                                                <Link to="/new" state={{ media }}>
                                                     <img src={imageUrl} alt={title} className='square-image'/>
                                                 </Link>
                                                 <div className='music-info'>
@@ -139,20 +152,21 @@ const Search = () => {
                                 <ul>
                                     {searchResults.map((item, index) => {
                                         // Default image or cover image logic for books
-                                        let imageUrl = item.imageUrl ? item.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
-                                        
-                                        // Remove text between underscores which reformats image size
-                                        if (imageUrl && imageUrl.includes("_")) {
-                                            imageUrl = imageUrl.replace(/_[^_]*_\./g, "");
-                                        }
-                                        
+                                        const imageUrl = item.imageUrl ? (item.imageUrl.includes("_") ? item.imageUrl.replace(/_[^_]*_\./g, "") : item.imageUrl) : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
                                         const title = item.title;
                                         const author = item.author[0].name;
-                                        const type = "book";
+                                        const type = "Book";
+
+                                        const media = {
+                                            title: title,
+                                            imageUrl: imageUrl,
+                                            author: author,
+                                            type: type
+                                        };
                 
                                         return (
                                             <li key={index}>
-                                                <Link to="/new" state={{ item }}>
+                                                <Link to="/new" state={{ media }}>
                                                     <img src={imageUrl} alt={title}/>
                                                 </Link>
                                                 <div className='book-info'>

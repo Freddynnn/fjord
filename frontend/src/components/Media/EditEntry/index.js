@@ -33,21 +33,25 @@ const EditEntry = ({user, media}) => {
         console.log("User object: ", user);
         console.log("formData userID: ", formData.userID);
 
-        // set the item from IMDb
-        if (location?.state?.item) {
-            const { item } = location.state;
+        // set the media item from IMDb
+        if (location?.state?.media) {
+            const { media } = location.state;
             let mediaType = '';
-            if (item.q === 'TV series') {
+            if (media.type === 'TV series') {
                 mediaType = 'Show';
-            } else if (item.q === 'TV movie' || item.q === 'feature') {
+            } else if (media.type === 'TV movie' || media.type === 'feature') {
                 mediaType = 'Movie';
+            } else {
+                mediaType = media.type;
             }
 
+            // TODO: this setFormData only works for IMDB, need to adjust for Spotify/Books
             setFormData({
-                name: item ? item.l : '',
+                name: media ? media.title : '',
                 type: mediaType,
-                coverImage: item ? item.i.imageUrl: ''
+                coverImage: media ? media.imageUrl: ''
             });
+
         }
 
         
