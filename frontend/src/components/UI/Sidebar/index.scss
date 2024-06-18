@@ -1,11 +1,14 @@
 .nav-bar {
     background: #181818;
     width: 7%;
+    min-width: 90px;
     height: 100%;
     position: absolute;
     top: o;
     z-index: 3;
     min-height: 600px;
+
+    font-family: var(--font-family);
 
     .logo{
         display: block;
@@ -19,6 +22,7 @@
         letter-spacing: 2px;
         color: #3f62bc;
         text-decoration: none;
+        
 
         &:hover {
             color: #6780c0;
@@ -28,51 +32,50 @@
 
 
     nav {
-        display: block;
-        text-align: center;
-        position: absolute;
-        height: 80%;
-        top: 40%;
-        margin-top: -120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 60%;
+        top: 10%;
         width: 100%;
+        
+        // border: solid 1px blue;
 
         a{
             font-size: calc(1rem + 4vh);
-            font-family: 'Coolvetica';
+            width: 100%;
             color: #555;
-            display: block;
-            line-height: 51px;
-            height: 10%;
+            display: flex; 
+            align-items: center;
+            justify-content: center;
             position: relative;
-
-            i{
-                transition:  all 0.3s;
-            }
+            margin: auto;
+            i{transition:  all 0.3s;}
             
 
             // hover lets us see link's text
             &:hover {
                 color: #3f62bc;
-                svg{
-                    opacity: 0;
-                }
-                &:after {
-                    opacity: 1;
-                }
+                svg{opacity: 0;}
+                &:after {opacity: 1;}
             }
 
-            &:after{
+            &:after {
                 content: '';
-                font-size: 20px;
-                letter-spacing:  2px;
-                position: absolute;
-                bottom: 30%;
-                display: block;
+                font-size: 2rem;
                 width: 100%;
-                text-align: center;
+                height: 100%;
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                letter-spacing: 2px;
+                line-height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
                 opacity: 0;
                 transition: all 0.2s ease-out;
-
             }
             &:first-child{
                 &:after{
@@ -97,6 +100,9 @@
         }
         a.new-link{
             &:after{ content: 'NEW';}
+        }
+        a.watchlist-link{
+            &:after{ content: 'WATCH LIST';}
         }
         a.search-link{
             &:after{ content: 'SEARCH';}
