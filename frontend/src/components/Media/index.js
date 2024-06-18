@@ -8,7 +8,7 @@ export { default as Music} from './Types/Music/Search';
 export { default as Release} from './Types/Music/Release';
 
 export { default as Shows} from './Types/Shows/Search';
-export { default as SingleShow} from './Types/Shows/SingleShow';
+export { default as Show} from './Types/Shows/Show';
 
 export { default as EditEntry} from './EditEntry';
 export { default as Search} from './Search';

@@ -1,118 +1,68 @@
-import { Link, useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
+import EditEntry from '../../../EditEntry/index'
 import axios from 'axios';
-import './index.scss'
 
-// const Movies = () => {
-const Movies = ({ user }) => {
-    const [movies, setMovies] = useState([]);
-    const [search, setSearch] = useState(''); 
-    const [moviesFetched, setMoviesFetched] = useState(false);
-
+const Movie = ({ user }) => {
+    const [movie, setMovie] = useState({});
     const navigate = useNavigate();
+    const { id } = useParams();
 
     useEffect(() => {
-       fetchMovies();
+        fetchMovie();
     }, []);
 
-    const fetchMovies = async () => {
+    const fetchMovie = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/media/${user._id}/movie`);
-            setMovies(response.data);
-            setMoviesFetched(true);
-        } catch (error) {
-            console.error('Error fetching user movies:', error);
+            const response = await axios.get('http://localhost:3001/media/'+ id);
+            setMovie(response.data);
+        } catch (err) {
+            console.error(err);
         }
-    };
-
-    const handleMovieClick = (id) => {
-        navigate('/movies/movie/' + id);
     }
 
-    // NEED TO FILTER ONLY MOVIES NOT ALL MEDIA
+    // const handleEditClick = () => {
+    //     setIsEditMode(true);
+      
+    //     // Map the show properties to the expected form fields
+    //     setEditedShow({
+    //         name: show.name || '',
+    //         watchDate: show.watchDate || '', // Adjust as needed
+    //         notes: show.notes || '',
+    //         score: show.score || '',
+    //         grade: show.grade || '',
+    //         type: show.type || '',
+    //         coverImage: show.coverImage || '',
+    //         userID: show.userID || '', // Adjust as needed
+    //     });
+    // };
+     
 
-
-    // need to return the movies and map them into a list, 
-    // which we then structure the same way as the IMDb search page
-
-    const filteredMovies = movies.filter((movie) =>
-        movie.name.toLowerCase().includes(search.toLowerCase()) 
-        // && movie.type.toLowerCase() == 'movie'
-    );
+    const handleDeleteClick = async () => {
+        if (window.confirm('Are you sure you want to delete your account? This action is irreversible.')) {
+            try {
+                const response = await axios.delete('http://localhost:3001/media/'+ id);
+                setMovie(null);
+            } catch (err) {
+                console.error(err);
+            }
+            navigate('/movies');
+        }
+    }
 
     
 
     return (
-        <div className='container'>
-            <div className='text-zone'>
-                <h1>
-                   MOVIES
-                </h1>
+        <EditEntry
+            user={user}    
+            media={movie}        
+        />
 
-                <div className="search-bar" >
-                    <input
-                        type="text"
-                        placeholder="Search movies ..."
-                        searchQuery={search} // Use search state for input value
-                        onChange={(e) => setSearch(e.target.value)} // Update search state
-                    />
-                </div>
-                {/* no search button,   just filtering the movies by name (default sorted by grade rankings) */}
-                
-
-
-                <p>
-                    iloveyou jo   
-                      
-                </p>
-
-                <div className='search-results'>
-                       <ul className='movie-list'>         
-                            {filteredMovies.map((movie) => {
-                                <li key={movie._id}>
-                                    <p>{movie.name}</p>
-                                    <button className="button" onClick={() => handleMovieClick(movie._id)}>
-                                        View
-                                    </button>
-                                </li>
-
-                                // need all other values: watchdate, score, rating, image etc.
-                                
-                                // const imageUrl = item.i ? item.i.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
-                                // const title = item.l;
-                                // const type = item.q;
-
-                            })}
-                        </ul>
-                    </div>
-                
-
-                {/* <ul className="list">
-                    {value
-                        ? movies
-                            .filter((movie) => contact.groups.includes(value?.label))
-                            .map((movie) => (
-                                <li key={movie._id}>
-                                    <p>{movie.name}</p>
-                                    <Button className="button" onClick={() => handleContactClick(movie._id)}>
-                                        View
-                                    </Button>
-                                </li>
-                            ))
-                        : movies.map((movie) => (
-                            <li key={movie._id}>
-                                <p>{movie.name}</p>
-                                <Button className="button" onClick={() => handleContactClick(movie._id)}>
-                                    View
-                                </Button>
-                            </li>
-                        ))}
-                </ul> */}
-            </div>
-
-
-        </div>
+        // this add entry button has to patch the entry using handleEditSubmit()
+        
     );
-}   
+      
+}
 
-export default Movies;
+export default Movie;

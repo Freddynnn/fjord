@@ -50,19 +50,16 @@
             .info {
                 color: rgb(199, 199, 222);
                 height: 20%;
-                // font-size: calc(0.7vw); 
                 font-family: var(--font-family);
                 font-weight: 200;
                 letter-spacing: 1.5px;
-                text-align: center;
                 text-transform: uppercase;
+                // justify-content: center;
+                // align-items: center;
                 
                 margin-left: 10px;
                 // border: solid 2px green;
-                // margin-top: 10px;
                 
-                // display: flex;
-                // flex-direction: row;
 
                 .ratings-container{
                     min-width: 65px;
@@ -91,14 +88,15 @@
                 }
 
                 .title-container {
+                    // width: 95%;
                     min-width: 65px;
                     height: 50%;
+                    margin: auto;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    overflow: hidden;
                     position: relative;
-                    // border: solid 2px red;
+                    // border: solid 1px red;
                 }
                 
                 .title {
@@ -109,6 +107,8 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                     
+                    
+                    text-align: center;
                     font-size: calc(0.7rem + 0.5vw);
                     position: relative;
                 }

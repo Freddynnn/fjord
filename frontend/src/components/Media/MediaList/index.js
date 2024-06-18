@@ -53,9 +53,7 @@ const MediaList = ({ mediaItems, mediaType }) => {
                                     {media.score}/10
                                 </div>
                             </div>
-                            {/* <div className="grade-score">
-                                
-                            </div> */}
+                            
                         </div>
                     </Link>
                 </li>

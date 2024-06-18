@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import EditEntry from '../../../EditEntry/index'
 import axios from 'axios';
 
-const SingleShow = ({ user }) => {
+const Show = ({ user }) => {
     const [show, setShow] = useState({});
     const navigate = useNavigate();
     const { id } = useParams();
@@ -65,4 +65,4 @@ const SingleShow = ({ user }) => {
       
 }
 
-export default SingleShow;
+export default Show;
