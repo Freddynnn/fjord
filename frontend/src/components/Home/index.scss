@@ -70,9 +70,9 @@
         padding: 0;
         margin: 0;
         width: 40%;
-        min-width: 350px;
+        min-width: 650px;
         height: 100px;
-        // border: solid 2px green;
+        // border: solid 1px green;
 
         li{
             padding: 0;
@@ -88,11 +88,11 @@
             clear: both;
         }
 
-        li.half{
-            width: 45%;
+        li.third{
+            width: 30%;
             min-width: 150px;
-            // border: solid 2px blue;
-            margin-left: 5%;
+            // border: solid 1px blue;
+            // margin-left: 5%;
             float: left;
             clear: none;
 
