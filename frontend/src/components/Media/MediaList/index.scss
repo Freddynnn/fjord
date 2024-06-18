@@ -1,15 +1,16 @@
 .media-results {
-    max-height: 90dvh; 
-    height: 80%;
+    max-height: 80%; 
+    // height: 80%;
     overflow-y: auto; 
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    // border: solid 2px blue;
 
     ul {
         padding: 0;
         margin: 0;
-        margin-left: 5%;
+        margin-left: 8%;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
@@ -23,7 +24,9 @@
             border-radius: 12px;
             list-style: none;
             cursor: pointer; 
-
+            
+            // border: solid 2px green;
+            
             min-width: 200px;
 
             .link-style {
@@ -46,35 +49,50 @@
             
             .info {
                 color: rgb(199, 199, 222);
-                height: 10%;
+                height: 20%;
                 // font-size: calc(0.7vw); 
                 font-family: var(--font-family);
                 font-weight: 200;
                 letter-spacing: 1.5px;
                 text-align: center;
                 text-transform: uppercase;
-                 
-                margin-top: 10px; /* Add some space between image and title */
+                
+                margin-left: 10px;
+                // border: solid 2px green;
+                // margin-top: 10px;
+                
+                // display: flex;
+                // flex-direction: row;
 
-                display: flex;
-                flex-direction: row;
-
-                .grade-score{
-                    width: 50%;
-                    min-width: 80px;
-                    height: 100%;
-                    font-size: 2.8rem; /* Adjust the font size as needed */
-                    font-weight: bold; /* Optionally make it bold */
+                .ratings-container{
+                    min-width: 65px;
+                    height: 50%;
+                    font-size: 3.5rem;
+                    font-weight: bold;
                     display: flex;
                     align-items: center;
-                    padding-left: 10px;
+                    justify-content: center;
+
                     
-                    // border: solid 2px blue;
+                    display: flex;
+                    flex-direction: row;
+
+                    .grade{
+                        width: 35%;
+                        // border: solid 1px blue;
+                        text-align: left;
+                    }
+
+                    .score{
+                        width: 50%;
+                        text-align: right;
+                        // border: solid 1px red;
+                    }
                 }
 
                 .title-container {
                     min-width: 65px;
-                    height: 100%;
+                    height: 50%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -87,7 +105,7 @@
                     width: 100%;
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 2;
+                    -webkit-line-clamp: 1;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     

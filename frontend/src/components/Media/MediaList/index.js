@@ -38,14 +38,24 @@ const MediaList = ({ mediaItems, mediaType }) => {
                     
                         <img src={media.coverImage} alt={media.name} style={getAspectRatio()}/>
                         <div className="info">
-                        <div className="grade-score">
-                            {media.grade} {media.score}
-                        </div>
-                        <div className="title-container">
-                                    <div className="title">
-                                        <span>{media.name}</span>
-                                    </div>
+                        
+                            <div className="title-container">
+                                <div className="title">
+                                    <span>{media.name}</span>
                                 </div>
+                            </div>
+                            <div className="ratings-container">
+                                <div className="grade">
+                                    {media.grade}
+                                </div>
+                                <div className="score">
+                                    {/* {media.score === 10 ? "10" : media.score.toFixed(1)}/10 */}
+                                    {media.score}/10
+                                </div>
+                            </div>
+                            {/* <div className="grade-score">
+                                
+                            </div> */}
                         </div>
                     </Link>
                 </li>
