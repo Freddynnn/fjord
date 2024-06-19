@@ -62,7 +62,7 @@ const Home = ({isLoggedIn}) => {
                                 <FontAwesomeIcon icon={faListCheck} />
                             </Link> 
                             : <Link to="/watchlist" className='flat-button register' data-after-text="ADD TO WATCHLIST">
-                                <FontAwesomeIcon icon={faPlus} />
+                                <FontAwesomeIcon icon={faListCheck} />
                             </Link>
                         }
                     </li>

@@ -3,7 +3,7 @@ import {Routes, Route, Navigate} from 'react-router-dom';
 import { useState } from "react";
 import { About, Contact, Home, Settings} from './components';
 
-import {Books, Book, Movies, Movie, Music, Release, Shows, Show, EditEntry, Search} from './components/Media'
+import {Books, Book, Movies, Movie, Music, Release, Shows, Show, EditEntry, Search, Watchlist} from './components/Media'
 import {Login, Register} from './components/Users'
 import {Layout, Protected} from './components/UI'
 
@@ -103,6 +103,13 @@ function App() {
           element = {
             <Protected isLoggedIn={isLoggedIn}>
               <Search user={user}/>
+            </Protected>
+          } 
+        />
+        <Route path='/watchlist'  
+          element = {
+            <Protected isLoggedIn={isLoggedIn}>
+              <Watchlist user={user}/>
             </Protected>
           } 
         />

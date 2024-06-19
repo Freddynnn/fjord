@@ -6,7 +6,8 @@ const PORT = process.env.PORT || 3001;
 
 //import the routers
 const mediaRouter = require('./routes/media')
-const loginRouter = require('./routes/login')
+const loginRouter = require('./routes/login');
+const searchRouter = require('./routes/search');
 
 // const uri = "mongodb+srv://freddytnn:IDf5xB1j9D0Q3MXJ@cluster0.fainura.mongodb.net/?retryWrites=true&w=majority";
 const uri = "mongodb+srv://freddytnn:IDf5xB1j9D0Q3MXJ@cluster0.fainura.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -51,6 +52,7 @@ db.once('open', () => console.log('Connected to Mongoose'));
 // set the app to use the imported routers
 app.use('', mediaRouter);
 app.use('', loginRouter);
+app.use('', searchRouter);
 
 app.options('*', cors());
 

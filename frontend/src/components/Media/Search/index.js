@@ -6,14 +6,35 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
-const Search = () => {
+const Search = ({ user }) => {
+    // search logic consts
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [selectedAPI, setSelectedAPI] = useState('IMDB');
+    
+    // recent search consts
+    const [searchesFetched, setSearchesFetched] = useState(false);
+    const [recentSearches, setRecentSearches] = useState([]);
 
+    // API filtering consts
+    const [selectedAPI, setSelectedAPI] = useState('IMDB');
     const allowedAPIs = ['IMDB', 'SPOTIFY', 'BOOKS'];
 
-    // add a button that changes the search selection type: spotify, IMDB, goodreads etc.
+
+    useEffect(() => {
+        fetchSearches();
+     }, []);
+ 
+     const fetchSearches = async () => {
+         try {
+            const response = await axios.get(`http://localhost:3001/search/${user._id}/movie`);
+            const fetchedSearches = response.data;
+            setRecentSearches(fetchedSearches.reverse()); 
+            console.log('recent searches: ', recentSearches);
+            setSearchesFetched(true);
+         } catch (error) {
+            console.error('Error fetching user searches:', error);
+         }
+     };
 
     const handleAPIChange = (e) => {
         setSearchResults([]);
@@ -24,31 +45,49 @@ const Search = () => {
         e.preventDefault();
         console.log(`search query: ${searchQuery}`);
         try {
-            // const response = await axios.get(`http://localhost:3001/media/new?query=${searchQuery}`);
             const response = await axios.get(`http://localhost:3001/${selectedAPI.toLowerCase()}/search?query=${searchQuery}`);
             const data = response.data; // Extract data
             
             if (data) {
-                // Check the selected API and set searchResults accordingly
+                let filteredResults = [];
+    
+                // Filter results based on the selected API
                 if (selectedAPI === 'IMDB') {
-                    setSearchResults(data.d); 
+                    filteredResults = data.d.filter(item => item.q && item.qid); 
+                    setSearchResults(filteredResults);
                 } else if (selectedAPI === 'SPOTIFY') {
                     setSearchResults(data.albums.items);
                 } else if (selectedAPI === 'BOOKS') {
                     setSearchResults(data);
                 }
-                console.log('search results length:', searchResults.length);
-                console.log('search results:', searchResults);
-                console.log('search results:', searchResults);
+    
+                console.log('search results length:', filteredResults.length);
+                console.log('search results:', filteredResults);
             } else {
                 console.log('data empty');
             }
-            
             
         } catch (error) {
             console.error('Error searching for media:', error);
         }
     };
+
+    const handleSaveSearch = async (media) => {
+        try {
+            const response = await axios.post('http://localhost:3001/search/add', {
+                name: media.title,
+                type: media.type,
+                coverImage: media.imageUrl,
+                // creatorID: media.creatorID || null,
+                userID: user._id, 
+            });
+    
+            console.log('Search item saved:', response.data);
+        } catch (error) {
+            console.error('Error saving search item:', error);
+        }
+    };
+    
 
     return (
         <div className='container about-page'>
@@ -77,112 +116,105 @@ const Search = () => {
                         </button>
                     </form>
                 </div>
-
-                {searchResults.length <= 0 && (
-                    <h1>*Fill with table of suggestions*</h1>
+                
+                {searchResults.length <= 0 && searchesFetched && (  // displaying the recent search history
+                    <div>
+                        <div className='recent-search'>
+                            <div className='search-title'>RECENT SEARCHES</div>
+                            <ul>
+                                {recentSearches.map((item, index) => {
+                                    let title = item.name || '';
+                                    let imageUrl = item.coverImage || '';
+                                    let type = item.type || '';
+                                    
+                                    return (
+                                        <li key={index}>
+                                            {/* You can enable the Link component if you have a route to navigate to */}
+                                            {/* <Link to="/new" state={{ media: { title, imageUrl, type } }} onClick={() => handleSaveSearch({ title, imageUrl, type })}> */}
+                                            <img src={imageUrl} alt={title} className={type === 'Music' ? 'square-image' : ''} />
+                                            <div className='title'>
+                                                <h2>{title}</h2>
+                                            </div>
+                                            {/* </Link> */}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    </div>
                 )}
 
-                {searchResults.length > 0 && (
-                    <div>
-                        {selectedAPI === 'IMDB' ? (
-                            <div className='search-results'>
-                                <ul>
-                                    {searchResults.map((item, index) => {
-                                        // default image is also search toggle dependant
-                                        const imageUrl = item.i ? item.i.imageUrl : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
-                                        const title = item.l;
-                                        const type = item.q;
+                {searchResults.length > 0 && (  // displaying search results
+                    <div className='search-results'>
+                        <ul>
+                            {searchResults.map((item, index) => {
+                                let media = {};
+                                let imageUrl = "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
+                                let title = "";
+                                let mediaInfo = null;
+                    
+                                switch (selectedAPI) {
+                                    case 'IMDB':
+                                        imageUrl = item.i ? item.i.imageUrl : imageUrl;
+                                        title = item.l;
 
-                                        const media = {
-                                            title: title,
-                                            imageUrl: imageUrl,
-                                            type: type
-                                        };
+                                        let visMediaType = '';
+                                        if (item.q === 'TV series') {
+                                            visMediaType = 'Show';
+                                        } else if (item.q === 'TV movie' || item.q === 'feature') {
+                                            visMediaType = 'Movie';
+                                        } else {
+                                            visMediaType = item.q; 
+                                        }
 
-                                        return (
-                                            <li key={index}>
-                                                <Link to="/new" state={{ media }}>
-                                                    <img src={imageUrl} alt={title} />
-                                                </Link>
-                                                <div className='title'>
-                                                    <h2>{title}</h2>
-                                                </div>
-                                            </li>
+                                        media = { title, imageUrl, type: visMediaType };
+                                        mediaInfo = (
+                                            <div className='title'>
+                                                <h2>{title}</h2>
+                                            </div>
                                         );
-                                    })}
-                                </ul>
-                            </div>
-                        ) : selectedAPI === 'SPOTIFY' ? (
-                            <div className='search-results'>
-                                <ul>
-                                    {searchResults.map((item, index) => {
-                                        // default image is also search toggle dependant
-                                        const imageUrl = item.data.coverArt.sources ? item.data.coverArt.sources[2].url : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
-                                        const title = item.data.name;
+                                        break;
+                    
+                                    case 'SPOTIFY':
+                                        imageUrl = item.data.coverArt.sources ? item.data.coverArt.sources[2].url : imageUrl;
+                                        title = item.data.name;
                                         const artist = item.data.artists.items[0].profile.name;
-                                        const type = "Music";
-
-                                        const media = {
-                                            title: title,
-                                            imageUrl: imageUrl,
-                                            artist: artist,
-                                            type: type
-                                        };
-                                        return (
-                                            <li key={index}>
-                                                <Link to="/new" state={{ media }}>
-                                                    <img src={imageUrl} alt={title} className='square-image'/>
-                                                </Link>
-                                                <div className='music-info'>
-                                                    <div className='title'>
-                                                        {title}
-                                                    </div>
-                                                    <div className='artist'>
-                                                        {artist}
-                                                    </div>
-                                                </div>
-                                               
-                                            </li>
+                                        media = { title, imageUrl, artist, type: "Music" };
+                                        mediaInfo = (
+                                            <div className='music-info'>
+                                                <div className='title'>{title}</div>
+                                                <div className='artist'>{artist}</div>
+                                            </div>
                                         );
-                                    })}
-                                </ul>
-                            </div>
-                        ) : selectedAPI === 'BOOKS' ? (
-                            <div className='search-results'>
-                                <ul>
-                                    {searchResults.map((item, index) => {
-                                        // Default image or cover image logic for books
-                                        const imageUrl = item.imageUrl ? (item.imageUrl.includes("_") ? item.imageUrl.replace(/_[^_]*_\./g, "") : item.imageUrl) : "https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg";
-                                        const title = item.title;
+                                        break;
+                    
+                                    case 'BOOKS':
+                                        imageUrl = item.imageUrl ? (item.imageUrl.includes("_") ? item.imageUrl.replace(/_[^_]*_\./g, "") : item.imageUrl) : imageUrl;
+                                        title = item.title;
                                         const author = item.author[0].name;
-                                        const type = "Book";
-
-                                        const media = {
-                                            title: title,
-                                            imageUrl: imageUrl,
-                                            author: author,
-                                            type: type
-                                        };
-                
-                                        return (
-                                            <li key={index}>
-                                                <Link to="/new" state={{ media }}>
-                                                    <img src={imageUrl} alt={title}/>
-                                                </Link>
-                                                <div className='book-info'>
-                                                    <div className='title'>
-                                                        {title}
-                                                    </div>
-                                                    <div className='author'>
-                                                        {author}
-                                                    </div>
-                                                </div>
-                                            </li>
+                                        media = { title, imageUrl, author, type: "Book" };
+                                        mediaInfo = (
+                                            <div className='book-info'>
+                                                <div className='title'>{title}</div>
+                                                <div className='author'>{author}</div>
+                                            </div>
                                         );
-                                    })}
-                                </ul>
-                            </div>
-                        ) : null}
+                                        break;
+                    
+                                    default:
+                                        break;
+                                }
+                    
+                                return (
+                                    <li key={index}>
+                                        <Link to="/new" state={{ media }} onClick={() => handleSaveSearch(media)}>
+                                            <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''} />
+                                        </Link>
+                                        {mediaInfo}
+                                    </li>
+                                );
+                            })}
+                        </ul>
                     </div>
                 )}
 

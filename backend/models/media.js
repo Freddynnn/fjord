@@ -29,11 +29,16 @@ const mediaSchema = new mongoose.Schema({
         required: true,
     },
     coverImage: {
-        type: String, // store path or URL of cover image?
+        type: String, 
         required: true,
     },
-    
 
+    // creatorID: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Creator',
+    //     required: true
+    // },
+    
     userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

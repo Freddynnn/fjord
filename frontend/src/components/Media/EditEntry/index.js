@@ -36,25 +36,12 @@ const EditEntry = ({user, media}) => {
         // set the media item from IMDb
         if (location?.state?.media) {
             const { media } = location.state;
-            let mediaType = '';
-            if (media.type === 'TV series') {
-                mediaType = 'Show';
-            } else if (media.type === 'TV movie' || media.type === 'feature') {
-                mediaType = 'Movie';
-            } else {
-                mediaType = media.type;
-            }
-
-            // TODO: this setFormData only works for IMDB, need to adjust for Spotify/Books
             setFormData({
                 name: media ? media.title : '',
-                type: mediaType,
-                coverImage: media ? media.imageUrl: ''
+                type: media.type, 
+                coverImage: media ? media.imageUrl : ''
             });
-
-        }
-
-        
+        }     
     }, [location?.state]);
 
     
@@ -79,9 +66,6 @@ const EditEntry = ({user, media}) => {
         }
     }, [media]);
 
-
-
-
     // Function to handle the edit form submission if media exists
     const handleEditSubmit = async () => {
         try {
@@ -95,8 +79,6 @@ const EditEntry = ({user, media}) => {
             console.error(err);
         }
     };
-
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -241,10 +223,6 @@ const EditEntry = ({user, media}) => {
                         <img src="https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg" alt="Select an Image" />
                     )}
                 </div>
-
-
-                    
-
                     <div className='visuals-info'>
                         <span className='grade' style={{ color: formData.grade?getValueColor(formData.grade, 15, minColor, maxColor): "#a54f98" }}>
                             {formData.grade?grades[formData.grade]:"C+"}
