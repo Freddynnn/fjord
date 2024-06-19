@@ -88,42 +88,63 @@
 .recent-search{
     height: 50dvh;
     min-height: 400px;
-    width: 95%;
-    border: solid 1px red;
+    width: 100%;
+    // border: solid 1px red;
 
     overflow-x: auto; 
     overflow-y: hidden;
     white-space: nowrap; 
+    background-color: #557fe910;
+    border-radius: 15px;
+
     
 
     .search-title{
         font: var(--font-family);
-        font-size: 2.5rem;
+        font-size: 2.3rem;
+        text-decoration: underline;
+
         color: #b8c3de;
         position: absolute;
+        padding: 5px;
         
-        margin: auto 5%;
+        margin: 1% 5%;
         height: 10%;
+    }
+    .clear-searches{
+        font: var(--font-family);
+        font-size: 3rem;
+        color: #b8c3de;
+        position: absolute;
+        cursor: pointer;
+
+
+        margin: 1%;
+        padding: 5px;
+        right: 1%;
+
+        &:hover {
+            color: #3f62bc;
+        }  
     }
 
     ul {
-        padding: 0;
-        margin: 5%;
-        margin-left: 3%;
+        // border: solid 1px green;
+
+        margin: 6% auto;
         width: 150%;
         height: 90%;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         
-        // border: solid 1px green;
-
+        
         li {
             box-sizing: border-box;
             width: calc(10% - 70px); 
             min-width: 200px;
             height: 100%;
-            margin: 0 2% ; 
+            margin: 0 1.5%; 
             list-style: none;
             cursor: pointer; 
             position: relative;
@@ -151,18 +172,21 @@
 
             .close-button {
                 position: absolute;
-                color: #2d2e30;
+                cursor: pointer;
+                width: 15%;
+                height: 8%;
                 top: 7px;
                 right: 0px;
-                cursor: pointer;
-                background-color: #97979780;;
                 padding: 5px;
+
+                color: #2d2e30;
+                background-color: #979797ae;
                 border: solid 2px #2d2e30;
                 border-radius: 20%;
                 transition: background-color 0.2s ease-in-out;
     
                 &:hover {
-                    // background-color: rgba(255, 255, 255, 0.9);
+                    background-color: #8797e8de;
                     color: #224fc2;
                     border-color: #224fc2;;
                 }

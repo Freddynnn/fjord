@@ -17,7 +17,7 @@ const addSearch = async (req, res) => {
     }
 };
 
-// Function to list all media entries for a specific user
+// Function to list search entries by media type 
 const getSearchesByType = async (req, res) => {
     const userID = req.params.userID;
     const type = req.params.type;
@@ -53,12 +53,21 @@ const getRecentSearches = async (req, res) => {
 
 // Function to remove a search (placeholder)
 const removeSearch = async (req, res) => {
+    const { ID } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(ID)) {
+        return res.status(404).json({ error: 'Invalid search ID' });
+    }
+
     try {
-        await Search.findByIdAndDelete(req.body.id);
-        res.status(200).json({ message: 'Search removed successfully' });
+        const deletedSearch = await Search.findByIdAndDelete(ID);
+        if (!deletedSearch) {
+            return res.status(404).json({ error: 'Search not found' });
+        }
+        return res.status(200).json(deletedSearch);
     } catch (error) {
-        console.error('Error removing search:', error);
-        res.status(500).json({ error: 'Error removing search' });
+        console.error('Error deleting Search:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 

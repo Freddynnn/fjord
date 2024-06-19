@@ -6,6 +6,6 @@ router.get('/search/all', getRecentSearches);
 
 router.post('/search/add', addSearch); 
 router.get('/search/:userID/:type', getSearchesByType);
-router.delete('/search', removeSearch); 
+router.delete('/search/:ID', removeSearch); 
 
 module.exports = router;

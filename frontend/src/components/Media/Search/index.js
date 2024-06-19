@@ -2,7 +2,7 @@ import { Link, withRouter  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import AnimateLetters from '../../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faX } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faTrash, faX } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
@@ -88,16 +88,35 @@ const Search = ({ user }) => {
         }
     };
 
-    const handleRemoveSearch = (searchId, event) => {
+    const handleRemoveSearch = (searchId,  event = null) => {
         console.log(`Remove search with ID: ${searchId}`);
-        event.stopPropagation();
-
-        // Remove search from currently loaded list (frontend)
-        const updatedSearches = recentSearches.filter(item => item._id !== searchId);
-        console.log('updated searches: ', updatedSearches);
-        setRecentSearches(updatedSearches);
         
-        // use api to remove search from database
+        if (event) {
+            event.stopPropagation();
+            // Remove search from currently loaded list (frontend)
+            const updatedSearches = recentSearches.filter(item => item._id !== searchId);
+            console.log('updated searches: ', updatedSearches);
+            setRecentSearches(updatedSearches);
+        }
+
+        // Use API to remove search from database
+        axios.delete(`http://localhost:3001/search/${searchId}`)
+        .then(response => {
+            console.log('Search removed from database:', response.data);
+        })
+        .catch(error => {
+            console.error('Error removing search from database:', error);
+        });
+    };
+
+    const removeAllSearch = () => {
+        const searchesToRemove = [...recentSearches];
+    
+        searchesToRemove.forEach(item => {
+            handleRemoveSearch(item._id);
+        });
+
+        setRecentSearches([]);
     };
     
 
@@ -129,10 +148,11 @@ const Search = ({ user }) => {
                     </form>
                 </div>
                 
-                {searchResults.length <= 0 && searchesFetched && (  // displaying the recent search history
+                {searchResults.length <= 0 && (  // displaying the recent search history
                     <div>
                         <div className='recent-search'>
                             <div className='search-title'>RECENT SEARCHES</div>
+                            <div className='clear-searches' onClick={removeAllSearch}><FontAwesomeIcon icon={faTrash}/></div>
                             <ul>
                                 {recentSearches.map((item, index) => {
                                     let title = item.name || '';
