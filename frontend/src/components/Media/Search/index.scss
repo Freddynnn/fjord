@@ -87,19 +87,19 @@
 
 .recent-search{
     height: 50dvh;
-    width: 100%;
-    // max-height: 100px;
-    // max-width: 600px;
+    min-height: 400px;
+    width: 95%;
     border: solid 1px red;
 
     overflow-x: auto; 
     overflow-y: hidden;
     white-space: nowrap; 
+    
 
     .search-title{
         font: var(--font-family);
         font-size: 2.5rem;
-        color: #ffffff;
+        color: #b8c3de;
         position: absolute;
         
         margin: auto 5%;
@@ -109,13 +109,14 @@
     ul {
         padding: 0;
         margin: 5%;
+        margin-left: 3%;
         width: 150%;
         height: 90%;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         
-        border: solid 1px green;
+        // border: solid 1px green;
 
         li {
             box-sizing: border-box;
@@ -125,15 +126,56 @@
             margin: 0 2% ; 
             list-style: none;
             cursor: pointer; 
+            position: relative;
 
-            border: solid 1px blue;
+            // border: solid 1px blue;
+            
+            .title {
+                font-size: calc(1rem + 0.5vw);
+                color: #b8c3de;
+                width: 85%;
+                margin: auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: center;
+                position: relative;
+            }
+
 
             img {
-                // border: 5px solid transparent;
+                border: 5px solid transparent;
                 height: 80%;
                 width: 100%;
                 border-radius: 12px;
             }
+
+            .close-button {
+                position: absolute;
+                color: #2d2e30;
+                top: 7px;
+                right: 0px;
+                cursor: pointer;
+                background-color: #97979780;;
+                padding: 5px;
+                border: solid 2px #2d2e30;
+                border-radius: 20%;
+                transition: background-color 0.2s ease-in-out;
+    
+                &:hover {
+                    // background-color: rgba(255, 255, 255, 0.9);
+                    color: #224fc2;
+                    border-color: #224fc2;;
+                }
+            }
+
+            &:hover {
+                img {
+                    border-color: #233f87d6;
+                }
+                .title {
+                    color: #3f62bc;
+                }
+            }   
         }
 
     }

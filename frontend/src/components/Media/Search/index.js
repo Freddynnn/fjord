@@ -2,7 +2,7 @@ import { Link, withRouter  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import AnimateLetters from '../../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faX } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
@@ -87,6 +87,18 @@ const Search = ({ user }) => {
             console.error('Error saving search item:', error);
         }
     };
+
+    const handleRemoveSearch = (searchId, event) => {
+        console.log(`Remove search with ID: ${searchId}`);
+        event.stopPropagation();
+
+        // Remove search from currently loaded list (frontend)
+        const updatedSearches = recentSearches.filter(item => item._id !== searchId);
+        console.log('updated searches: ', updatedSearches);
+        setRecentSearches(updatedSearches);
+        
+        // use api to remove search from database
+    };
     
 
     return (
@@ -129,13 +141,16 @@ const Search = ({ user }) => {
                                     
                                     return (
                                         <li key={index}>
-                                            {/* You can enable the Link component if you have a route to navigate to */}
-                                            {/* <Link to="/new" state={{ media: { title, imageUrl, type } }} onClick={() => handleSaveSearch({ title, imageUrl, type })}> */}
-                                            <img src={imageUrl} alt={title} className={type === 'Music' ? 'square-image' : ''} />
-                                            <div className='title'>
-                                                <h2>{title}</h2>
-                                            </div>
-                                            {/* </Link> */}
+                                            <button className='close-button' onClick={(event) => handleRemoveSearch(item._id, event)}>
+                                                <FontAwesomeIcon icon={faX} />
+                                            </button>
+                                            <Link to="/new" state={{ media: { title, imageUrl, type } }}>
+                                                <img src={imageUrl} alt={title} className={type === 'Music' ? 'square-image' : ''} />
+                                                <div className="title">
+                                                    <span>{title}</span>
+                                                </div>
+                                            
+                                            </Link>
                                         </li>
                                     );
                                 })}
