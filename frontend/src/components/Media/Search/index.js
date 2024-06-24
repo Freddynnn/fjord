@@ -21,12 +21,12 @@ const Search = ({ user }) => {
 
 
     useEffect(() => {
-        fetchSearches();
+        fetchSearches('movie');
      }, []);
  
-     const fetchSearches = async () => {
+     const fetchSearches = async (searchType) => {
          try {
-            const response = await axios.get(`http://localhost:3001/search/${user._id}/movie`);
+            const response = await axios.get(`http://localhost:3001/search/${user._id}/${searchType}`);
             const fetchedSearches = response.data;
             setRecentSearches(fetchedSearches.reverse()); 
             console.log('recent searches: ', recentSearches);
@@ -38,6 +38,23 @@ const Search = ({ user }) => {
 
     const handleAPIChange = (e) => {
         setSearchResults([]);
+        setRecentSearches([]);
+        // conduct new recent searches call, based on the API
+        switch(e.target.value) {
+            case 'IMDB':
+                fetchSearches('movie');
+              break;
+            case 'SPOTIFY':
+                fetchSearches('music');
+              break;
+            case 'BOOKS':
+                fetchSearches('book');
+                break;
+            default:
+                console.warn('Unknown API selected:', e.target.value);
+                break;
+          } 
+
         setSelectedAPI(e.target.value);
     };
     
