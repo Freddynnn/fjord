@@ -153,7 +153,7 @@ const Search = ({ user }) => {
                         <div className='recent-search'>
                             <div className='search-title'>RECENT SEARCHES</div>
                             <div className='clear-searches' onClick={removeAllSearch}><FontAwesomeIcon icon={faTrash}/></div>
-                            <ul>
+                            <ul style={{ width: `${recentSearches.length * 22}%` }}>
                                 {recentSearches.map((item, index) => {
                                     let title = item.name || '';
                                     let imageUrl = item.coverImage || '';

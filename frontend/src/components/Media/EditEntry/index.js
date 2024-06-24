@@ -2,7 +2,7 @@ import { Link, useNavigate , useLocation  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import AnimateLetters from '../../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faFileImage, faFileImport, faUpload } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
@@ -212,7 +212,22 @@ const EditEntry = ({user, media}) => {
 
                 <div className='visuals-container'>
                 <div className='img-container'>
-                    <input type="file" onChange={handleImageChange} accept="image/*" />
+                    
+                    {/* <input type="file" onChange={handleImageChange} accept="image/*" /> */}
+                    <div className="image-upload-container">
+                        <input 
+                            type="file" 
+                            id="fileInput" 
+                            onChange={handleImageChange} 
+                            accept="image/*" 
+                            style={{ display: 'none' }} 
+                        />
+                        <label htmlFor="fileInput" className="upload-icon">
+                            <FontAwesomeIcon icon={faFileImport} />
+                        </label>
+                    </div>
+
+
                     {formData.coverImage ? (
                         formData.coverImage instanceof File ? (
                             <img src={URL.createObjectURL(formData.coverImage)} alt="Uploaded Image" />
@@ -232,9 +247,8 @@ const EditEntry = ({user, media}) => {
                             {formData.score?formData.score:"5"}
                         </span>
                         
-                        <div>
                             <button type="submit">ADD ENTRY</button>
-                        </div>
+                        
                     </div>
                 </div>
             </form>
