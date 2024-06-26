@@ -1,9 +1,12 @@
 // MediaList.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './index.scss'
 
 const MediaList = ({ mediaItems, mediaType }) => {
+    const [imageLoadStatus, setImageLoadStatus] = useState(mediaItems.map(() => false));
+
+
     const getLinkUrl = (id) => {
         switch (mediaType) {
             case 'shows':
@@ -17,33 +20,42 @@ const MediaList = ({ mediaItems, mediaType }) => {
             default:
                 return '/';
         }
-    };
+    };    
 
-    const getAspectRatio = () => {
-        switch (mediaType) {
-            case 'music':
-                return { aspectRatio: '2/2' };
-            default:
-                return { aspectRatio: '2/3' };
-        }
+    const handleImageLoad = (index) => {
+        const newImageLoadStatus = [...imageLoadStatus];
+        newImageLoadStatus[index] = true;
+        setImageLoadStatus(newImageLoadStatus);
     };
-    
 
     return (
         <div className="media-results"> 
             <ul className="media-list">
-                {mediaItems.map(media => (
+                {mediaItems.map((media, index)=> (
                 <li key={media._id}>
                     <Link to={getLinkUrl(media._id)} className="link-style">
-                    
-                        <img src={media.coverImage} alt={media.name} style={getAspectRatio()}/>
-                        <div className="info">
+                        {/* <div className='image-container' style={mediaType === 'music' ? { aspectRatio: `2/2` } : { aspectRatio: `2/3` }}>
+                            {!isImageLoaded && <div className='image-loading' />}
+                            <img src={media.coverImage} alt={media.name} onLoad={handleImageLoad} style={!isImageLoaded ? { display: 'none' } : {}} />
+                        </div> */}
                         
-                            <div className="title-container">
+                        <div className='image-container' style={mediaType === 'music' ? { aspectRatio: `2/2` } : { aspectRatio: `2/3` }}>
+                            {!imageLoadStatus[index] && <div className='image-loading' />}
+                            <img
+                                src={media.coverImage}
+                                alt={media.name}
+                                onLoad={() => handleImageLoad(index)}
+                                style={!imageLoadStatus[index] ? { display: 'none' } : {}}
+                            />
+                        </div>
+
+
+                        <div className="media-info">
+                            {/* <div className="title-container">
                                 <div className="title">
                                     <span>{media.name}</span>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="ratings-container">
                                 <div className="grade">
                                     {media.grade}
@@ -53,7 +65,6 @@ const MediaList = ({ mediaItems, mediaType }) => {
                                     {media.score}/10
                                 </div>
                             </div>
-                            
                         </div>
                     </Link>
                 </li>

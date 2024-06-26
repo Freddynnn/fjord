@@ -2,7 +2,7 @@ import { Link, withRouter  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import AnimateLetters from '../../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faTrash, faX } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faTrash, faX, faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
@@ -167,24 +167,26 @@ const Search = ({ user }) => {
                 
                 {searchResults.length <= 0 && (  // displaying the recent search history
                     <div>
-                        <div className='recent-search'>
+                        <div className='recent-search' style={selectedAPI === 'SPOTIFY' ? {height: `${35}vh`} : {height: `${50}vh`}}>
                             <div className='search-title'>RECENT SEARCHES</div>
                             <div className='clear-searches' onClick={removeAllSearch}><FontAwesomeIcon icon={faTrash}/></div>
-                            <ul style={{ width: `${recentSearches.length * 22}%` }}>
+                            <ul style={{ width: `${recentSearches.length * 22}%` }} className={selectedAPI === 'SPOTIFY' ? 'music-searches' : ''}>
                                 {recentSearches.map((item, index) => {
                                     let title = item.name || '';
                                     let imageUrl = item.coverImage || '';
                                     let type = item.type || '';
                                     
                                     return (
-                                        <li key={index}>
+                                        <li key={index} style={selectedAPI === 'SPOTIFY' ? {width: `235px`} : {width: `calc(10% - 70px)`}}>
                                             <button className='close-button' onClick={(event) => handleRemoveSearch(item._id, event)}>
-                                                <FontAwesomeIcon icon={faX} />
+                                                <FontAwesomeIcon icon={faXmark} />  
                                             </button>
                                             <Link to="/new" state={{ media: { title, imageUrl, type } }}>
-                                                <img src={imageUrl} alt={title} className={type === 'Music' ? 'square-image' : ''} />
-                                                <div className="title">
-                                                    <span>{title}</span>
+                                                <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''}/>
+                                                <div className='title-container'>
+                                                    <div className="title">
+                                                        <span>{title}</span>
+                                                    </div>
                                                 </div>
                                             
                                             </Link>

@@ -41,7 +41,7 @@ const Music = ({ user }) => {
                     </h1>
                     <input
                         type="text"
-                        placeholder="Search shows ..."
+                        placeholder="Search music ..."
                         value={search} 
                         onChange={(e) => setSearch(e.target.value)} 
                     />

@@ -1,6 +1,6 @@
 .filters {
     max-height: 8%;
-    // min-width: 950px;
+    min-width: 1000px;
     // border: solid 2px red;
     text-align: center;
     align-items: center;
@@ -11,7 +11,7 @@
     justify-content: flex-start; 
 
     .filter {
-        width: 30%;
+        width: 28%;
         // border: solid 2px orange;
         min-width: 300px;
 
@@ -25,11 +25,6 @@
 
         label {
             margin-right: 10px;
-        }
-        span {
-            width: 20%;
-            text-align: center;
-            color: aqua;
         }
 
         input[type="range"] {
@@ -64,7 +59,7 @@
     .slider-thumb {
         top: 1px;
         transform: translateY(15%);
-        width: 30px;
+        width: 35px;
         height: 75%;
         line-height: 180%;
 

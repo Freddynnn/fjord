@@ -124,7 +124,8 @@ const EditEntry = ({user, media}) => {
             }
             
             // redirect to the media type's page
-            const mediaTypePlural = formData.type.toLowerCase() + 's';
+            let mediaTypePlural;
+            formData.type === 'Music' ? mediaTypePlural = formData.type.toLowerCase() : mediaTypePlural = formData.type.toLowerCase() + 's';
             navigate(`/${mediaTypePlural}`);
 
         } catch (error) {
