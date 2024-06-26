@@ -33,11 +33,11 @@ const mediaSchema = new mongoose.Schema({
         required: true,
     },
 
-    // creatorID: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Creator',
-    //     required: true
-    // },
+    creatorID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Creator',
+        required: false
+    },
     
     userID: {
         type: mongoose.Schema.Types.ObjectId,

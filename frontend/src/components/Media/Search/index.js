@@ -19,6 +19,9 @@ const Search = ({ user }) => {
     const [selectedAPI, setSelectedAPI] = useState('IMDB');
     const allowedAPIs = ['IMDB', 'SPOTIFY', 'BOOKS'];
 
+    // image loading consts
+    const [imageLoadStatus, setImageLoadStatus] = useState(searchResults.map(() => false));
+
 
     useEffect(() => {
         fetchSearches('movie');
@@ -135,6 +138,12 @@ const Search = ({ user }) => {
 
         setRecentSearches([]);
     };
+
+    const handleImageLoad = (index) => {
+        const newImageLoadStatus = [...imageLoadStatus];
+        newImageLoadStatus[index] = true;
+        setImageLoadStatus(newImageLoadStatus);
+    };
     
 
     return (
@@ -185,7 +194,7 @@ const Search = ({ user }) => {
                                                 <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''}/>
                                                 <div className='title-container'>
                                                     <div className="title">
-                                                        <span>{title}</span>
+                                                        {title}
                                                     </div>
                                                 </div>
                                             
@@ -262,7 +271,16 @@ const Search = ({ user }) => {
                                 return (
                                     <li key={index}>
                                         <Link to="/new" state={{ media }} onClick={() => handleSaveSearch(media)}>
-                                            <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''} />
+                                            {/* <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''} /> */}
+                                            <div className='image-container' style={selectedAPI === 'SPOTIFY' ? { aspectRatio: `2/2` } : { aspectRatio: `2/3` }}>
+                                                {!imageLoadStatus[index] && <div className='image-loading' />}
+                                                <img
+                                                    src={imageUrl}
+                                                    alt={title}
+                                                    onLoad={() => handleImageLoad(index)}
+                                                    style={!imageLoadStatus[index] ? { display: 'none' } : {}}
+                                                />
+                                            </div>
                                         </Link>
                                         {mediaInfo}
                                     </li>
