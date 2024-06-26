@@ -33,12 +33,7 @@ const MediaList = ({ mediaItems, mediaType }) => {
             <ul className="media-list">
                 {mediaItems.map((media, index)=> (
                 <li key={media._id}>
-                    <Link to={getLinkUrl(media._id)} className="link-style">
-                        {/* <div className='image-container' style={mediaType === 'music' ? { aspectRatio: `2/2` } : { aspectRatio: `2/3` }}>
-                            {!isImageLoaded && <div className='image-loading' />}
-                            <img src={media.coverImage} alt={media.name} onLoad={handleImageLoad} style={!isImageLoaded ? { display: 'none' } : {}} />
-                        </div> */}
-                        
+                    <Link to={getLinkUrl(media._id)} className="link-style">   
                         <div className='image-container' style={mediaType === 'music' ? { aspectRatio: `2/2` } : { aspectRatio: `2/3` }}>
                             {!imageLoadStatus[index] && <div className='image-loading' />}
                             <img
@@ -51,11 +46,11 @@ const MediaList = ({ mediaItems, mediaType }) => {
 
 
                         <div className="media-info">
-                            {/* <div className="title-container">
+                            <div className="title-container">
                                 <div className="title">
                                     <span>{media.name}</span>
                                 </div>
-                            </div> */}
+                            </div>
                             <div className="ratings-container">
                                 <div className="grade">
                                     {media.grade}

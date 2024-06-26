@@ -243,9 +243,9 @@ const Search = ({ user }) => {
                                         break;
                     
                                     case 'BOOKS':
-                                        imageUrl = item.imageUrl ? (item.imageUrl.includes("_") ? item.imageUrl.replace(/_[^_]*_\./g, "") : item.imageUrl) : imageUrl;
-                                        title = item.title;
-                                        const author = item.author[0].name;
+                                        imageUrl = item.cover ? (item.cover.includes("_") ? item.cover.replace(/_[^_]*_\./g, "") : item.cover) : imageUrl;
+                                        title = item.name;
+                                        const author = item.authors[0];
                                         media = { title, imageUrl, author, type: "Book" };
                                         mediaInfo = (
                                             <div className='book-info'>

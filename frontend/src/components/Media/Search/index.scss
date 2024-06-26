@@ -126,7 +126,7 @@
     }
 
     ul {
-        // border: solid 1px green;
+        border: solid 1px green;
 
         overflow-x: auto; 
         overflow-y: hidden;
@@ -149,7 +149,7 @@
             width: calc(10% - 70px); 
             min-width: 200px;
             height: 100%;
-            margin: 0 1.5%; 
+            margin: 0 20px; 
             list-style: none;
             cursor: pointer; 
             position: relative;

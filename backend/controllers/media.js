@@ -9,7 +9,6 @@ const searchVisMedia = async (req, res) => {
     if (!query) {
         return res.status(400).json({ error: 'Search query is required' });
     }
-
     const options = {
         method: 'GET',
         url: 'https://imdb8.p.rapidapi.com/auto-complete',
@@ -19,7 +18,6 @@ const searchVisMedia = async (req, res) => {
             'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
         }
     };
-
     try {
         const response = await axios.request(options);
         const data = response.data;
@@ -72,31 +70,58 @@ const searchBooks = async (req, res) => {
 
     if (!query) {
         return res.status(400).json({ error: 'Search query is required' });
-    }
+    } else {
+        // parse the query to have '+' between any spaces
+        const parsedQuery = query.trim().replace(/\s+/g, '+');
 
-    const options = {
-        method: 'GET',
-        url: 'https://goodreads12.p.rapidapi.com/searchBooks',
-        params: {keyword: query},
-        headers: {
-            'x-rapidapi-key': 'e97702b45cmsh23d2eed61a0e25ap12d651jsnf39835a734ed',
-            'x-rapidapi-host': 'goodreads12.p.rapidapi.com'
-          }
-    };
-
-    try {
-        const response = await axios.request(options);
-        const data = response.data;
-        // Check if the response contains data
-        if (data) {
-            return res.status(200).json(data);
-        } else {
-            return res.status(404).json({ error: 'No data found' });
+        const options = {
+            method: 'GET',
+            url: `https://hapi-books.p.rapidapi.com/search/${parsedQuery},`,
+            headers: {
+              'x-rapidapi-key': 'e97702b45cmsh23d2eed61a0e25ap12d651jsnf39835a734ed',
+              'x-rapidapi-host': 'hapi-books.p.rapidapi.com'
+            }
+          };
+          
+          try {
+            const response = await axios.request(options);
+            const data = response.data;
+            
+            // Check if the response contains data
+            if (data && data.length > 0) { 
+                return res.status(200).json(data);
+            } else {
+                return res.status(404).json({ error: 'No data found' });
+            }
+        } catch (error) {
+            console.error('Error searching for media:', error);
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
-    } catch (error) {
-        console.error('Error searching for media:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
     }
+
+    // const options = {
+    //     method: 'GET',
+    //     url: 'https://goodreads12.p.rapidapi.com/searchBooks',
+    //     params: {keyword: query},
+    //     headers: {
+    //         'x-rapidapi-key': 'e97702b45cmsh23d2eed61a0e25ap12d651jsnf39835a734ed',
+    //         'x-rapidapi-host': 'goodreads12.p.rapidapi.com'
+    //       }
+    // };
+
+    // try {
+    //     const response = await axios.request(options);
+    //     const data = response.data;
+    //     // Check if the response contains data
+    //     if (data) {
+    //         return res.status(200).json(data);
+    //     } else {
+    //         return res.status(404).json({ error: 'No data found' });
+    //     }
+    // } catch (error) {
+    //     console.error('Error searching for media:', error);
+    //     return res.status(500).json({ error: 'Internal Server Error' });
+    // }
 };
 
 
