@@ -9,6 +9,9 @@ const mediaRouter = require('./routes/media')
 const loginRouter = require('./routes/login');
 const searchRouter = require('./routes/search');
 
+// Import JWT middleware
+const authenticateToken = require('./middleware/auth');
+
 // const uri = "mongodb+srv://freddytnn:IDf5xB1j9D0Q3MXJ@cluster0.fainura.mongodb.net/?retryWrites=true&w=majority";
 const uri = "mongodb+srv://freddytnn:IDf5xB1j9D0Q3MXJ@cluster0.fainura.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -19,20 +22,6 @@ if (process.env.NODE_ENV !== 'production'){
 
 // Enable CORS for development
 app.use(cors());
-
-// app.use((req, res, next) => {
-//   const allowedOrigins = ['https://ftfiiilsbvlrqeolrdefqxii.vercel.app/', 'http://localhost:3000'];
-//   const origin = req.headers.origin;
-
-//   if (allowedOrigins.includes(origin)) {
-//     res.setHeader('Access-Control-Allow-Origin', origin);
-//   }
-
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//   next();
-// });
-
 
 // Parse JSON requests
 app.use(express.json());
@@ -50,9 +39,9 @@ db.once('open', () => console.log('Connected to Mongoose'));
 
 
 // set the app to use the imported routers
-app.use('', mediaRouter);
 app.use('', loginRouter);
-app.use('', searchRouter);
+app.use('', authenticateToken, mediaRouter);
+app.use('', authenticateToken, searchRouter);
 
 app.options('*', cors());
 

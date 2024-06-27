@@ -4,19 +4,22 @@ import { Link } from 'react-router-dom';
 import EditEntry from '../../../EditEntry/index'
 import axios from 'axios';
 
-const Movie = ({ user }) => {
-    const [movie, setMovie] = useState({});
+const Release = ({ user }) => {
+    const [release, setRelease] = useState({});
     const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
-        fetchMovie();
+        fetchRelease();
     }, []);
 
-    const fetchMovie = async () => {
+    const fetchRelease = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/media/'+ id);
-            setMovie(response.data);
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:3001/media/'+ id, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            setRelease(response.data);
         } catch (err) {
             console.error(err);
         }
@@ -43,11 +46,11 @@ const Movie = ({ user }) => {
         if (window.confirm('Are you sure you want to delete your account? This action is irreversible.')) {
             try {
                 const response = await axios.delete('http://localhost:3001/media/'+ id);
-                setMovie(null);
+                setRelease(null);
             } catch (err) {
                 console.error(err);
             }
-            navigate('/movies');
+            navigate('/music');
         }
     }
 
@@ -56,7 +59,7 @@ const Movie = ({ user }) => {
     return (
         <EditEntry
             user={user}    
-            media={movie}        
+            media={release}        
         />
 
         // this add entry button has to patch the entry using handleEditSubmit()
@@ -65,4 +68,4 @@ const Movie = ({ user }) => {
       
 }
 
-export default Movie;
+export default Release;

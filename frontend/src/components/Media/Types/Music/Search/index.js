@@ -18,7 +18,10 @@ const Music = ({ user }) => {
 
     const fetchMusic = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/media/${user._id}/music`);
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://localhost:3001/media/${user._id}/music`, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
             setMusic(response.data);
             setMusicFetched(true);
         } catch (error) {

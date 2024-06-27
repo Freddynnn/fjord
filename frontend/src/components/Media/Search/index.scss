@@ -17,7 +17,7 @@
     flex-wrap: wrap;
     align-items: center; 
 
-    .search-title {
+    .search-api {
         min-width: 400px;
         color: #3f62bc;
         font-size: 5rem;
@@ -189,6 +189,7 @@
                     text-overflow: ellipsis;
                     text-align: center;
                     text-transform: uppercase;
+                    text-decoration: none;
                     font-size: calc(1rem + 0.5vw);
                     
                     position: relative;

@@ -10,17 +10,18 @@ const {
     searchMusic,
     searchBooks
 } = require('../controllers/media');
+const authenticateToken = require('../middleware/auth');
 
 // All media routes
-router.get('/media/:userID/:type', getMediaByType); 
+router.get('/media/:userID/:type', authenticateToken, getMediaByType); 
 
-router.get('/imdb/search', searchVisMedia);  //searches IMDB for new entry to add
-router.get('/spotify/search', searchMusic);  // searches Spotify API
-router.get('/books/search', searchBooks);  // searches Goodreads API for books
-router.post('/media/new', createMedia); // adds new entry (with ratings, etc. to mongoDB)
+router.get('/imdb/search', searchVisMedia);  // Searches IMDB for new entry to add
+router.get('/spotify/search', searchMusic);  // Searches Spotify API
+router.get('/books/search', searchBooks);    // Searches Goodreads API for books
+router.post('/media/new', authenticateToken, createMedia); // Adds new entry (with ratings, etc. to MongoDB)
 
-router.get('/media/:ID', getMediaByID); 
-router.delete('/media/:ID', deleteMediaByID); 
-router.patch('/media/:ID', editMediaByID); 
+router.get('/media/:ID', authenticateToken, getMediaByID); 
+router.delete('/media/:ID', authenticateToken, deleteMediaByID); 
+router.patch('/media/:ID', authenticateToken, editMediaByID); 
 
 module.exports = router;

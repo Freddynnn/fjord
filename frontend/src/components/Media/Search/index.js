@@ -150,7 +150,7 @@ const Search = ({ user }) => {
         <div className='container about-page'>
             <div className='search-zone'>
                 <div className='search-bar'>
-                    <div className='search-title'>
+                    <div className='search-api'>
                         SEARCH  
                         <select value={selectedAPI} onChange={handleAPIChange} className="api-select">
                             {/* <option value="">Select an option</option> */}
@@ -158,7 +158,6 @@ const Search = ({ user }) => {
                                 <option key={option} value={option}>{option}</option>
                             ))}
                         </select>
-                        
                     </div>
                     <form className='search-form' onSubmit={handleSearch}>
                         <input

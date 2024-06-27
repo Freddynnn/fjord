@@ -18,7 +18,10 @@ const Books = ({ user }) => {
 
     const fetchBooks = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/media/${user._id}/book`);
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://localhost:3001/media/${user._id}/book`, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
             setBooks(response.data);
             setBooksFetched(true);
         } catch (error) {

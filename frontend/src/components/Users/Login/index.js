@@ -24,8 +24,9 @@ function Login({ logIn }) {
       if (response.status === 200) {
         console.log('Authentication successful');
         const userData = response.data.user;
+        localStorage.setItem('token', response.data.token);
         logIn(userData);
-        console.log('Navigating to dashboard');
+        
       } else {
         console.log('Authentication failed');
       }

@@ -84,10 +84,26 @@ function App() {
             </Protected>
           } 
         />
+
+        <Route path="/music/release/:id" 
+          element={
+            <Protected isLoggedIn={isLoggedIn}>    
+              <Release user={user}/>
+            </Protected>
+          } 
+        />
         <Route path='/books'  
           element = {
             <Protected isLoggedIn={isLoggedIn}>
               <Books user={user}/>
+            </Protected>
+          } 
+        />
+
+        <Route path="/books/book/:id" 
+          element={
+            <Protected isLoggedIn={isLoggedIn}>    
+              <Book user={user}/>
             </Protected>
           } 
         />

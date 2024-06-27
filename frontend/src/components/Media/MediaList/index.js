@@ -14,9 +14,9 @@ const MediaList = ({ mediaItems, mediaType }) => {
             case 'movies':
                 return `/movies/movie/${id}`;
             case 'books':
-                return `books/book/${id}`;
+                return `/books/book/${id}`;
             case 'music':
-                return `music/release/${id}`;
+                return `/music/release/${id}`;
             default:
                 return '/';
         }
@@ -34,7 +34,7 @@ const MediaList = ({ mediaItems, mediaType }) => {
                 {mediaItems.map((media, index)=> (
                 <li key={media._id}>
                     <Link to={getLinkUrl(media._id)} className="link-style">   
-                        <div className='image-container' style={mediaType === 'music' ? { aspectRatio: `2/2` } : { aspectRatio: `2/3` }}>
+                        <div className='image-container' style={mediaType === 'music' ? { aspectRatio: `2/2` } : { aspectRatio: `11/16` }}>
                             {!imageLoadStatus[index] && <div className='image-loading' />}
                             <img
                                 src={media.coverImage}

@@ -15,7 +15,10 @@ const Show = ({ user }) => {
 
     const fetchShow = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/media/'+ id);
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:3001/media/'+ id, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
             setShow(response.data);
         } catch (err) {
             console.error(err);

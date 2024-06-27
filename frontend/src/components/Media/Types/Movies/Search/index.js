@@ -18,7 +18,10 @@ const Movies = ({ user }) => {
 
     const fetchMovies = async () => {
         try {
-            const response = await axios.get(`http://localhost:3001/media/${user._id}/movie`);
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://localhost:3001/media/${user._id}/movie`, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
             setMovies(response.data);
             setMoviesFetched(true);
         } catch (error) {

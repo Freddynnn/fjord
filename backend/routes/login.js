@@ -8,14 +8,15 @@ const {
     editUserByID
 } = require('../controllers/users')
 
+const authenticateToken = require('../middleware/auth');
+
 // Register and login routes
 router.post('/register', registerUser);
 
 router.post('/login', loginUser);
 
 // Add the deleteUser route
-router.delete('/user/:userId', deleteUser);
-
-router.patch('/user/:userId', editUserByID);
+router.delete('/user/:userId', authenticateToken, deleteUser);
+router.patch('/user/:userId', authenticateToken, editUserByID);
 
 module.exports = router;
