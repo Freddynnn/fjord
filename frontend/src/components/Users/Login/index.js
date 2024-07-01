@@ -24,8 +24,8 @@ function Login({ logIn }) {
       if (response.status === 200) {
         console.log('Authentication successful');
         const userData = response.data.user;
-        localStorage.setItem('token', response.data.token);
-        logIn(userData);
+        const token = response.data.token;
+        logIn(userData, token);
         
       } else {
         console.log('Authentication failed');

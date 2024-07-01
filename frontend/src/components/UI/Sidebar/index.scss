@@ -40,11 +40,12 @@
         top: 10%;
         width: 100%;
         
+        
         // border: solid 1px blue;
 
         a{
             font-size: calc(1rem + 4vh);
-            width: 100%;
+            width: 80%;
             color: #555;
             display: flex; 
             align-items: center;
@@ -52,6 +53,9 @@
             position: relative;
             margin: auto;
             i{transition:  all 0.3s;}
+            // border-top-left-radius: 20%;
+            // border-bottom-left-radius: 20%;
+            // border: 1px solid red;
             
 
             // hover lets us see link's text
@@ -108,7 +112,8 @@
             &:after{ content: 'SEARCH';}
         }
         a.active{
-            svg{ color: #3f62bc;}
+            // background-color: #282635;
+            svg{ color: var(--color-main);}
         }
     }
 

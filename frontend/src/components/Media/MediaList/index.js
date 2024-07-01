@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './index.scss'
 
 const MediaList = ({ mediaItems, mediaType }) => {
-    const [imageLoadStatus, setImageLoadStatus] = useState(mediaItems.map(() => false));
+    const [imageLoaded, setImageLoaded] = useState(mediaItems.map(() => false));
 
 
     const getLinkUrl = (id) => {
@@ -23,9 +23,9 @@ const MediaList = ({ mediaItems, mediaType }) => {
     };    
 
     const handleImageLoad = (index) => {
-        const newImageLoadStatus = [...imageLoadStatus];
-        newImageLoadStatus[index] = true;
-        setImageLoadStatus(newImageLoadStatus);
+        const newImageLoaded = [...imageLoaded];
+        newImageLoaded[index] = true;
+        setImageLoaded(newImageLoaded);
     };
 
     return (
@@ -35,12 +35,12 @@ const MediaList = ({ mediaItems, mediaType }) => {
                 <li key={media._id}>
                     <Link to={getLinkUrl(media._id)} className="link-style">   
                         <div className='image-container' style={mediaType === 'music' ? { aspectRatio: `2/2` } : { aspectRatio: `11/16` }}>
-                            {!imageLoadStatus[index] && <div className='image-loading' />}
+                            {!imageLoaded[index] && <div className='image-loading' />}
                             <img
                                 src={media.coverImage}
                                 alt={media.name}
                                 onLoad={() => handleImageLoad(index)}
-                                style={!imageLoadStatus[index] ? { display: 'none' } : {}}
+                                style={!imageLoaded[index] ? { display: 'none' } : {}}
                             />
                         </div>
 

@@ -20,7 +20,8 @@ const Search = ({ user }) => {
     const allowedAPIs = ['IMDB', 'SPOTIFY', 'BOOKS'];
 
     // image loading consts
-    const [imageLoadStatus, setImageLoadStatus] = useState(searchResults.map(() => false));
+    const [recentImageLoaded, setRecentImageLoaded] = useState(recentSearches.map(() => false));
+    const [imageLoaded, setImageLoaded] = useState(searchResults.map(() => false));
 
 
     useEffect(() => {
@@ -29,7 +30,10 @@ const Search = ({ user }) => {
  
      const fetchSearches = async (searchType) => {
          try {
-            const response = await axios.get(`http://localhost:3001/search/${user._id}/${searchType}`);
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://localhost:3001/search/${user._id}/${searchType}`, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
             const fetchedSearches = response.data;
             setRecentSearches(fetchedSearches.reverse()); 
             console.log('recent searches: ', recentSearches);
@@ -65,7 +69,10 @@ const Search = ({ user }) => {
         e.preventDefault();
         console.log(`search query: ${searchQuery}`);
         try {
-            const response = await axios.get(`http://localhost:3001/${selectedAPI.toLowerCase()}/search?query=${searchQuery}`);
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://localhost:3001/${selectedAPI.toLowerCase()}/search?query=${searchQuery}`, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
             const data = response.data; // Extract data
             
             if (data) {
@@ -139,10 +146,16 @@ const Search = ({ user }) => {
         setRecentSearches([]);
     };
 
+    const handleRecentImageLoad = (index) => {
+        const newImageLoaded = [...recentImageLoaded];
+        newImageLoaded[index] = true;
+        setRecentImageLoaded(newImageLoaded);
+    };
+
     const handleImageLoad = (index) => {
-        const newImageLoadStatus = [...imageLoadStatus];
-        newImageLoadStatus[index] = true;
-        setImageLoadStatus(newImageLoadStatus);
+        const newImageLoaded = [...imageLoaded];
+        newImageLoaded[index] = true;
+        setImageLoaded(newImageLoaded);
     };
     
 
@@ -190,7 +203,17 @@ const Search = ({ user }) => {
                                                 <FontAwesomeIcon icon={faXmark} />  
                                             </button>
                                             <Link to="/new" state={{ media: { title, imageUrl, type } }}>
-                                                <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''}/>
+                                                {/* <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''}/> */}
+                                                <div className='image-container' style={selectedAPI === 'SPOTIFY' ? { aspectRatio: `2/2` } : { aspectRatio: `9/16` }}>
+                                                    {!recentImageLoaded[index] && <div className='image-loading' />}
+                                                    <img
+                                                        src={imageUrl}
+                                                        alt={title}
+                                                        onLoad={() => handleRecentImageLoad(index)}
+                                                        style={!recentImageLoaded[index] ? { display: 'none' } : {}}
+                                                    />
+                                                </div>
+
                                                 <div className='title-container'>
                                                     <div className="title">
                                                         {title}
@@ -270,16 +293,16 @@ const Search = ({ user }) => {
                                 return (
                                     <li key={index}>
                                         <Link to="/new" state={{ media }} onClick={() => handleSaveSearch(media)}>
-                                            {/* <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''} /> */}
-                                            <div className='image-container' style={selectedAPI === 'SPOTIFY' ? { aspectRatio: `2/2` } : { aspectRatio: `2/3` }}>
-                                                {!imageLoadStatus[index] && <div className='image-loading' />}
+                                            <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''} />
+                                            {/* <div className='image-container' style={selectedAPI === 'SPOTIFY' ? { aspectRatio: `2/2` } : { aspectRatio: `2/3` }}>
+                                                {!imageLoaded[index] && <div className='image-loading' />}
                                                 <img
                                                     src={imageUrl}
                                                     alt={title}
                                                     onLoad={() => handleImageLoad(index)}
-                                                    style={!imageLoadStatus[index] ? { display: 'none' } : {}}
+                                                    style={!imageLoaded[index] ? { display: 'none' } : {}}
                                                 />
-                                            </div>
+                                            </div> */}
                                         </Link>
                                         {mediaInfo}
                                     </li>

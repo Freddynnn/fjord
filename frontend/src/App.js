@@ -1,28 +1,44 @@
 import './App.scss';
-import {Routes, Route, Navigate} from 'react-router-dom';
-import { useState } from "react";
-import { About, Contact, Home, Settings} from './components';
-
-import {Books, Book, Movies, Movie, Music, Release, Shows, Show, EditEntry, Search, Watchlist} from './components/Media'
-import {Login, Register} from './components/Users'
-import {Layout, Protected} from './components/UI'
-
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { About, Contact, Home, Settings } from './components';
+import { Books, Book, Movies, Movie, Music, Release, Shows, Show, EditEntry, Search, Watchlist } from './components/Media';
+import { Login, Register } from './components/Users';
+import { Layout, Protected } from './components/UI';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = JSON.parse(localStorage.getItem('user'));
 
-  //state for userdata to display when logged in
-  const [user, setUser] = useState(null); 
+    if (token && userData) {
+      setIsLoggedIn(true);
+      setUser(userData);
+    }
+  }, []);
 
-  const logIn = (userData) => {
+  const logIn = (userData, token) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(userData));
     setIsLoggedIn(true);
     setUser(userData);
+
+    // Redirect to the previously saved location or home
+    const from = location.state?.from?.pathname || "/";
+    navigate(from, { replace: true });
   };
 
   const logOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setIsLoggedIn(false);
     setUser(null);
+    navigate('/');
   };
 
 

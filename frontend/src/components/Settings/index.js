@@ -1,22 +1,21 @@
-import './index.scss'
+import './index.scss';
 
-const Settings = ( {user, logout}) => {
-    
+const Settings = ({ user, logOut }) => {
     return (
         <div className='container about-page'>
             <div className='text-zone'>
                 <h1>
-                   COMING SOON !!!
+                   Welcome 
+                   {user && ' ' + user.username}
                 </h1>
                 <p>
-                    We're workin on it  =P     
+                    We're working on it =P     
                 </p>
 
-                <button onClick={logout}>logOut</button>
+                <button onClick={logOut}>Log Out</button>
             </div>
-
         </div>
     );
-}   
+};
 
 export default Settings;
