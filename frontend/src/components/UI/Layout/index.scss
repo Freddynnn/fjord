@@ -16,7 +16,7 @@
     bottom: 0;
     left: 180px;
     font-size: 18px;
-    font-family: 'Coolvetica';
+    font-family: var(--font-family);
 }
 
 .bottom-tag-html{
@@ -61,7 +61,7 @@
 h1{
     color: #3f62bc;
     font-size: 50px;
-    font-family: 'Coolvetica';
+    font-family: var(--font-family);
     font-weight: 300;
     letter-spacing: 2px;
 
