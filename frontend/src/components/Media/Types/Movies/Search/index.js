@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import MediaList from '../../../MediaList';
 import MediaFilters from '../../../MediaFilters';
 import axios from 'axios';
-import './index.scss'
+// import './index.scss'
 
 const Movies = ({ user }) => {
     const [movies, setMovies] = useState([]);
@@ -57,6 +57,11 @@ const Movies = ({ user }) => {
                 />
 
                 <MediaList mediaItems={filteredMovies} mediaType="movies" />
+                {/* {moviesFetched ? (
+                    <MediaList mediaItems={filteredMovies} mediaType="movies" />
+                ) : (
+                    <p>Loading movies...</p> 
+                )} */}
             </div>
         </div>
     );

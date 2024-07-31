@@ -57,6 +57,11 @@ const Shows = ({ user }) => {
                     onFilter={setFilteredShows}
                 />
                 <MediaList mediaItems={filteredShows} mediaType="shows" />
+                {/* {showsFetched ? (
+                    <MediaList mediaItems={filteredShows} mediaType="shows" />
+                ) : (
+                    <p>Loading shows...</p> 
+                )} */}
             </div>
         </div>
     );

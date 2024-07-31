@@ -160,98 +160,105 @@ const EditEntry = ({user, media}) => {
     return (
         <div className="container">
             <form className="entry-form" onSubmit={handleSubmit}>
-                <div className='title'>
-                    <input type="text" name="name" placeholder='NEW ENTRY ✎' value={formData.name} onChange={handleChange}  />
-                </div>      
-
-                              
-                <div className='input-fields'>
-                    <div className='label-input'>
-                        <label>Type:</label>
-                        <select name="type" value={formData.type} onChange={handleChange}>
-                            <option value="">Select Type</option>
-                            {mediaTypes.map((type, index) => (
-                                <option key={index} value={type}>{type}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className='label-input'>
-                        <label>Watched:</label>
-                        <input type="date" name="watchDate" value={formData.watchDate} onChange={handleChange} />
-                    </div>
-                    <div className='label-input'>
-                        <label>Grade:</label>
-                        <input 
-                            type="range" 
-                            name="grade" 
-                            value={formData.grade} 
-                            min="0" 
-                            max={grades.length - 1}  
-                            step="1" 
-                            onChange={handleChange} 
-                        />
-                    </div>
-                    <div className='label-input'>
-                        <label>score:</label>
-                        <input 
-                            type="range" 
-                            name="score" 
-                            value={formData.score} 
-                            min="0" 
-                            max="10" 
-                            step="0.1" 
-                            onChange={handleChange} 
-                        />
-                    </div>
-                    
-                    <div className='label-textarea'>
-                        <label>Notes:</label>
-                        <textarea name="notes" value={formData.notes} onChange={handleChange} />
-                    </div>
-
-                </div>
-
                 <div className='visuals-container'>
-                <div className='img-container'>
-                    
-                    {/* <input type="file" onChange={handleImageChange} accept="image/*" /> */}
-                    <div className="image-upload-container">
-                        <input 
-                            type="file" 
-                            id="fileInput" 
-                            onChange={handleImageChange} 
-                            accept="image/*" 
-                            style={{ display: 'none' }} 
-                        />
-                        <label htmlFor="fileInput" className="upload-icon">
-                            <FontAwesomeIcon icon={faFileImport} />
-                        </label>
-                    </div>
-
-
-                    {formData.coverImage ? (
-                        formData.coverImage instanceof File ? (
-                            <img src={URL.createObjectURL(formData.coverImage)} alt="Uploaded Image" />
+                    <div className='img-container'>
+                        
+                        {/* <input type="file" onChange={handleImageChange} accept="image/*" /> */}
+                        <div className="image-upload-container">
+                            <input 
+                                type="file" 
+                                id="fileInput" 
+                                onChange={handleImageChange} 
+                                accept="image/*" 
+                                style={{ display: 'none' }} 
+                            />
+                            <label htmlFor="fileInput" className="upload-icon">
+                                <FontAwesomeIcon icon={faFileImport} />
+                            </label>
+                        </div>
+                        {formData.coverImage ? (
+                            formData.coverImage instanceof File ? (
+                                <img src={URL.createObjectURL(formData.coverImage)} alt="Uploaded Image" />
+                            ) : (
+                                <img src={formData.coverImage} alt="Uploaded Image" />
+                            )
                         ) : (
-                            <img src={formData.coverImage} alt="Uploaded Image" />
-                        )
-                    ) : (
-                        <img src="https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg" alt="Select an Image" />
-                    )}
-                </div>
-                    <div className='visuals-info'>
-                        <span className='grade' style={{ color: formData.grade?getValueColor(formData.grade, 15, minColor, maxColor): "#a54f98" }}>
-                            {formData.grade?grades[formData.grade]:"C+"}
-                        </span>
-                        
-                        <span className='score' style={{ color: formData.score?getValueColor(formData.score, 10, minColor, maxColor): "#a54f98" }}>
-                            {formData.score?formData.score:"5"}
-                        </span>
-                        
-                            <button type="submit">ADD ENTRY</button>
-                        
+                            <img src="https://m.media-amazon.com/images/M/MV5BYzZjMTk5NjctMDg1Yy00N2I1LTk1NTUtODcwOWRlOWVkNjlmXkEyXkFqcGdeQXVyMTk2ODc0MjY@._V1_.jpg" alt="Select an Image" />
+                        )}
                     </div>
+                   
                 </div>
+         
+                <div className='input-container'>
+
+                    
+                    <div className='input-header'>
+                        <div className='title'>
+                            <input type="text" name="name" placeholder='NEW ENTRY✎' value={formData.name} onChange={handleChange}  />
+                        </div>     
+                        <div className='rating-info'>
+                            <span className='grade' style={{ color: formData.grade?getValueColor(formData.grade, 15, minColor, maxColor): "#a54f98" }}>
+                                {formData.grade?grades[formData.grade]:"C+"}
+                            </span>
+                            
+                            <span className='score' style={{ color: formData.score?getValueColor(formData.score, 10, minColor, maxColor): "#a54f98" }}>
+                                {formData.score?formData.score:"5"}
+                            </span>
+                            
+                                <button type="submit">ADD ENTRY</button>
+                            
+                        </div>
+                    </div>
+
+
+
+                    <div className='input-entries'>
+                        <div className='label-input'>
+                            <label>Type:</label>
+                            <select name="type" value={formData.type} onChange={handleChange}>
+                                <option value="">Select Type</option>
+                                {mediaTypes.map((type, index) => (
+                                    <option key={index} value={type}>{type}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className='label-input'>
+                            <label>Watched:</label>
+                            <input type="date" name="watchDate" value={formData.watchDate} onChange={handleChange} />
+                        </div>
+                        <div className='label-input'>
+                            <label>Grade:</label>
+                            <input 
+                                type="range" 
+                                name="grade" 
+                                value={formData.grade} 
+                                min="0" 
+                                max={grades.length - 1}  
+                                step="1" 
+                                onChange={handleChange} 
+                            />
+                        </div>
+                        <div className='label-input'>
+                            <label>score:</label>
+                            <input 
+                                type="range" 
+                                name="score" 
+                                value={formData.score} 
+                                min="0" 
+                                max="10" 
+                                step="0.1" 
+                                onChange={handleChange} 
+                            />
+                        </div>
+                        
+                        <div className='label-textarea'>
+                            <label>Notes:</label>
+                            <textarea name="notes" value={formData.notes} onChange={handleChange} />
+                        </div>
+                    </div>
+
+                </div>
+
             </form>
         </div>
     );
