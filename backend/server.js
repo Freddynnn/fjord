@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3001;
 const mediaRouter = require('./routes/media')
 const loginRouter = require('./routes/login');
 const searchRouter = require('./routes/search');
+const watchlistRouter = require('./routes/watchlist');
 
 // Import JWT middleware
 const authenticateToken = require('./middleware/auth');
@@ -42,6 +43,7 @@ db.once('open', () => console.log('Connected to Mongoose'));
 app.use('', loginRouter);
 app.use('', authenticateToken, mediaRouter);
 app.use('', authenticateToken, searchRouter);
+app.use('', authenticateToken, watchlistRouter);
 
 app.options('*', cors());
 

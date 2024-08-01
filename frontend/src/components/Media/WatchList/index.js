@@ -12,16 +12,19 @@ const Watchlist = ({ user }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-       fetchWatchlist();
+       fetchWatchlist('movie');
     }, []);
 
-    const fetchWatchlist = async () => {
+    const fetchWatchlist = async (watchlistType) => {
         try {
-            const response = await axios.get(`http://localhost:3001/media/${user._id}/watchlist`);
-            setWatchlist(response.data);
-            setWatchlistFetched(true);
+           const token = localStorage.getItem('token');
+           const response = await axios.get(`http://localhost:3001/watchlist/${user._id}/${watchlistType}`, {
+               headers: {Authorization: `Bearer ${token}`}
+           });
+           setWatchlist(response.data);
+           setWatchlistFetched(true);
         } catch (error) {
-            console.error('Error fetching user watchlist:', error);
+           console.error('Error fetching user watchlist:', error);
         }
     };
 

@@ -52,15 +52,20 @@ const MediaList = ({ mediaItems, mediaType }) => {
                                 </div>
                             </div>
                             <div className="ratings-container">
-                                <div className="grade">
-                                    {media.grade}
-                                </div>
-                                <div className="score">
-                                    {/* {media.score === 10 ? "10" : media.score.toFixed(1)}/10 */}
-                                    {media.score}/10
-                                </div>
+                                {media.grade && (
+                                    <div className="grade">
+                                        {media.grade}
+                                    </div>
+                                )}
+                                {media.score && (
+                                    <div className="score">
+                                        {/* {media.score === 10 ? "10" : media.score.toFixed(1)}/10 */}
+                                        {media.score}/10
+                                    </div>
+                                )}
                             </div>
                         </div>
+
                     </Link>
                 </li>
                 ))}

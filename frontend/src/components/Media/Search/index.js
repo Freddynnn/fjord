@@ -2,7 +2,7 @@ import { Link, withRouter  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import AnimateLetters from '../../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faTrash, faX, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faList, faListCheck, faMagnifyingGlass, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
@@ -27,7 +27,7 @@ const Search = ({ user }) => {
     useEffect(() => {
         fetchSearches('movie');
      }, []);
- 
+     
      const fetchSearches = async (searchType) => {
          try {
             const token = localStorage.getItem('token');
@@ -99,14 +99,18 @@ const Search = ({ user }) => {
         }
     };
 
+
+    // functions for 'Recent searches' mechanic
     const handleSaveSearch = async (media) => {
         try {
+            const token = localStorage.getItem('token');
             const response = await axios.post('http://localhost:3001/search/add', {
                 name: media.title,
                 type: media.type,
                 coverImage: media.imageUrl,
-                // creatorID: media.creatorID || null,
-                userID: user._id, 
+                userID: user._id,
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
             });
     
             console.log('Search item saved:', response.data);
@@ -114,6 +118,7 @@ const Search = ({ user }) => {
             console.error('Error saving search item:', error);
         }
     };
+    
 
     const handleRemoveSearch = (searchId,  event = null) => {
         console.log(`Remove search with ID: ${searchId}`);
@@ -145,6 +150,26 @@ const Search = ({ user }) => {
 
         setRecentSearches([]);
     };
+
+    const handleWatchListAdd = async (media) => {
+        const { title, imageUrl, type } = media;
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.post('http://localhost:3001/watchlist/add', {
+                name: title,
+                type: type,
+                coverImage: imageUrl,
+                userID: user._id,
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+    
+            console.log('Watchlist item saved:', response.data);
+        } catch (error) {
+            console.error('Error saving watchlist item:', error);
+        }
+    };
+    
 
     const handleRecentImageLoad = (index) => {
         const newImageLoaded = [...recentImageLoaded];
@@ -196,12 +221,22 @@ const Search = ({ user }) => {
                                     let title = item.name || '';
                                     let imageUrl = item.coverImage || '';
                                     let type = item.type || '';
+
+                                    let isWatchlisted = false;
                                     
                                     return (
                                         <li key={index} style={selectedAPI === 'SPOTIFY' ? {width: `235px`} : {width: `calc(10% - 70px)`}}>
+                                            <button className='watchlist-button' onClick={(event) => {
+                                                handleWatchListAdd({ title: item.name, imageUrl: item.coverImage, type: item.type });
+                                                // toggleWatchlist(item._id);
+                                            }}>
+                                                <FontAwesomeIcon icon={isWatchlisted ? faListCheck : faList} />
+                                            </button>
+
                                             <button className='close-button' onClick={(event) => handleRemoveSearch(item._id, event)}>
                                                 <FontAwesomeIcon icon={faXmark} />  
                                             </button>
+
                                             <Link to="/new" state={{ media: { title, imageUrl, type } }}>
                                                 {/* <img src={imageUrl} alt={title} className={selectedAPI === 'SPOTIFY' ? 'square-image' : ''}/> */}
                                                 <div className='image-container' style={selectedAPI === 'SPOTIFY' ? { aspectRatio: `2/2` } : { aspectRatio: `9/16` }}>

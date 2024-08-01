@@ -220,9 +220,34 @@
                 }   
             }
             
+            .watchlist-button {
+                // opacity: 0;
+                position: absolute;
+                cursor: pointer;
+                width: 33px;
+                height: 35px;
+                top: 10px;
+                left: 15px;
+                padding: 5px;
+
+                font-size: 2.2rem;
+                background-color: #00000076;
+                // background-color: #8797e8de;
+                color: var(--color-light);
+                border: none;
+                // border: solid 2px #224fc2;
+                border-radius: 20%;
+                transition: background-color 0.2s ease-in-out;
+    
+                &:hover {
+                    background-color: #6c81e8de;
+                    color: #1f48b1;
+                    // border-color: #0e42c4;
+                }
+            }
 
             .close-button {
-                opacity: 0;
+                // opacity: 0;
                 position: absolute;
                 cursor: pointer;
                 width: 33px;
@@ -232,7 +257,7 @@
                 padding: 5px;
 
                 font-size: 2.2rem;
-                background-color: #d9d9d900;
+                background-color: #00000076;
                 // background-color: #8797e8de;
                 color: var(--color-light);
                 border: none;
@@ -248,10 +273,12 @@
             }
 
             &:hover {
-                .close-button {
+                .close-button,
+                .watchlist-button{
                     opacity: 1;
                     transition: all 0.2s ease-in-out;
                 }
+                
                 img {
                     border-color: #233f87d6;
                     transition: all 0.2s ease-in-out;
