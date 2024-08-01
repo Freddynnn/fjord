@@ -6,6 +6,7 @@
     vertical-align: middle;
     display: table-cell;
     max-height: 90%;
+    // border: 1px red solid;
 }
 
 .search-bar {
@@ -88,7 +89,8 @@
 .recent-search{
     // height: 50dvh;
     min-height: 370px;
-    width: 100%;
+    width: 95%;
+    margin-left: 2%;
     // border: solid 1px red;
 
     
@@ -204,6 +206,7 @@
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
                     -webkit-line-clamp: 2; /* Limits to 2 lines */
+                    line-clamp: 2;      
                     overflow: hidden;
                     text-overflow: ellipsis;
                     text-align: center;
@@ -269,6 +272,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    // border: 1px blue solid;
 
     ul {
         padding: 0;
@@ -286,6 +290,8 @@
         margin: 0 2% ; 
         list-style: none;
         cursor: pointer; 
+
+        // border: 1px red solid;
         
 
         .title{
@@ -316,6 +322,7 @@
                 -webkit-box-orient: vertical;
                 vertical-align: middle;
                 -webkit-line-clamp: 2;
+                line-clamp: 2;      
                 overflow: hidden; 
                 text-overflow: ellipsis;
             }
@@ -341,20 +348,20 @@
         }
         
 
-        // img {
-        //     border: 5px solid transparent;
-        //     height: 80%;
-        //     width: 100%;
-        //     border-radius: 12px;
-        // }
+        img {
+            border: 5px solid transparent;
+            height: 80%;
+            width: 100%;
+            border-radius: 12px;
+        }
 
-        // .square-image{
-        //     width: 100%; 
-        //     height: auto;
-        // }
+        .square-image{
+            width: 100%; 
+            height: auto;
+        }
         .image-container{
             width: 100%;
-            // border: solid 3px purple;
+            border: solid 3px purple;
             img {
                 border: 5px solid transparent;
                 width: 96%;

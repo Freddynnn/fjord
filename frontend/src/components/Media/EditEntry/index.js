@@ -67,25 +67,27 @@ const EditEntry = ({user, media}) => {
     }, [media]);
 
     // Function to handle the edit form submission if media exists
-    const handleEditSubmit = async () => {
+    const handleEditSubmit = async (token) => {
         try {
             const response = await axios.patch(`http://localhost:3001/media/${media._id}`, formData, {
+                headers: { Authorization: `Bearer ${token}` },
                 timeout: 10000, // Set a longer timeout (in milliseconds)
             });
             if (response.status === 200) {
-                console.log("successful edit");
+                console.log("Successful edit");
             }
         } catch (err) {
-            console.error(err);
+            console.error('Error submitting edit:', err);
         }
     };
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
         // console.log('updated', name, "to:", value );
-        console.log("User object: ", user);
-        console.log("formData userID: ", formData.userID);
+        // console.log("User object: ", user);
+        // console.log("formData userID: ", formData.userID);
         
     };
 
@@ -115,12 +117,17 @@ const EditEntry = ({user, media}) => {
                 userID
             };
 
+            // Get the JWT token from local storage
+            const token = localStorage.getItem('token');
+
             if (media) {
                 // Send a patch request if media exists
-                await handleEditSubmit();
+                await handleEditSubmit(token);
             } else {
                 // Send a post request if it's a new entry
-                await axios.post('http://localhost:3001/media/new', requestData);
+                await axios.post('http://localhost:3001/media/new', requestData, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
             }
             
             // redirect to the media type's page
