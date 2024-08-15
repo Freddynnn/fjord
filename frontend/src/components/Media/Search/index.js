@@ -2,7 +2,8 @@ import { Link, withRouter  } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import AnimateLetters from '../../AnimatedLetters';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList, faListCheck, faMagnifyingGlass, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faSolidBookmark, faList, faListCheck, faMagnifyingGlass, faSave, faSquareCheck, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as faRegularBookmark} from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios'; 
 import './index.scss'
 
@@ -21,7 +22,11 @@ const Search = ({ user }) => {
 
     // image loading consts
     const [recentImageLoaded, setRecentImageLoaded] = useState(recentSearches.map(() => false));
-    const [imageLoaded, setImageLoaded] = useState(searchResults.map(() => false));
+
+    // watchlisted consts
+    const [watchlistedArray, setWatchlistedArray] = useState(recentSearches.map(() => false));
+
+    // TODO: need to check watchlist on load & map watchlistedarray to true if watchlisted already
 
 
     useEffect(() => {
@@ -151,7 +156,7 @@ const Search = ({ user }) => {
         setRecentSearches([]);
     };
 
-    const handleWatchListAdd = async (media) => {
+    const handleWatchListAdd = async (media, index) => {
         const { title, imageUrl, type } = media;
         try {
             const token = localStorage.getItem('token');
@@ -165,24 +170,63 @@ const Search = ({ user }) => {
             });
     
             console.log('Watchlist item saved:', response.data);
+            const newWatchlistedArray = [...watchlistedArray];
+            newWatchlistedArray[index] = true;
+            setWatchlistedArray(newWatchlistedArray);
         } catch (error) {
             console.error('Error saving watchlist item:', error);
         }
     };
-    
 
+    const toggleWatchListed = async (media, index) => {
+        const { title, imageUrl, type } = media;
+        const newWatchlistedArray = [...watchlistedArray];
+
+        if(!watchlistedArray[index]){
+            try {
+                // const token = localStorage.getItem('token');
+                // const response = await axios.post('http://localhost:3001/watchlist/add', {
+                //     name: title,
+                //     type: type,
+                //     coverImage: imageUrl,
+                //     userID: user._id,
+                // }, {
+                //     headers: { Authorization: `Bearer ${token}` }
+                // });
+        
+                console.log('Watchlist item saved:');
+                newWatchlistedArray[index] = true;
+                setWatchlistedArray(newWatchlistedArray);
+            } catch (error) {
+                console.error('Error saving watchlist item:', error);
+            }
+        } else {
+            try {
+                // const token = localStorage.getItem('token');
+                // const response = await axios.post('http://localhost:3001/watchlist/add', {
+                //     name: title,
+                //     type: type,
+                //     coverImage: imageUrl,
+                //     userID: user._id,
+                // }, {
+                //     headers: { Authorization: `Bearer ${token}` }
+                // });
+        
+                console.log('Watchlist item removed:');
+                newWatchlistedArray[index] = false;
+                setWatchlistedArray(newWatchlistedArray);
+            } catch (error) {
+                console.error('Error saving watchlist item:', error);
+            }
+        }
+        
+    };
+    
     const handleRecentImageLoad = (index) => {
         const newImageLoaded = [...recentImageLoaded];
         newImageLoaded[index] = true;
         setRecentImageLoaded(newImageLoaded);
     };
-
-    const handleImageLoad = (index) => {
-        const newImageLoaded = [...imageLoaded];
-        newImageLoaded[index] = true;
-        setImageLoaded(newImageLoaded);
-    };
-    
 
     return (
         <div className='container about-page'>
@@ -221,16 +265,16 @@ const Search = ({ user }) => {
                                     let title = item.name || '';
                                     let imageUrl = item.coverImage || '';
                                     let type = item.type || '';
-
-                                    let isWatchlisted = false;
                                     
                                     return (
                                         <li key={index} style={selectedAPI === 'SPOTIFY' ? {width: `235px`} : {width: `calc(10% - 70px)`}}>
                                             <button className='watchlist-button' onClick={(event) => {
-                                                handleWatchListAdd({ title: item.name, imageUrl: item.coverImage, type: item.type });
-                                                // toggleWatchlist(item._id);
+                                                // handleWatchListAdd({ title: item.name, imageUrl: item.coverImage, type: item.type }, index);
+                                                toggleWatchListed({ title: item.name, imageUrl: item.coverImage, type: item.type }, index);
+                                                
                                             }}>
-                                                <FontAwesomeIcon icon={isWatchlisted ? faListCheck : faList} />
+                                                <FontAwesomeIcon icon={watchlistedArray[index] ? faSolidBookmark : faRegularBookmark} />
+                                                
                                             </button>
 
                                             <button className='close-button' onClick={(event) => handleRemoveSearch(item._id, event)}>

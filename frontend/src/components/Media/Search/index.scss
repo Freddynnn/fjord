@@ -88,7 +88,7 @@
 
 .recent-search{
     // height: 50dvh;
-    min-height: 370px;
+    min-height: 400px;
     width: 95%;
     margin-left: 2%;
     // border: solid 1px red;
@@ -139,6 +139,7 @@
         left: 0%;
         max-width: 94%;
         height: 80%;
+        min-height: 350px;
         display: flex;
         flex-wrap: nowrap;
         justify-content: flex-start;
@@ -151,16 +152,18 @@
             width: calc(10% - 70px); 
             min-width: 200px;
             height: 100%;
+            min-height: 350px;
             margin: 0 20px; 
             list-style: none;
             cursor: pointer; 
             position: relative;
-
+            
             // border: solid 1px blue;
             .image-container{
                 // border: 1px red solid;
                 width: 95%;
                 height: 75%;
+                
                 margin: auto;
                 img {
                     border: 5px solid transparent;
@@ -221,7 +224,7 @@
             }
             
             .watchlist-button {
-                // opacity: 0;
+                opacity: 0;
                 position: absolute;
                 cursor: pointer;
                 width: 33px;
@@ -247,7 +250,7 @@
             }
 
             .close-button {
-                // opacity: 0;
+                opacity: 0;
                 position: absolute;
                 cursor: pointer;
                 width: 33px;
