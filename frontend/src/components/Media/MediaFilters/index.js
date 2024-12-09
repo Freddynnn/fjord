@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactSlider from 'react-slider'
 import './index.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 
 const MediaFilters = ({initialMedia, search, onFilter }) => {
     const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
@@ -77,7 +79,7 @@ const MediaFilters = ({initialMedia, search, onFilter }) => {
                     minDistance={0.1}
                     onChange={(value) => setGradeRange(value)}
                 />
-                <button onClick={clearGradeRange}>Clear</button>
+                <div className='clear-button' onClick={clearGradeRange}><FontAwesomeIcon icon={faX}/></div>
 
             </span>
             <span className='filter'>
@@ -99,7 +101,7 @@ const MediaFilters = ({initialMedia, search, onFilter }) => {
                     minDistance={0.1}
                     onChange={(value) => setScoreRange(value)}
                 />
-                <button onClick={clearScoreRange}>Clear</button>
+                <div className='clear-button' onClick={clearScoreRange}><FontAwesomeIcon icon={faX}/></div>
             </span>
 
             <span className="filter">

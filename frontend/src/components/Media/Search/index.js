@@ -31,7 +31,9 @@ const Search = ({ user }) => {
 
     useEffect(() => {
         fetchSearches('movie');
+        
      }, []);
+
      
      const fetchSearches = async (searchType) => {
          try {
@@ -43,9 +45,14 @@ const Search = ({ user }) => {
             setRecentSearches(fetchedSearches.reverse()); 
             console.log('recent searches: ', recentSearches);
             setSearchesFetched(true);
+
          } catch (error) {
             console.error('Error fetching user searches:', error);
          }
+
+         
+        // for each search item, also check if they have been watchlisted already
+         
      };
 
     const handleAPIChange = (e) => {

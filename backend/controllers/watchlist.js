@@ -40,6 +40,30 @@ const getWatchlistsByType = async (req, res) => {
     }
 };
 
+const getWatchlistByName = async (req, res) => {
+    const userID = req.params.userID;
+    const name = req.query.name;
+
+    try {
+        // Perform a case-insensitive Watchlist using a regular expression
+        const userWatchlists = await Watchlist.find({ 
+            userID,
+            name: { $regex: new RegExp(type, 'i') } 
+        }).sort({ createdAt: -1 }).limit(10);
+
+        if (!userWatchlists || userWatchlists.length === 0) {
+            return res.status(404).json({ error: `No watchlist found for userID: ${userID} and type: ${type}` });
+        }
+
+        return res.status(200).json(userWatchlists);
+    } catch (error) {
+        console.error('Error fetching watchlists:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+
+}
+
 
 
 // Function to remove a Watchlist (placeholder)
