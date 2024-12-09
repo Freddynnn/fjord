@@ -10,6 +10,13 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Add missing dependencies
+RUN npm install sass --save && \
+    npm install @babel/plugin-proposal-private-property-in-object --save-dev
+
+# Update Browserslist database
+RUN npx update-browserslist-db@latest
+
 # Copy all application code to the working directory
 COPY . .
 
