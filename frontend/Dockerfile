@@ -10,7 +10,7 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# # Add missing dependencies
+# Add missing dependencies
 # RUN npm install sass --save && \
 #     npm install @babel/plugin-proposal-private-property-in-object --save-dev
 
