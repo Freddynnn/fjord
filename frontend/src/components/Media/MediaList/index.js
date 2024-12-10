@@ -5,7 +5,7 @@ import './index.scss'
 
 const MediaList = ({ mediaItems, mediaType }) => {
     const [imageLoaded, setImageLoaded] = useState(mediaItems.map(() => false));
-
+    const grades = ['F', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+', 'S-', 'S', 'S+'];
 
     const getLinkUrl = (id) => {
         switch (mediaType) {
@@ -54,7 +54,7 @@ const MediaList = ({ mediaItems, mediaType }) => {
                             <div className="ratings-container">
                                 {media.grade && (
                                     <div className="grade">
-                                        {media.grade}
+                                        {grades[media.grade]}
                                     </div>
                                 )}
                                 {media.score && (

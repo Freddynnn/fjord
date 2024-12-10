@@ -49,16 +49,14 @@ const EditEntry = ({user, media}) => {
     useEffect(() => {
         // Fill in the form fields with media information
         if (media) {
-            
             const watchDate = media.watchDate ? new Date(media.watchDate).toISOString().split('T')[0] : '';
-            const gradeIndex = grades.indexOf(media.grade);
 
             setFormData({
                 name: media.name || '',
                 watchDate: watchDate || '',
                 notes: media.notes || '',
                 score: media.score || '',
-                grade: gradeIndex !== -1 ? gradeIndex.toString() : '',
+                grade: media.grade,
                 type: media.type || '',
                 coverImage: media.coverImage || '',
                 userID: media.userID || ''

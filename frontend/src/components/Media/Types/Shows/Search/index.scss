@@ -5,17 +5,18 @@
     width: 80%;
     display: table-cell;
     height: 100%; /* Make the height 100% of its container */
+    
 }
 
 .media-search-bar {
-    height: 15%;
+    height: 10%;
     width: 90%; 
     min-width: 700px;
     margin-left: 5%; 
     display: flex; 
     flex-wrap: wrap;
     align-items: center; 
-
+    // border: 1px solid red;
     h1 {
         min-width: 220px;
         margin-left: 3%;

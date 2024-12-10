@@ -22,7 +22,10 @@ if (process.env.NODE_ENV !== 'production'){
 }
 
 // Enable CORS for development
-app.use(cors());
+app.use(cors({
+  origin: ['https://fjord-six.vercel.app', 'http://localhost:3000'], // Allow specific origins
+  credentials: true,
+}));
 
 // Parse JSON requests
 app.use(express.json());
