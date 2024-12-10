@@ -19,7 +19,7 @@ const Movies = ({ user }) => {
     const fetchMovies = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:3001/media/${user._id}/movie`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/media/${user._id}/movie`, {
                 headers: {Authorization: `Bearer ${token}`}
             });
             setMovies(response.data);

@@ -19,7 +19,7 @@ const Shows = ({ user }) => {
     const fetchShows = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:3001/media/${user._id}/show`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/media/${user._id}/show`, {
                 headers: {Authorization: `Bearer ${token}`}
             });
             setShows(response.data);

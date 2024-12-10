@@ -67,7 +67,7 @@ const EditEntry = ({user, media}) => {
     // Function to handle the edit form submission if media exists
     const handleEditSubmit = async (token) => {
         try {
-            const response = await axios.patch(`http://localhost:3001/media/${media._id}`, formData, {
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/media/${media._id}`, formData, {
                 headers: { Authorization: `Bearer ${token}` },
                 timeout: 10000, // Set a longer timeout (in milliseconds)
             });
@@ -123,7 +123,7 @@ const EditEntry = ({user, media}) => {
                 await handleEditSubmit(token);
             } else {
                 // Send a post request if it's a new entry
-                await axios.post('http://localhost:3001/media/new', requestData, {
+                await axios.post('${process.env.REACT_APP_API_URL}/media/new', requestData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }

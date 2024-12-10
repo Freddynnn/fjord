@@ -19,7 +19,7 @@ function Login({ logIn }) {
 
     try {
       // Send a POST request to your login endpoint on your backend
-      const response = await axios.post('https://fjord.onrender.com/login', payload);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, payload);
 
       if (response.status === 200) {
         console.log('Authentication successful');

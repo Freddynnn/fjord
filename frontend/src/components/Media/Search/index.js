@@ -38,7 +38,7 @@ const Search = ({ user }) => {
      const fetchSearches = async (searchType) => {
          try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:3001/search/${user._id}/${searchType}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/search/${user._id}/${searchType}`, {
                 headers: {Authorization: `Bearer ${token}`}
             });
             const fetchedSearches = response.data;
@@ -82,7 +82,7 @@ const Search = ({ user }) => {
         console.log(`search query: ${searchQuery}`);
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:3001/${selectedAPI.toLowerCase()}/search?query=${searchQuery}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/${selectedAPI.toLowerCase()}/search?query=${searchQuery}`, {
                 headers: {Authorization: `Bearer ${token}`}
             });
             const data = response.data; // Extract data
@@ -116,7 +116,7 @@ const Search = ({ user }) => {
     const handleSaveSearch = async (media) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:3001/search/add', {
+            const response = await axios.post('${process.env.REACT_APP_API_URL}/search/add', {
                 name: media.title,
                 type: media.type,
                 coverImage: media.imageUrl,
@@ -144,7 +144,7 @@ const Search = ({ user }) => {
         }
 
         // Use API to remove search from database
-        axios.delete(`http://localhost:3001/search/${searchId}`)
+        axios.delete(`${process.env.REACT_APP_API_URL}/search/${searchId}`)
         .then(response => {
             console.log('Search removed from database:', response.data);
         })
@@ -167,7 +167,7 @@ const Search = ({ user }) => {
         const { title, imageUrl, type } = media;
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:3001/watchlist/add', {
+            const response = await axios.post('${process.env.REACT_APP_API_URL}/watchlist/add', {
                 name: title,
                 type: type,
                 coverImage: imageUrl,
@@ -192,7 +192,7 @@ const Search = ({ user }) => {
         if(!watchlistedArray[index]){
             try {
                 // const token = localStorage.getItem('token');
-                // const response = await axios.post('http://localhost:3001/watchlist/add', {
+                // const response = await axios.post('${process.env.REACT_APP_API_URL}/watchlist/add', {
                 //     name: title,
                 //     type: type,
                 //     coverImage: imageUrl,
@@ -210,7 +210,7 @@ const Search = ({ user }) => {
         } else {
             try {
                 // const token = localStorage.getItem('token');
-                // const response = await axios.post('http://localhost:3001/watchlist/add', {
+                // const response = await axios.post('${process.env.REACT_APP_API_URL}/watchlist/add', {
                 //     name: title,
                 //     type: type,
                 //     coverImage: imageUrl,

@@ -16,7 +16,7 @@ const Book = ({ user }) => {
     const fetchBook = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:3001/media/'+ id, {
+            const response = await axios.get('${process.env.REACT_APP_API_URL}/media/'+ id, {
                 headers: {Authorization: `Bearer ${token}`}
             });
             setBook(response.data);
@@ -45,7 +45,7 @@ const Book = ({ user }) => {
     const handleDeleteClick = async () => {
         if (window.confirm('Are you sure you want to delete your account? This action is irreversible.')) {
             try {
-                const response = await axios.delete('http://localhost:3001/media/'+ id);
+                const response = await axios.delete('${process.env.REACT_APP_API_URL}/media/'+ id);
                 setBook(null);
             } catch (err) {
                 console.error(err);

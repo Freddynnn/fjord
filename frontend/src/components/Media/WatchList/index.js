@@ -18,7 +18,7 @@ const Watchlist = ({ user }) => {
     const fetchWatchlist = async (watchlistType) => {
         try {
            const token = localStorage.getItem('token');
-           const response = await axios.get(`http://localhost:3001/watchlist/${user._id}/${watchlistType}`, {
+           const response = await axios.get(`${process.env.REACT_APP_API_URL}/watchlist/${user._id}/${watchlistType}`, {
                headers: {Authorization: `Bearer ${token}`}
            });
            setWatchlist(response.data);
